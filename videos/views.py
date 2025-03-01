@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import VideoDetails
+from .models import VideoDetails, VideoCategory
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from .forms import VideoForm
@@ -89,3 +89,43 @@ def videoUpload(request):
 
     context = {'form': form}
     return render(request, 'video-upload.html', context)
+
+def CheckVideoPage(request):
+    val = VideoCategory.objects.values_list('vd_category', flat=True)
+
+    category = list(set(val))
+    for x1 in category:
+        for x2 in category:
+            if x1 < x2:
+                x1, x2 = x2, x1
+
+    cat = list(category)
+
+    random.shuffle(cat)
+
+    context = {
+        'category' :  cat,
+    }
+    return render(request, 'check-videopage.html', context)
+
+# def CheckVideoPage(request):
+#     lst = []
+#     val = VideoCategory.objects.all().values()
+#     val1 = list(val)
+
+#     for i in val1:
+#         lst += (i['vd_category'], )
+#     category = set(lst)
+    
+#     for x1 in category:
+#         for x2 in category:
+#             if x1 < x2:
+#                 x1, x2 = x2, x1
+
+#     cat = list(category)
+    
+#     random.shuffle(cat)
+#     context = {
+#         'category' :  cat,
+#     }
+#     return render(request, 'check-videopage.html', context)

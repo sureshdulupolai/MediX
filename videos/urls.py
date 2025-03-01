@@ -10,6 +10,7 @@ urlpatterns = [
     path('video/<str:video_data>/', views.openVideoPage, name='video_page'),
     path('video/', views.openVideoPage, name='video_search'), 
     path('videoupload/', views.videoUpload, name='video_upload'),
+    path('check-video/', views.CheckVideoPage),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,9 +1,10 @@
 {
-    "builds": [{
-        "src": "news/wsgi.py",
-        "use": "@vercel/python",
-        "config": {"macLambdaSize": "15mb", "runtime": "python3.10"}
-    }],
+    "builds": [
+        {
+            "src": "news/wsgi.py",
+            "use": "@vercel/python"
+        }
+    ],
     "routes": [
         {
             "src": "/(.*)",

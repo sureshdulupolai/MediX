@@ -70,7 +70,9 @@ def openVideoPage(request, video_data=None):
             video = video.first()
 
     if video:
+        # removing a particular video, which is running on
         other_videos = other_videos.exclude(id=video.id)
+
 
     context = {"video": video, "other_videos": other_videos}  
     return render(request, 'Open-Video.html', context)

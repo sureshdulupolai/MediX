@@ -1,0 +1,80 @@
+{% extends 'html/base.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../static/css/signup.css">
+</head>
+<body>
+
+        <div class="outDiv disPlayFlex">
+            <div class="innerOutDiv">
+                <div class="boxOne disPlayFlex">
+                    <div class="logoImgDiv">
+                        <img src="../static/img/logo_1.jpg" alt="...">
+                    </div>
+                </div>
+                <div class="boxTwo disPlayFlex">
+                    <span>You must sign in to join</span>
+                </div>
+                <div class="boxThree disPlayFlex">
+                    <div class="threeTextDiv"><a class="threeReq disPlayFlex" href="https://myaccount.google.com/?utm_source=sign_in_no_continue&pli=1" target="_blank">
+                        <img src="../static/img/google.jpg" alt="...">
+                        <span>sign in with Google</span>
+                    </a></div>
+                </div>
+                <div class="boxThree disPlayFlex mgTopOne">
+                    <div class="threeTextDiv"><a class="threeReq disPlayFlex" href="https://idmsa.apple.com/IDMSWebAuth/signin?appIdKey=891bd3417a7776362562d2197f89480a8547b108fd934911bcbea0110d07f757&path=%2Faccount%2F&rv=1" target="_blank">
+                        <img src="../static/img/apple.jpg" alt="...">
+                        <span>sign in with Apple</span>
+                    </a></div>
+                </div>
+                <div class="boxFour disPlayFlex">
+                    <div class="line"></div>
+                    <div class="orDiv disPlayFlex">
+                        <span>OR</span>
+                    </div>
+                </div>
+                <div class="boxSixMain">
+                    <form id="loginForm" action="newspage.html" method="get">
+                        <div class="emailDiv disPlayFlex">
+                            <div class="innEmailDiv">
+                                <label class="emailtxt" for="email">Email</label>
+                                <input class="emailInp" type="email" id="email" placeholder="your@gmail.com" required>
+                            </div>
+                        </div>
+                        <div class="emailDiv disPlayFlex mgTopTwo">
+                            <div class="innEmailDiv">
+                                <label class="emailtxt" for="password">Password</label>
+                                <input class="emailInp" type="text" id="password" placeholder="Your password" required>
+                            </div>
+                        </div>
+                        <div class="buttonDiv disPlayFlex">
+                            <div class="innButtonDiv">
+                                <button class="innButton disPlayFlex">
+                                    <span>Login</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="boxSeven">
+                    <div class="lastDivLeft">
+                        <span class="lastLeftSpan">Don't have an account ?</span>
+                    </div>
+                    <div class="lastDivRight">
+                        <span class="lastRightSpan">
+                            <a href="https://myaccount.google.com/?utm_source=sign_in_no_continue&pli=1" target="_blank">Sign up</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    <script src="../../static/js/signup.js"></script>
+</body>
+</html>
+{% endblock %}

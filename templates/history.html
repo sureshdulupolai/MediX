@@ -1,0 +1,49 @@
+{% extends 'html/base.html' %} {% block body %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../../static/css/newspage.css" />
+  </head>
+  <body>
+    <div class="container div-1-mt mt-3" style="top: 60px">
+      <h2 class="txt-div-1">Long video history view</h2>
+      <div class="movie-container">
+        <a href="#" style="text-decoration: none; color: #111">
+          <div class="movie-card">
+            <div class="img-Div" style="height: 174px">
+              <img src="placeholder.jpg" alt="Movie 1" style="width: 100%; height: 100%;" />
+            </div>
+            <div class="txtDivVideo">
+              <span class="txt-1">Video Title</span><br />
+              <span class="txt-2">Creator Name</span><br />
+              <div class="txt-3">
+                <span>
+                  <i class="fa-solid fa-eye"></i> 1.2k views &#x2022; 2 hours ago
+                </span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    
+    <!-- short video -->
+    <div class="container div-1-mt" style="width: 96vw; top: 65px">
+      <h2 class="txt-div-1">Shorts video history</h2>
+      <div class="shorts-container" style="display: flex; overflow-x: auto; gap: 5px; width: 96vw; padding: 10px; scrollbar-width: none; justify-content: center;">
+        <a href="#" class="short-a" style="color: #111; text-decoration: none;">
+          <div class="short-card" style="width: 220px; flex: 0 0 auto; border-radius: 10px; padding: 10px; text-align: center; display: flex; flex-direction: column; align-items: center;">
+            <img src="placeholder.jpg" alt="Short 1" style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px;" />
+            <span class="short-title" style="display: block; font-size: 16px; font-weight: bold; margin-top: 5px;">Sample Short Video</span>
+            <span class="short-views" style="font-size: 14px; color: gray;">500k views</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </body>
+</html>
+
+{% endblock %}

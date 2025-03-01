@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block body %}
+<style>
+    input:focus, textarea:focus, select:focus {
+    outline: none !important;  /* Removes default browser outline */
+    box-shadow: none !important; /* Removes the shadow */
+    border-color: #ccc; /* Optional: Keeps border color consistent */
+}
+    body{
+        background-color: #f8f9fa;
+    }
+</style>
+<div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="p-4 border rounded shadow bg-white" style="width: 50%;">
+        <h2 class="text-center text-dark" style="font-size: 30px; margin-left: -20px;">IndiaNews</h2>
+
+        {% if messages %}
+            <div class="alert alert-info" style="margin-top: 20px;">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+                
+            </div>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <!-- First Name & Last Name -->
+            <div class="mb-3 d-flex justify-content-between" style="margin-top: 20px;">
+                <div class="w-50 pe-2">
+                    <label for="{{ form.first_name.id_for_label }}" class="form-label">First Name</label> 
+                    <input type="text" name="first_name" id="{{ form.first_name.id_for_label }}" class="form-control" required>
+                </div>
+                <div class="w-50 ps-2">
+                    <label for="{{ form.last_name.id_for_label }}" class="form-label">Last Name</label> 
+                    <input type="text" name="last_name" id="{{ form.last_name.id_for_label }}" class="form-control" required>
+                </div>
+            </div>
+
+            <!-- Username & Email -->
+            <div class="mb-3 d-flex justify-content-between" style="margin-top: 20px;">
+                <div class="w-50 pe-2">
+                    <label for="{{ form.username.id_for_label }}" class="form-label">Username</label> 
+                    <input type="text" name="username" id="{{ form.username.id_for_label }}" class="form-control" required>
+                </div>
+                <div class="w-50 ps-2">
+                    <label for="{{ form.email.id_for_label }}" class="form-label">Email</label> 
+                    <input type="email" name="email" id="{{ form.email.id_for_label }}" class="form-control" required>
+                </div>
+            </div>
+
+            <!-- Password & Confirm Password -->
+            <div class="mb-3 d-flex justify-content-between" style="margin-top: 20px;">
+                <div class="w-50 pe-2">
+                    <label for="{{ form.password1.id_for_label }}" class="form-label">Password</label> 
+                    <input type="password" name="password1" id="{{ form.password1.id_for_label }}" class="form-control" required>
+                </div>
+                <div class="w-50 ps-2">
+                    <label for="{{ form.password2.id_for_label }}" class="form-label">Confirm Password</label> 
+                    <input type="password" name="password2" id="{{ form.password2.id_for_label }}" class="form-control" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Register</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

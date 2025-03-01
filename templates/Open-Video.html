@@ -1,0 +1,369 @@
+{% extends 'base.html' %}
+{% block body %}
+<style>
+  body{
+    background-color: #f8f9fa;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+.card:hover{
+    box-sizing: border-box;
+    border: 1px solid black;
+}
+.active {
+    background-color: rgb(199, 25, 25) !important;
+    color: white !important;
+}
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.share-box {
+    background: white;
+    padding: 15px;
+    /* border-radius: 10px; */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+/* Prevent scrolling when share modal is active */
+.no-scroll {
+    overflow: hidden;
+}
+.video_side_div{
+    width: 90%; 
+    margin-left: 10px;
+    border: 5px solid transparent; 
+    display: flex; 
+    justify-content: center; 
+    /* border-radius: 5px;  */
+    box-shadow: 0px 4px 6px rgb(192, 192, 192); 
+    /* background-color: yellow; */
+}
+.video_1{
+    width: 98%; 
+    margin-top: 10px;
+    /* background-color: yellow; */
+}
+.video_div_hover:hover{
+    border: 5px double black;
+}
+.video_div_hover{
+    border: 5px double transparent;
+}
+.btn-danger{
+    margin-left: 10px;
+    height: 30px;
+}
+.btn-danger span{
+    position: relative;
+    top: -5px;
+}
+
+
+.d-flex {
+  display: flex;
+  width: 100%;
+}
+
+.video-section {
+  width: 70%;
+  transition: width 0.3s ease-in-out;
+}
+
+.suggested-videos {
+    position: relative;
+    top: 80px;
+    width: 30%;
+    max-height: 670px;
+    overflow-y: auto;
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+/* Hide scrollbar for WebKit browsers (Chrome, Safari) */
+.suggested-videos::-webkit-scrollbar {
+  display: none;
+}
+
+.video_div_hover {
+  border-radius: 4px;
+  width: 97%;
+  margin-bottom: 10px;
+  margin-left: 5px;
+}
+
+.card-img-top {
+  border-radius: 4px;
+  height: 160px;
+}
+
+#commentSection {
+  display: none;
+}
+
+div::-webkit-scrollbar {
+          display: none;
+        }
+</style>
+  <!-- Section 1 -->
+   {% if not user.is_authenticated %}
+   <div class="container mt-3" style="position: relative; top: 60px;">
+    <div id="notificationBar" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>You are not login!</strong> Please login now. <a class="btn btn-danger" href="#"><span>Go to login</span></a>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    </div>
+   {% endif %}
+   {% if video %}
+   <div style="width: 100%;">
+    <div class="container mt-5" style="position: relative; top: 30px; width: 70%; float: left;">
+      <div class="row">
+        <div class="col-md-8" style="width: 95%; margin-left: 2%;">
+          <!-- Scrollable Video Section -->
+          <div style="width: 100%; height: 90vh; border: 1px solid rgb(192, 192, 192); border-radius: 5px; box-shadow: 0px 4px 6px rgb(192, 192, 192); padding: 10px;">
+            <div style="width: 100%; display: flex; justify-content: center;">
+              <div style="width: 98%; margin-top: 10px; max-height: calc(90vh - 20px); overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none;">
+                <div class="ratio ratio-16x9" style="border: 1px solid black; box-sizing: border-box; background-color: black;">
+                   <video id="myVideo" width="100%" controls autoplay muted preload="metadata">
+                     <source src="/media/{{ video.video_link }}" type="video/mp4">
+                     Your browser does not support the video tag.
+                   </video>
+                 </div>
+                 <h4 class="mt-3" style="font-size: 20px;">{{ video.video_title }}</h4>
+                 <p>{{ video.view }}M views | 11 months ago</p>
+   
+                 <div class="d-flex justify-content-between align-items-center mt-3">
+                   <!-- Like, Unlike, Share Buttons -->
+                   <div>
+                     <button id="likeBtn" class="btn btn-dark btn-sm me-2" onclick="toggleLike()">
+                       <i class="fas fa-thumbs-up"></i> Like
+                     </button>
+                     <button id="dislikeBtn" class="btn btn-dark btn-sm me-2" onclick="toggleDislike()">
+                       <i class="fas fa-thumbs-down"></i> Unlike
+                     </button>
+                     <button class="btn btn-success btn-sm" onclick="showShareBox()">
+                       <i class="fas fa-share"></i> Share
+                     </button>
+                   </div>
+                   <div class="overlay" id="overlay">
+                     <div class="share-box">
+                       <p>Share this page:</p>
+                       <a href="#" class="btn btn-outline-primary btn-sm"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                       <a href="#" class="btn btn-outline-primary btn-sm"><i class="fab fa-facebook"></i> Facebook</a>
+                       <a href="#" class="btn btn-outline-primary btn-sm"><i class="fab fa-twitter"></i> Twitter</a>
+                       <a href="#" class="btn btn-outline-primary btn-sm"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                       <a href="#" class="btn btn-outline-primary btn-sm"><i class="fab fa-instagram"></i> Instagram</a>
+                       <a href="#" class="btn btn-outline-primary btn-sm"><i class="fas fa-link"></i> Copy Link</a>
+                       <br><br>
+                       <button class="btn btn-danger btn-sm" onclick="closeShareBox()">Close</button>
+                     </div>
+                   </div>
+   
+                   <!-- Subscribe Button -->
+                   <div>
+                     <button id="subscribeBtn" class="btn btn-primary btn-sm me-2" onclick="toggleSubscribe()">Subscribe</button>
+                   </div>
+                 </div>
+   
+                 <hr />
+                 <p>
+                   <span style="font-weight: 600;">Description</span>
+                   <div style="height: 2px; width: 100%; background-color: black; margin-bottom: 20px;"></div>
+                   <span>{{ video.video_description }}</span>
+                 </p>
+   
+                 <p>
+                   <span style="font-weight: 600;">Aim</span>
+                   <div style="height: 2px; width: 100%; background-color: black; margin-bottom: 20px;"></div>
+                   <span>{{ video.video_aim }}</span>
+                 </p>
+   
+                 <div class="mt-4" style="margin-bottom: 10px;">
+                   <button class="btn btn-secondary btn-sm mb-2" onclick="toggleComments()">Comments <i class="fas fa-chevron-down"></i></button>
+                   <div id="commentSection" style="display: none;">
+                     <div class="mb-3 d-flex">
+                       <input id="commentInput" type="text" class="form-control me-2" placeholder="Add a comment...">
+                       <button class="btn btn-primary" onclick="addComment()">Send</button>
+                     </div>
+                     <ul class="list-group" id="commentList">
+                       <li class="list-group-item d-flex justify-content-between align-items-center">
+                         My respect for you is increasing day by day 😊
+                         <div>
+                           <button class="btn btn-sm btn-warning" onclick="editComment(this)">Edit</button>
+                           <button class="btn btn-sm btn-danger" onclick="deleteComment(this)">Delete</button>
+                         </div>
+                       </li>
+                       <li class="list-group-item d-flex justify-content-between align-items-center">
+                         Thank you sir. It is much needed
+                         <div>
+                           <button class="btn btn-sm btn-warning" onclick="editComment(this)">Edit</button>
+                           <button class="btn btn-sm btn-danger" onclick="deleteComment(this)">Delete</button>
+                         </div>
+                       </li>
+                     </ul>
+                   </div>
+                 </div>
+               </div> <!-- End of Video Content -->
+             </div>
+           </div> <!-- End of Scrollable Section -->
+         </div>
+       </div>
+     </div>
+   </div>
+
+
+    <div class="suggested-videos">
+        <div class="video_side_div" style="position: relative; top: -15px;">
+          <div class="video_1">
+            {% for i in other_videos %}
+            <a href="{% url 'video_page' i.video_title %}" style="text-decoration: none;">
+              <div class="card video_div_hover">
+                <img src="/media/{{ i.video_thumbnail }}" class="card-img-top" alt="Video Thumbnail" style="border-radius: 0px;">
+                <div class="card-body">
+                  <h6 class="card-title">{{ i.video_title | truncatechars:60 }}</h6>
+                  <p class="card-text" style="font-size: 13px;">{{ i.view }}k views • 1 year ago</p>
+                </div>
+              </div>
+            </a>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    <!-- Comments Section -->
+    </div>
+  {% endif %}
+
+  <script>
+  function addComment() {
+    let commentInput = document.getElementById("commentInput");
+    let commentText = commentInput.value.trim();
+
+    if (commentText === "") {
+        alert("Comment cannot be empty!");
+        return;
+    }
+
+    let commentList = document.getElementById("commentList");
+    let newComment = document.createElement("li");
+    newComment.className = "list-group-item d-flex justify-content-between align-items-center";
+    newComment.innerHTML = `
+        ${commentText}
+        <div>
+            <button class="btn btn-sm btn-warning" onclick="editComment(this)">Edit</button>
+            <button class="btn btn-sm btn-danger" onclick="deleteComment(this)">Delete</button>
+        </div>
+    `;
+
+    commentList.appendChild(newComment);
+    commentInput.value = "";
+}
+
+function deleteComment(button) {
+    button.parentElement.parentElement.remove();
+}
+
+function editComment(button) {
+    let commentItem = button.parentElement.parentElement;
+    let currentText = commentItem.firstChild.textContent.trim();
+    let newText = prompt("Edit your comment:", currentText);
+    
+    if (newText !== null && newText.trim() !== "") {
+        commentItem.firstChild.textContent = newText;
+    }
+}
+
+function toggleComments() {
+    let commentSection = document.getElementById("commentSection");
+    commentSection.style.display = (commentSection.style.display === "none" || commentSection.style.display === "") ? "block" : "none";
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const videoElement = document.getElementById("myVideo");
+
+    function playVideo() {
+        videoElement.muted = false;
+        videoElement.play().catch(error => {
+            console.log("Autoplay with sound failed:", error);
+            document.addEventListener("click", () => {
+                videoElement.muted = false;
+                videoElement.play();
+            }, { once: true });
+        });
+    }
+
+    function monitorVideo() {
+        let lastTime = 0;
+        setInterval(() => {
+            if (videoElement.currentTime === lastTime && !videoElement.paused && !videoElement.ended) {
+                console.log("Video might be stuck, resuming...");
+                videoElement.play();
+            }
+            lastTime = videoElement.currentTime;
+        }, 5000);
+    }
+
+    // ✅ Fix: Allow manual seeking without resetting the video
+    videoElement.addEventListener("ended", function () {
+        console.log("Video ended, restarting...");
+        setTimeout(() => {
+            videoElement.currentTime = 0;
+            videoElement.play();
+        }, 1000); // 1 sec delay for smooth transition
+    });
+
+    // ✅ Fix: Handle user seeking (backward/forward)
+    videoElement.addEventListener("seeking", function () {
+        console.log("User is seeking, pausing auto-restart...");
+    });
+
+    videoElement.addEventListener("seeked", function () {
+        console.log("User finished seeking, resuming playback...");
+        videoElement.play();
+    });
+
+    playVideo();
+    monitorVideo();
+});
+function toggleLike() {
+    let likeBtn = document.getElementById("likeBtn");
+    let dislikeBtn = document.getElementById("dislikeBtn");
+    likeBtn.classList.toggle("active");
+    dislikeBtn.classList.remove("active");
+}
+
+function toggleDislike() {
+    let likeBtn = document.getElementById("likeBtn");
+    let dislikeBtn = document.getElementById("dislikeBtn");
+    dislikeBtn.classList.toggle("active");
+    likeBtn.classList.remove("active");
+}
+
+function toggleSubscribe() {
+    let subscribeBtn = document.getElementById("subscribeBtn");
+    subscribeBtn.classList.toggle("btn-primary");
+    subscribeBtn.classList.toggle("btn-danger");
+    subscribeBtn.textContent = subscribeBtn.classList.contains("btn-primary") ? "Subscribe" : "Unsubscribe";
+}
+
+function showShareBox() {
+    document.getElementById("overlay").style.display = "flex";
+    document.body.classList.add("no-scroll");
+}
+
+function closeShareBox() {
+    document.getElementById("overlay").style.display = "none";
+    document.body.classList.remove("no-scroll");
+}
+</script>
+{% endblock %}

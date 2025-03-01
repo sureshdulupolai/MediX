@@ -1,0 +1,204 @@
+body{
+    /* background-color: gainsboro; */
+    background-color: #f8f9fa;
+    padding: 0px;
+    margin: 0px;
+    height: 100vh;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+.disPlayFlex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.outDiv{
+    width: 100%;
+    height: 80vh;
+    position: relative;
+    top: 11.5vh;
+    /* background-color: aqua; */
+}
+.innerOutDiv{
+    width: 38%;
+    height: 100%;
+    border-radius: 20px;
+    background-color: white;
+}
+.boxOne{
+    width: 100%;
+    height: 65px;
+    margin-top: 40px;
+    /* background-color: yellowgreen; */
+}
+.logoImgDiv{
+    width: 13.5%;
+    height: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: rgb(27, 26, 26);
+}
+.logoImgDiv img{
+    width: 100%;
+    height: 100%;
+}
+.boxTwo{
+    width: 100%;
+    height: auto;
+    margin-top: 15px;
+    font-size: 30px;
+    font-weight: 700;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* background-color: yellow; */
+}
+.boxThree{
+    width: 100%;
+    height: 40px;
+    margin-top: 20px;
+    /* background-color: aqua; */
+}
+.threeTextDiv{
+    width: 90%;
+    height: 100%;
+    border-radius: 5px;
+    box-sizing: border-box;
+    border: 1.5px solid rgb(246, 245, 243);
+}
+.threeTextDiv:hover{
+    box-sizing: border-box;
+    border: 1.5px solid black;
+}
+.threeReq{
+    width: 100%;
+    height: 100%;
+}
+.threeReq span{
+    font-size: 16px;
+    margin-left: -5px;
+    font-weight: 550;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.threeReq img{
+    width: 9%;
+    height: 80%;
+}
+.mgTopOne{
+    margin-top: 5px;
+}
+.boxFour{
+    width: 100%;
+    height: 35px;
+    margin-top: 20px;
+    position: relative;
+    /* background-color: aqua; */
+}
+.line{
+    width: 90%;
+    height: 2px;
+    background-color: rgb(237, 235, 235);
+}
+.orDiv{
+    position: absolute;
+    background-color: white;
+    width: 10%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+}
+.boxSixMain{
+    margin-top: 3%;
+    width: 100%;
+    height: auto;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    /* background-color: aqua; */
+}
+.emailDiv{
+    width: 100%;
+    height: 60px;
+    /* background-color: black; */
+}
+.innEmailDiv{
+    width: 90%;
+    height: 100%;
+    display: grid;
+    /* background-color: wheat; */
+}
+.emailtxt{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: rgb(66, 64, 64);
+}
+.emailInp{
+    box-sizing: border-box;
+    padding: 5px 15px;
+    border: 1px solid rgb(233, 229, 229);
+    border-radius: 5px;
+    font-style: italic;
+}
+.mgTopTwo{
+    margin-top: 15px;
+}
+.buttonDiv{
+    width: 100%;
+    height: 40px;
+    margin-top: 30px;
+    /* background-color: yellow; */
+}
+.innButtonDiv{
+    width: 90%;
+    height: 100%;
+}
+.innButton{
+    background-color: rgb(96,92,252);
+    border: none;
+    width: 100%;
+    height: 100%;
+    color: white;
+    font-weight: 600;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-radius: 5px;
+}
+/* chatgpt */
+.innButton:hover {
+    background-color: red;
+}
+
+/* Change hover color to green when form is filled */
+.filled .innButton:hover {
+    background-color: green;
+}
+.boxSeven{
+    width: 100%;
+    height: 40px;
+    margin-top: 20px;
+    /* background-color: green; */
+}
+.lastDivLeft{
+    width: 60%;
+    height: 100%;
+    float: left;
+    font-weight: 600;
+    /* background-color: aqua; */
+    display: flex;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;   
+}
+.lastDivRight{
+    width: 40%;
+    height: 100%;
+    float: right;
+    /* background-color: yellowgreen; */
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    font-weight: 600;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.lastLeftSpan{
+    margin-left: 9%;
+    color: rgb(110, 110, 110);
+}
+.lastRightSpan{
+    margin-right: 15%;
+}

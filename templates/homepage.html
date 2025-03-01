@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% block body %}
+<style>
+  input:focus, textarea:focus, select:focus {
+  outline: none !important;  /* Removes default browser outline */
+  box-shadow: none !important; /* Removes the shadow */
+  border-color: #ccc; /* Optional: Keeps border color consistent */
+}
+.short-a:hover{
+  border: 1px solid rgb(201, 198, 198);
+  box-shadow: 2px 2px 10px rgba(201, 198, 198, 0.7);
+  box-sizing: border-box;
+}
+.btn-danger{
+    margin-left: 10px;
+    height: 30px;
+}
+.btn-danger span{
+    position: relative;
+    top: -5px;
+}
+</style>
+    <!-- Section 2 -->
+    {% if not user.is_authenticated %}
+    <div class="container mt-3" style="position: relative; top: 60px;">
+     <div id="notificationBar" class="alert alert-danger alert-dismissible fade show" role="alert">
+         <strong>You are not login!</strong> Please login now. <a class="btn btn-danger" href="{% url 'login' %}"><span>Go to login</span></a>
+         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+     </div>
+     </div>
+     {% else %}
+     <div class="container mt-3" style="position: relative; top: 60px;">
+      <div id="successNotification" class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+          <strong>You have successfully logged in!</strong>
+      </div>
+    </div>
+    {% endif %}
+
+    
+     
+    <div id="carouselExampleFade" class="carousel slide carousel-fade" style="margin-top: 20px;">
+      <div class="carousel-inner" style="margin-left: 1%;">
+        <div class="carousel-item active" style="margin: 0px;">
+          <img src="../static/img/bn.jpg" class="d-block w-100" alt="Slide 1" />
+        </div>
+        <div class="carousel-item">
+          <img src="../static/img/fi.jpg" class="d-block w-100" alt="Slide 2" />
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+        </button>
+      </div>
+    </div>
+
+    {% if video %}
+    <!-- Section 3 -->
+    <div class="container div-1-mt mt-3">
+      <h2 class="txt-div-1">Recommended searches</h2>
+        <div class="movie-container">
+          {% for vd in video %}
+          <a href="{% url 'video_page' vd.video_title %}" style="text-decoration: none; color: #111; height: 33vh;">
+            <div class="movie-card" title="{{ vd.view }}k views">
+              <div class="img-Div" style="height: 174px;">
+                <img src="/media/{{ vd.video_thumbnail }}" alt="Image is Not Loading" style="width: 100%; height: 100%;" />
+              </div>
+              <div class="txtDivVideo">
+                <span class="txt-1">{{ vd.video_title }}</span><br/>
+                <div class="txt-3">
+                  <span>
+                    <div><span style="font-weight: 600; font-style: italic;">{{ vd.customer_name  | truncatechars:20 }}</span></div>
+                    <i class="fa-solid fa-eye"></i><span style="margin-left: 5px;">{{ vd.created_date }}</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </a>
+          {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    
+    {% if shorts %}
+      <!-- Shorts Section -->
+      <div class="container div-1-mt mt-3" style="width: 96vw">
+        <h2 class="txt-div-1">Shorts</h2>
+        <div class="shorts-container" style="display: flex; overflow-x: auto; gap: 5px; width: 96vw; padding: 10px; scrollbar-width: none; justify-content: start;">
+          {% for st in shorts %}
+          <a href="{% url 'shorts_page' st.id %}" class="short-a">
+            <div class="short-card" style="width: 220px; flex: 0 0 auto; border-radius: 5px; padding: 10px; text-align: center; display: flex; flex-direction: column; align-items: center;">
+              <img src="/media/{{ st.short_thumbnail }}" alt="Short 1" style="width: 100%; height: 300px; object-fit: cover; border-radius: 5px;" />
+              <span class="short-title" style="display: block; font-size: 16px; font-weight: bold; margin-top: 5px;">{{ st.short_title | truncatechars:20 }} </span>
+              <span style="font-style: italic;">{{ st.customer_name  | truncatechars:12 }}</span>
+              <span class="short-views" style="font-size: 14px; color: gray;">{{ st.view }}M views</span>
+            </div>
+          </a>
+          {% endfor %}
+        </div>
+      </div>    
+    {% endif %}
+
+    {% if video2 %}
+    <!-- Section 3 -->
+    <div class="container div-1-mt mt-3">
+      <h2 class="txt-div-1">Popular Search</h2>
+        <div class="movie-container">
+          {% for vd in video2 %}
+          <a href="{% url 'video_page' vd.video_title %}" style="text-decoration: none; color: #111; height: 36vh;">
+            <div class="movie-card" title="{{ vd.view }}k views" style="position: relative;">
+              <div class="img-Div" style="height: 174px;">
+                <img src="/media/{{ vd.video_thumbnail }}" alt="Image is Not Loading" style="width: 100%; height: 100%;" />
+              </div>
+              <div class="txtDivVideo">
+                <span class="txt-1">{{ vd.video_title | truncatechars:60 }}</span><br/>
+                <div class="txt-3">
+                  <span>
+                    <div><span style="font-weight: 600; font-style: italic;">{{ vd.customer_name  | truncatechars:20 }}</span></div>
+                    <i class="fa-solid fa-eye"></i> <span style="margin-left: 5px;">{{ vd.created_date }}</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </a>
+          {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+<script>
+  setTimeout(function() {
+            let successNotification = document.getElementById("notificationBar");
+            if (successNotification) {
+                successNotification.remove();
+            }
+        }, 9000);
+
+  setTimeout(function() {
+            let successNotification = document.getElementById("successNotification");
+            if (successNotification) {
+                successNotification.remove();
+            }
+        }, 4000);
+</script>
+{% endblock %}

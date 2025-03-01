@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block body %}
+<style>
+    input:focus, textarea:focus, select:focus {
+        outline: none !important;
+        box-shadow: none !important;
+        border-color: #ccc;
+    }
+    body {
+        background-color: #f8f9fa;
+    }
+</style>
+
+<div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="p-4 border rounded shadow bg-white" style="width: 50%;">
+        <h2 class="text-center text-dark" style="font-size: 30px; margin-left: -20px;">indianews</h2>
+
+        {% if messages %}
+            <div class="alert alert-info" style="margin-top: 20px;">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="POST" enctype="multipart/form-data" style="margin-top: 20px;">  <!-- Required for file uploads -->
+            <!-- {{ csrf_token }} -->
+
+            {% for field in form %}
+                {% if field.name in "video_thumbnail video_title video_link video_description video_aim customer_name" %}
+                    <div class="mb-3">
+                        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                        {{ field }}  <!-- Render input field -->
+                        {% if field.help_text %}
+                            <small class="form-text text-muted">{{ field.help_text }}</small>
+                        {% endif %}
+                        {% for error in field.errors %}
+                            <div class="text-danger">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+            <button type="submit" class="btn btn-primary w-100">Upload</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
-from .forms import RegisterForm
+from .forms import RegisterForm, ProfileForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
+
 
 # Create your views here.
 def SignupPage(request):
@@ -32,7 +33,6 @@ def SignupPage(request):
 def Login_in(request):
     if request.method == "POST":
         form = AuthenticationForm(data=request.POST)  # django built-in login form
-        print(1)
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
@@ -55,3 +55,15 @@ def logout_ask(request):
 
 def ProfilePage(request):
     return render(request, 'profile.html')
+
+def ProfileEdit(request):
+    form = ProfileForm()
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST,  request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    
+    context = {'form':form}
+    return render(request, 'editProfile.html', context)

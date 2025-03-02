@@ -91,7 +91,7 @@ def videoUpload(request):
 
     context = {'form': form}
     return render(request, 'video-upload.html', context)
-
+ 
 def CheckVideoPage(request):
     val = VideoCategory.objects.values_list('vd_category', flat=True)
 

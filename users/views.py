@@ -52,3 +52,6 @@ def Logout_in(request):
 
 def logout_ask(request):
     return render(request, 'logout.html')
+
+def ProfilePage(request):
+    return render(request, 'profile.html')

@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'videos',
     'shorts',
     'users',
+    'banner',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

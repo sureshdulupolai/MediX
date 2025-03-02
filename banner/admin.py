@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import BannerDetails
 
-# Register your models here.
+class BannerAdmin(admin.ModelAdmin):
+    list_display = ['banner_title', 'banner_datetime']
+
+admin.site.register(BannerDetails, BannerAdmin)

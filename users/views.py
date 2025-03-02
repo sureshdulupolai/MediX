@@ -3,7 +3,7 @@ from .forms import RegisterForm, ProfileForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
-
+from videos.models import VideoDetails
 
 # Create your views here.
 def SignupPage(request):
@@ -54,7 +54,13 @@ def logout_ask(request):
     return render(request, 'logout.html')
 
 def ProfilePage(request):
-    return render(request, 'profile.html')
+    data = VideoDetails.objects.get(id=8)
+    data1 = VideoDetails.objects.all().values()
+    context = {
+        'form' : data,
+        'form1' : data1,
+    }
+    return render(request, 'profile.html', context)
 
 def ProfileEdit(request):
     form = ProfileForm()

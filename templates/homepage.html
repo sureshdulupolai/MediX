@@ -59,7 +59,7 @@
       <h2 class="txt-div-1">Recommended searches</h2>
         <div class="movie-container">
           {% for vd in video %}
-          <a href="{% url 'video_page' vd.video_title %}" style="text-decoration: none; color: #111; height: 33vh;">
+          <a href="{% url 'video_page' vd.video_title %}" style="text-decoration: none; color: #111; height: 32.5vh;">
             <div class="movie-card" title="{{ vd.view }}k views">
               <div class="img-Div" style="height: 174px;">
                 <img src="/media/{{ vd.video_thumbnail }}" alt="Image is Not Loading" style="width: 100%; height: 100%;" />
@@ -101,11 +101,11 @@
 
     {% if video2 %}
     <!-- Section 3 -->
-    <div class="container div-1-mt mt-3">
+    <div class="container div-1-mt mt-3" style="position: relative;">
       <h2 class="txt-div-1">Popular Search</h2>
         <div class="movie-container">
           {% for vd in video2 %}
-          <a href="{% url 'video_page' vd.video_title %}" style="text-decoration: none; color: #111; height: 36vh;">
+          <a href="{% url 'video_page' vd.video_title %}" style="text-decoration: none; color: #111; height: 33.5vh;">
             <div class="movie-card" title="{{ vd.view }}k views" style="position: relative;">
               <div class="img-Div" style="height: 174px;">
                 <img src="/media/{{ vd.video_thumbnail }}" alt="Image is Not Loading" style="width: 100%; height: 100%;" />
@@ -125,6 +125,8 @@
         </div>
     </div>
     {% endif %}
+
+    <div style="position: relative; top: 100px; color: aqua;">position</div>
 
 <script>
   setTimeout(function() {

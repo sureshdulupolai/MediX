@@ -1,61 +1,177 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube Channel Template</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+{% extends 'base.html' %}
+{% block body %}
     <style>
+        body{
+            background-color: #f8f9fa;
+            width: 100%;
+            height: 100vh;
+        }
         .channel-header {
             display: flex;
             align-items: center;
             gap: 15px;
         }
         .channel-header img {
-            width: 80px;
-            height: 80px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
         }
         .video-card img {
             width: 100%;
             border-radius: 8px;
         }
+        .no-data {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 20px;
+            color: gray;
+        }
+        .div-1-mt {
+    position: relative;
+    top: 100px;
+    margin: 0px;
+    margin-left: 0%;
+    width: 100%;
+  }
+  .txt-div-1 {
+    font-size: 1.5rem;
+    /* background-color: #FFD700; */
+    /* color: #0056B3; */
+    padding-left: 10px;
+    box-sizing: border-box;
+    font-weight: 600;
+  }
+  .movie-container {
+    display: flex;
+    /* overflow-x: auto; */
+    padding: 20px 0;
+    width: 96vw;
+    margin-top: -15px;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .movie-card {
+    width: 300px;
+    flex: 0 0 auto;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    border-radius: 5px;
+  }
+  .movie-card img {
+    width: 100%;
+    border-radius: 5px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    transition: border 0.3s ease;
+  }
+  .img-Div {
+    width: 100%;
+    border: 5px solid transparent;
+    box-sizing: border-box;
+  }
+  .movie-card:hover .img-Div {
+    border: 5px double black;
+    box-sizing: border-box;
+  }
+  .movie-card:hover .img-Div img {
+    border-radius: 0px;
+  }
+  video {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: black;
+    z-index: 9999;
+  }
+  .movie-container::-webkit-scrollbar {
+    display: none; /* Hides the scrollbar for webkit browsers */
+  }
+  .txtDivVideo {
+    width: 100%;
+    margin-top: 5px;
+  }
+  .txt-1 {
+    width: 100%;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 1.5px;
+    position: relative;
+    left: 6px;
+    letter-spacing: 0.5px;
+    line-height: 0.5px;
+  }
+  .txt-2 {
+    position: relative;
+    left: 6px;
+    top: 10px;
+    font-size: 14px;
+    font-style: italic;
+    color: gray;
+  }
+  .txt-3 {
+    font-size: 12px;
+    padding-left: 6px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }
+  .txt-3 span {
+    color: rgb(92, 91, 91);
+  }
+  .video-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.card {
+    width: 300px;
+}
     </style>
 </head>
 <body>
     <div class="container mt-4">
-        <div class="channel-header">
-            <img src="../../ID/Gendha_Phool.jpg" alt="Channel Profile">
+        <div class="channel-header" style="margin-top: 80px;">
+            <img src="/media/{{ form.video_thumbnail }}" alt="Channel Profile">
             <div>
-                <h3>Tech By S & P</h3>
-                <p>@tech_by_S_and_P · 378 subscribers · 6 videos</p>
+                <h3>{{ form.video_title }}</h3>
+                <p>@{{ form.video_title | truncatechars:10 }} · 378 subscribers · 6 videos</p>
                 <button class="btn btn-dark">Subscribed ✓</button>
             </div>
         </div>
-        
-        <h4 class="mt-4">Videos</h4>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="video-card">
-                    <img src="#" alt="C Programming Day 5">
-                    <p>C Programming Language | Day 5 | Free Coding Skills</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="video-card">
-                    <img src="video2.jpg" alt="Online Earning App Scam">
-                    <p>Online Earning App | Referral Scam</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="video-card">
-                    <img src="video3.jpg" alt="C Programming Day 4">
-                    <p>C Programming Language | Day 4 | Learn Speed, Time</p>
-                </div>
-            </div>
+        <div style="width: 100%; height: 1px; background-color: black; margin-top: 20px;"></div>
+        {% if form1 %}
+        <div class="container div-1-mt mt-3" style="position: relative; top: 10px;">
+            <h2 class="txt-div-1">Video</h2>
+              <div class="movie-container" style="width: 100%;">
+                {% for vd in form1 %}
+                <a href="{% url 'video_page' vd.video_title %}" style="text-decoration: none; color: #111; height: 32.5vh;">
+                  <div class="movie-card" title="{{ vd.view }}k views">
+                    <div class="img-Div" style="height: 174px;">
+                      <img src="/media/{{ vd.video_thumbnail }}" alt="Image is Not Loading" style="width: 100%; height: 100%;" />
+                    </div>
+                    <div class="txtDivVideo">
+                      <span class="txt-1">{{ vd.video_title | truncatechars:10 }}</span><br/>
+                      <div class="txt-3">
+                        <span>
+                          <div><span style="font-weight: 600; font-style: italic;">{{ vd.customer_name  | truncatechars:20 }}</span></div>
+                          <i class="fa-solid fa-eye"></i><span style="margin-left: 5px;">{{ vd.created_date }}</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                {% endfor %}
+              </div>
+          </div>
+        {% else %}
+        <div class="no-data">
+            <p>You have not posted something yet.</p>
         </div>
+        {% endif %}
     </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+{% endblock %}

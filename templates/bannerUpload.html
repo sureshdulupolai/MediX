@@ -13,22 +13,26 @@
 
 <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
     <div class="p-4 border rounded shadow bg-white" style="width: 50%;">
-        <h2 class="text-center text-dark" style="font-size: 30px;">Upload Banner</h2>
+        <h2 class="text-center text-dark" style="font-size: 30px; margin-bottom: 10px">Upload Banner</h2>
+        
+        {% for message in messages %}
+            <div class="alert alert-info text-center">{{ message }}</div>
+        {% endfor %}
+        
 
         <form method="POST" enctype="multipart/form-data" style="margin-top: 20px;">
+            {% csrf_token %}
+            
             {% for field in form %}
                 <div class="mb-3">
                     <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-                    {{ field }}  <!-- Render input field -->
-                    {% if field.help_text %}
-                        <small class="form-text text-muted">{{ field.help_text }}</small>
-                    {% endif %}
-                    {% for error in field.errors %}
-                        <div class="text-danger">{{ error }}</div>
-                    {% endfor %}
+                    <span style="margin: 0px 10px;">{{ field }}</span>
                 </div>
             {% endfor %}
-            <button type="submit" class="btn btn-primary w-100">Upload Banner</button>
+            <button type="submit" class="btn btn-primary w-100">Pay to Upload</button>
+            <!-- <div class="text-center">
+                <a class="btn btn-primary" href="#">Pay to Upload</a>
+            </div> -->
         </form>
     </div>
 </div>

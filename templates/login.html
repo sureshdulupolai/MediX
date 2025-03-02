@@ -21,13 +21,7 @@
             {% for field in form %}
                 <div class="mb-3">
                     <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-                    {{ field }}  <!-- Render input field -->
-                    {% if field.help_text %}
-                        <small class="form-text text-muted">{{ field.help_text }}</small>
-                    {% endif %}
-                    {% for error in field.errors %}
-                        <div class="text-danger">{{ error }}</div>
-                    {% endfor %}
+                    <span style="margin: 0px 10px;">{{ field }}</span>
                 </div>
             {% endfor %}
             <button type="submit" class="btn btn-primary w-100">Login</button>

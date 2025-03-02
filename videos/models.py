@@ -20,7 +20,10 @@ class VideoCategory(models.Model):
     options = [
         ('comedy', 'comedy'),
         ('song', 'song'),
-        ('other', 'other'),
+        ('movie', 'movie'),
+        ('study', 'study'),
+        ('games', 'games'),
+        ('other activity', 'other activity'),
     ]
 
     vd_category = models.CharField(max_length=50, choices=options)

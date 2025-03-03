@@ -26,45 +26,15 @@
             </div>
         {% endif %}
 
-        <form method="POST">
+        <form method="POST" style="margin-top: 20px;">
             {% csrf_token %}
-
-            <!-- First Name & Last Name -->
-            <div class="mb-3 d-flex justify-content-between" style="margin-top: 20px;">
-                <div class="w-50 pe-2">
-                    <label for="{{ form.first_name.id_for_label }}" class="form-label">First Name</label> 
-                    <input type="text" name="first_name" id="{{ form.first_name.id_for_label }}" class="form-control" required>
+        
+            {% for field in form %}
+                <div class="mb-3">
+                    <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                    {{ field }}
                 </div>
-                <div class="w-50 ps-2">
-                    <label for="{{ form.last_name.id_for_label }}" class="form-label">Last Name</label> 
-                    <input type="text" name="last_name" id="{{ form.last_name.id_for_label }}" class="form-control" required>
-                </div>
-            </div>
-
-            <!-- Username & Email -->
-            <div class="mb-3 d-flex justify-content-between" style="margin-top: 20px;">
-                <div class="w-50 pe-2">
-                    <label for="{{ form.username.id_for_label }}" class="form-label">Username</label> 
-                    <input type="text" name="username" id="{{ form.username.id_for_label }}" class="form-control" required>
-                </div>
-                <div class="w-50 ps-2">
-                    <label for="{{ form.email.id_for_label }}" class="form-label">Email</label> 
-                    <input type="email" name="email" id="{{ form.email.id_for_label }}" class="form-control" required>
-                </div>
-            </div>
-
-            <!-- Password & Confirm Password -->
-            <div class="mb-3 d-flex justify-content-between" style="margin-top: 20px;">
-                <div class="w-50 pe-2">
-                    <label for="{{ form.password1.id_for_label }}" class="form-label">Password</label> 
-                    <input type="password" name="password1" id="{{ form.password1.id_for_label }}" class="form-control" required>
-                </div>
-                <div class="w-50 ps-2">
-                    <label for="{{ form.password2.id_for_label }}" class="form-label">Confirm Password</label> 
-                    <input type="password" name="password2" id="{{ form.password2.id_for_label }}" class="form-control" required>
-                </div>
-            </div>
-
+            {% endfor %}
             <button type="submit" class="btn btn-primary w-100">Register</button>
         </form>
     </div>

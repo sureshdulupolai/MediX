@@ -19,7 +19,7 @@ def callVideo():
     return video
 
 def homepage(request):
-    ban = BannerDetails.objects.all().values()
+    ban = list(BannerDetails.objects.all().values())
     val = callVideo()
     shorts = list(short())
     val1 = []; val2 = []
@@ -36,9 +36,11 @@ def homepage(request):
         if j['customer_name']:
                 j['customer_name'] = j['customer_name'].title()
 
+
     random.shuffle(val1)
     random.shuffle(val2)
     random.shuffle(shorts)
+    random.shuffle(ban)
 
     context = {
         'video' : val1,

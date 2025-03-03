@@ -37,21 +37,21 @@
     {% endif %}
 
     
-     
+    {% if banner %}
     <div id="carouselExampleFade" class="carousel slide carousel-fade" style="margin-top: 20px;">
       <div class="carousel-inner" style="margin-left: 1%; border-radius: 10px; overflow: hidden;">
+        {% for ban in banner %}
         <div class="carousel-item active" style="margin: 0px;">
-          <img src="../static/img/bn.jpg" class="d-block w-100" alt="Slide 1" />
+          <img src="/media/{{ ban.banner_img }}" class="d-block w-100" alt="Slide 1" />
         </div>
-        <div class="carousel-item" style="margin-left: -8px; border-radius: 5px;">
-          <img src="../static/img/fi.jpg" class="d-block w-100" alt="Slide 2" style="border-radius: 5px;" />
-        </div>
+        {% endfor %}
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
         </button>
         <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
         </button>
       </div>
     </div>
+    {% endif %}
 
     {% if video %}
     <!-- Section 3 -->
@@ -126,7 +126,7 @@
     </div>
     {% endif %}
 
-    <div style="position: relative; top: 100px; color: aqua;">position</div>
+    <!-- <div style="position: relative; top: 100px; color: aqua;">position</div> -->
 
 <script>
   setTimeout(function() {

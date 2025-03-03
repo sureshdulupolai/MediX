@@ -6,6 +6,7 @@ from .forms import VideoForm
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from shorts.models import ShortsDetails
+from banner.models import BannerDetails
 import random
 
 def short():
@@ -18,6 +19,7 @@ def callVideo():
     return video
 
 def homepage(request):
+    ban = BannerDetails.objects.all().values()
     val = callVideo()
     shorts = list(short())
     val1 = []; val2 = []
@@ -42,6 +44,7 @@ def homepage(request):
         'video' : val1,
         'video2' : val2,
         'shorts' : shorts,
+        'banner' : ban,
     }
     return render(request, 'homepage.html', context)
 

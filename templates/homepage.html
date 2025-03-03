@@ -21,29 +21,16 @@
 }
 </style>
     <!-- Section 2 -->
-    {% if not user.is_authenticated %}
-    <div class="container mt-3" style="position: relative; top: 60px;">
-     <div id="notificationBar" class="alert alert-danger alert-dismissible fade show" role="alert">
-         <strong>You are not login!</strong> Please login now. <a class="btn btn-danger" href="{% url 'login' %}"><span>Go to login</span></a>
-         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-     </div>
-     </div>
-     {% else %}
-     <div class="container mt-3" style="position: relative; top: 60px;">
-      <div id="successNotification" class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-          <strong>You have successfully logged in!</strong>
-      </div>
-    </div>
-    {% endif %}
 
-    
     {% if banner %}
     <div id="carouselExampleFade" class="carousel slide carousel-fade" style="margin-top: 20px;">
-      <div class="carousel-inner" style="margin-left: 1%; border-radius: 10px; overflow: hidden;">
+      <div class="carousel-inner" style="margin-left: 1%; border-radius: 10px; overflow: hidden; box-shadow: 5px 10px 10px gray;">
         {% for ban in banner %}
-        <div class="carousel-item active" style="margin: 0px;">
-          <img src="/media/{{ ban.banner_img }}" class="d-block w-100" alt="Slide 1" />
-        </div>
+          <a href="https://wa.me/91{{ ban.contact_no }}">
+            <div class="carousel-item active" style="margin: 0px;">
+              <img src="/media/{{ ban.banner_img }}" class="d-block w-100" alt="Slide 1" />
+            </div>
+          </a>
         {% endfor %}
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
         </button>
@@ -127,20 +114,4 @@
     {% endif %}
 
     <!-- <div style="position: relative; top: 100px; color: aqua;">position</div> -->
-
-<script>
-  setTimeout(function() {
-            let successNotification = document.getElementById("notificationBar");
-            if (successNotification) {
-                successNotification.remove();
-            }
-        }, 9000);
-
-  setTimeout(function() {
-            let successNotification = document.getElementById("successNotification");
-            if (successNotification) {
-                successNotification.remove();
-            }
-        }, 4000);
-</script>
 {% endblock %}

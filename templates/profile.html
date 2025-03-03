@@ -12,9 +12,11 @@
             gap: 15px;
         }
         .channel-header img {
-            width: 120px;
+            width: 130px;
             height: 120px;
             border-radius: 50%;
+            box-shadow: 0px 0px 10px gray;
+            border: 2px solid gray;
         }
         .video-card img {
             width: 100%;
@@ -132,9 +134,21 @@
     width: 300px;
 }
     </style>
-</head>
-<body>
-    <div class="container mt-4">
+  {% if not user.is_authenticated %}
+  <div class="container mt-3" style="position: relative; top: 60px;">
+   <div id="notificationBar" class="alert alert-danger alert-dismissible fade show" role="alert">
+       <strong>You are not login!</strong> Please login now. <a class="btn btn-danger" href="{% url 'login' %}"><span>Go to login</span></a>
+       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+   </div>
+   </div>
+   {% else %}
+   <div class="container mt-3" style="position: relative; top: 60px;">
+    <div id="successNotification" class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+        <strong>You have successfully logged in!</strong>
+    </div>
+  </div>
+  {% endif %}
+    <div class="container" style="overflow: hidden;">
         <div class="channel-header" style="margin-top: 80px;">
             <img src="/media/{{ form.video_thumbnail }}" alt="Channel Profile">
             <div>
@@ -143,7 +157,7 @@
                 <button class="btn btn-dark">Subscribed ✓</button>
             </div>
         </div>
-        <div style="width: 100%; height: 1px; background-color: black; margin-top: 20px;"></div>
+        <div style="width: 100%; height: 1px; background-color: gray; margin-top: 20px;"></div>
         {% if form1 %}
         <div class="container div-1-mt mt-3" style="position: relative; top: 10px;">
             <h2 class="txt-div-1">Video</h2>
@@ -174,4 +188,19 @@
         </div>
         {% endif %}
     </div>
+<script>
+  setTimeout(function() {
+            let successNotification = document.getElementById("notificationBar");
+            if (successNotification) {
+                successNotification.remove();
+            }
+        }, 9000);
+
+  setTimeout(function() {
+            let successNotification = document.getElementById("successNotification");
+            if (successNotification) {
+                successNotification.remove();
+            }
+        }, 4000);
+</script>
 {% endblock %}

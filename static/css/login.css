@@ -1,0 +1,23 @@
+body {
+    background-color: #f8f9fa;
+}
+input:focus, textarea:focus, select:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: #ccc;
+}
+.lg-1{
+    height: 100vh;
+}
+.lg-2{
+    width: 50%;
+}
+.lg-3{
+    font-size: 30px;
+}
+.lg-form{
+    margin-top: 20px;
+}
+.lg-4{
+    margin: 0px 10px;
+}

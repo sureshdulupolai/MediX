@@ -1,26 +1,16 @@
 {% extends 'base.html' %}
 {% block body %}
-<style>
-    input:focus, textarea:focus, select:focus {
-        outline: none !important;
-        box-shadow: none !important;
-        border-color: #ccc;
-    }
-    body {
-        background-color: #f8f9fa;
-    }
-</style>
 
-<div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
-    <div class="p-4 border rounded shadow bg-white" style="width: 50%;">
-        <h2 class="text-center text-dark" style="font-size: 30px; margin-bottom: 10px">Upload Banner</h2>
+<div class="container d-flex justify-content-center align-items-center ban-1">
+    <div class="p-4 border rounded shadow bg-white ban-2">
+        <h2 class="text-center text-dark ban-h1">Upload Banner</h2>
         
         {% for message in messages %}
             <div class="alert alert-info text-center">{{ message }}</div>
         {% endfor %}
         
 
-        <form method="POST" enctype="multipart/form-data" style="margin-top: 20px;">
+        <form method="POST" enctype="multipart/form-data" class="ban-form">
             {% csrf_token %}
             
             {% for field in form %}

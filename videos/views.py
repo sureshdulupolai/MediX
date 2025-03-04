@@ -56,16 +56,21 @@ def openVideoPage(request, video_data=None):
     other_videos = VideoDetails.objects.all()
 
     if video_data:
+        print('debug 1')
         if video_data.isdigit():
             video = VideoDetails.objects.filter(id=video_data).first()
         else: 
+            print(video_data)
             video = VideoDetails.objects.filter(video_title__icontains=video_data) | \
                     VideoDetails.objects.filter(customer_name__icontains=video_data) | \
                     VideoDetails.objects.filter(video_description__icontains=video_data)
             video = video.first()
+            print('v1', video)
 
     elif request.method == 'POST' and 'videoName' in request.POST:
+        print('debug 2')
         video_data = request.POST['videoName']
+        print(video_data)
         if video_data.isdigit():  
             video = VideoDetails.objects.filter(id=video_data).first()
         else:
@@ -73,6 +78,7 @@ def openVideoPage(request, video_data=None):
                     VideoDetails.objects.filter(customer_name__icontains=video_data) | \
                     VideoDetails.objects.filter(video_description__icontains=video_data)
             video = video.first()
+            print('v2', video)
 
     if video:
         # removing a particular video, which is running on

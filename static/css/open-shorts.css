@@ -1,0 +1,102 @@
+body {
+    /* background-color: #f9f9f9; */
+    background-color: #333;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.shorts-container {
+    width: 400px;
+    height: 85vh;
+    background: white;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5%;
+    border: 2px solid black;
+}
+
+video {
+    width: 99%;
+    height: 99%;
+    object-fit: cover;
+}
+
+.interaction-buttons {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.interaction-buttons button {
+    background: none;
+    border: none;
+    text-align: center;
+    font-size: 14px;
+    color: #333;
+}
+
+.interaction-buttons img {
+    width: 30px;
+    display: block;
+}
+
+.nav-buttons {
+    position: absolute;
+    top: 70%;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-buttons button {
+    background: white;
+    border: none;
+    font-size: 20px;
+    padding: 10px 15px;
+    border-radius: 50%;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    color: white;
+}
+
+.button_text_shorts{
+    color: white;
+}
+
+.os-1{
+    position: absolute; 
+    right: 440px; 
+    bottom: 200px;
+}
+
+/* Smooth Slide Animation */
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}

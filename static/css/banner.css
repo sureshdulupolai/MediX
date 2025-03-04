@@ -1,0 +1,22 @@
+input:focus, textarea:focus, select:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: #ccc;
+}
+body {
+    background-color: #f8f9fa;
+}
+
+.ban-1{
+    height: 100vh;
+}
+.ban-2{
+    width: 50%;
+}
+.ban-h1{
+    font-size: 30px; 
+    margin-bottom: 10px
+}
+.ban-form{
+    margin-top: 20px;
+}

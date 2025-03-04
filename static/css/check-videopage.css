@@ -1,0 +1,25 @@
+.cv-a{
+    text-decoration: none; 
+    color: #111; 
+    height: 33vh;
+}
+.cv-1{
+    height: 33vh;
+}
+.cv-2{
+    height: 176px;
+}
+.cv-3{
+    width: 100%; 
+    height: 100%;
+}
+.txtDivVideo{
+    overflow: hidden;
+}
+.cv-4{
+    font-weight: 600; 
+    font-style: italic;
+}
+.cv-5{
+    margin-left: 5px;
+}

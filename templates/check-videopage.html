@@ -5,18 +5,18 @@
     <h2 class="txt-div-1">{{ i }}</h2>
     <div class="movie-container">
         {% for video in videos %}
-        <a href="#" style="text-decoration: none; color: #111; height: 33vh;">
-            <div class="movie-card" title="{{ video.view }} views" style="height: 33vh;">
-                <div class="img-Div" style="height: 176px;">
-                    <img src="{{ video.video_thumbnail.url }}" alt="Image Not Loading" style="width: 100%; height: 100%;" />
+        <a href="#" class="cv-a">
+            <div class="movie-card cv-1" title="{{ video.view }} views">
+                <div class="img-Div cv-2">
+                    <img class="cv-3" src="{{ video.video_thumbnail.url }}" alt="Image Not Loading" />
                 </div>
-                <div class="txtDivVideo" style="overflow: hidden;">
+                <div class="txtDivVideo">
                     <span class="txt-1">{{ video.video_title | truncatechars:60 }}</span><br/>
                     <div class="txt-3">
                         <span>
-                            <div><span style="font-weight: 600; font-style: italic;">{{ video.customer_name }}</span></div>
+                            <div><span class="cv-4">{{ video.customer_name }}</span></div>
                             <i class="fa-solid fa-eye"></i>
-                            <span style="margin-left: 5px;">{{ video.created_date }}</span>
+                            <span class="cv-5">{{ video.created_date }}</span>
                         </span>
                     </div>
                 </div>

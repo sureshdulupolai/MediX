@@ -90,18 +90,22 @@ def openVideoPage(request, video_data=None):
 
 @csrf_exempt
 def videoUpload(request):
-    form = VideoForm()
-    if request.method == 'POST':
-        form = VideoForm(request.POST,  request.FILES)
-        if form.is_valid():
-            messages.success( 
-                request, 'Your video uploaded successfully to system'
-            )
-            form.save()
-            return redirect('video_upload')
+    if request.user.is_authenticated:
+        form = VideoForm()
+        if request.method == 'POST':
+            form = VideoForm(request.POST,  request.FILES)
+            if form.is_valid():
+                messages.success( 
+                    request, 'Your video uploaded successfully to system'
+                )
+                form.save()
+                return redirect('video_upload')
 
-    context = {'form': form}
-    return render(request, 'video-upload.html', context)
+        context = {'form': form}
+        return render(request, 'video-upload.html', context)
+
+    else:
+        return redirect ('login')
  
 def CheckVideoPage(request):
     val = VideoCategory.objects.values_list('vd_category', flat=True)

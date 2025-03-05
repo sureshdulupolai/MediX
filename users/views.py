@@ -54,22 +54,30 @@ def logout_ask(request):
     return render(request, 'logout.html')
 
 def ProfilePage(request):
-    data = VideoDetails.objects.get(id=8)
-    data1 = VideoDetails.objects.all().values()
-    context = {
-        'form' : data,
-        'form1' : data1,
-    }
-    return render(request, 'profile.html', context)
+    if request.user.is_authenticated:
+        data = VideoDetails.objects.get(id=8)
+        data1 = VideoDetails.objects.all().values()
+        context = {
+            'form' : data,
+            'form1' : data1,
+        }
+        return render(request, 'profile.html', context)
+
+    else:
+        return redirect ('login')
 
 def ProfileEdit(request):
-    form = ProfileForm()
+    if request.user.is_authenticated:
+        form = ProfileForm()
 
-    if request.method == 'POST':
-        form = ProfileForm(request.POST,  request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('profile')
-    
-    context = {'form':form}
-    return render(request, 'editProfile.html', context)
+        if request.method == 'POST':
+            form = ProfileForm(request.POST,  request.FILES)
+            if form.is_valid():
+                form.save()
+                return redirect('profile')
+        
+        context = {'form':form}
+        return render(request, 'editProfile.html', context)
+
+    else:
+        return redirect('login')

@@ -15,15 +15,19 @@ def callVideo(request, st_id):
 
 @csrf_exempt
 def shortUpload(request):
-    form = ShortsForm()
-    if request.method == 'POST':
-        form = ShortsForm(request.POST,  request.FILES)
-        if form.is_valid():
-            messages.success( 
-                request, 'Your video uploaded successfully to system'
-            )
-            form.save()
-            return redirect('shorts_upload')
+    if request.user.is_authenticated:
+        form = ShortsForm()
+        if request.method == 'POST':
+            form = ShortsForm(request.POST,  request.FILES)
+            if form.is_valid():
+                messages.success( 
+                    request, 'Your video uploaded successfully to system'
+                )
+                form.save()
+                return redirect('shorts_upload')
 
-    context = {'form': form}
-    return render(request, 'shorts-upload.html', context)
+        context = {'form': form}
+        return render(request, 'shorts-upload.html', context)
+    
+    else:
+        return redirect('login')

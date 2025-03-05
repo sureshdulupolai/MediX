@@ -12,13 +12,29 @@
     .form-control{
         margin: 0px 10px;
     }
+    .su-1{
+        height: 100vh;
+    }
+    .su-2{
+        width: 50%;
+    }
+    .su-3{
+        font-size: 30px; 
+        margin-left: -20px;
+    }
+    .su-4{
+        margin-top: 20px;
+    }
+    .su-5{
+        margin-left: 5px;
+    }
 </style>
-<div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
-    <div class="p-4 border rounded shadow bg-white" style="width: 50%;">
-        <h2 class="text-center text-dark" style="font-size: 30px; margin-left: -20px;">Sign up</h2>
+<div class="container d-flex justify-content-center align-items-center su-1">
+    <div class="p-4 border rounded shadow bg-white su-2">
+        <h2 class="text-center text-dark su-3">Sign up</h2>
 
         {% if messages %}
-            <div class="alert alert-info" style="margin-top: 20px;">
+            <div class="alert alert-info su-4">
                 {% for message in messages %}
                     {{ message }}
                 {% endfor %}
@@ -26,13 +42,13 @@
             </div>
         {% endif %}
 
-        <form method="POST" style="margin-top: 20px;">
+        <form method="POST" class="su-4">
             {% csrf_token %}
         
             {% for field in form %}
                 <div class="mb-3">
                     <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-                    <span style="margin-left: 5px;">{{ field }}</span>
+                    <span class="su-5">{{ field }}</span>
                 </div>
             {% endfor %}
             <button type="submit" class="btn btn-primary w-100">Register</button>

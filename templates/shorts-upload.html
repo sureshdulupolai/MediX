@@ -9,28 +9,44 @@
     body {
         background-color: #f8f9fa;
     }
+    .su-1{
+        height: 100vh;
+    }
+    .su-2{
+        width: 50%;
+    }
+    .su-3{
+        font-size: 30px; 
+        margin-left: -20px;
+    }
+    .su-4{
+        margin-top: 20px;
+    }
+    .su-5{
+        margin-left: 5px;
+    }
 </style>
 
-<div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
-    <div class="p-4 border rounded shadow bg-white" style="width: 50%;">
-        <h2 class="text-center text-dark" style="font-size: 30px; margin-left: -20px;">indianews</h2>
+<div class="container d-flex justify-content-center align-items-center su-1">
+    <div class="p-4 border rounded shadow bg-white su-2">
+        <h2 class="text-center text-dark su-3">indianews</h2>
 
         {% if messages %}
-            <div class="alert alert-info" style="margin-top: 20px;">
+            <div class="alert alert-info su-4">
                 {% for message in messages %}
                     {{ message }}
                 {% endfor %}
             </div>
         {% endif %}
 
-        <form method="POST" enctype="multipart/form-data" style="margin-top: 20px;">  <!-- Required for file uploads -->
+        <form method="POST" enctype="multipart/form-data" class="su-4">
             <!-- {{ csrf_token }} -->
 
             {% for field in form %}
                 {% if field.name in "short_title short_thumbnail short_link short_description customer_name" %}
                     <div class="mb-3">
                         <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-                        <span style="margin-left: 5px;">{{ field }}</span>
+                        <span class="su-5">{{ field }}</span>
                     </div>
                 {% endif %}
             {% endfor %}

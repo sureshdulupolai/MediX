@@ -1,34 +1,35 @@
 {% extends 'base.html' %}
 {% block body %}
-    <style>
-        body{
-            background-color: #f8f9fa;
-            width: 100%;
-            height: 100vh;
-        }
-        .channel-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        .channel-header img {
-            width: 130px;
-            height: 120px;
-            border-radius: 50%;
-            box-shadow: 0px 0px 10px gray;
-            border: 2px solid gray;
-        }
-        .video-card img {
-            width: 100%;
-            border-radius: 8px;
-        }
-        .no-data {
-            text-align: center;
-            margin-top: 50px;
-            font-size: 20px;
-            color: gray;
-        }
-        .div-1-mt {
+<style>
+  body{
+      background-color: #f8f9fa;
+      width: 100%;
+      height: 100vh;
+  }
+  .channel-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+  }
+  .channel-header img {
+      width: 130px;
+      height: 120px;
+      border-radius: 50%;
+      box-shadow: 0px 0px 10px gray;
+      border: 2px solid gray;
+  }
+  .video-card img {
+      width: 100%;
+      border-radius: 8px;
+  }
+  .no-data {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 20px;
+      color: gray;
+  }
+  /* code is same like homepage */
+  .div-1-mt {
     position: relative;
     top: 100px;
     margin: 0px;
@@ -129,27 +130,53 @@
     gap: 20px;
     flex-wrap: wrap;
     justify-content: center;
-}
-.card {
+  }
+  .card {
     width: 300px;
-}
-    </style>
+  }
+  /* the code end here */
+  .pf-1{
+    position: relative; 
+    top: 60px;
+  }
+  .overflow-hd{
+    overflow: hidden;
+  }
+  .mt-80{
+    margin-top: 80px;
+  }
+  .hr-lineProfile{
+    width: 100%; 
+    height: 1px; 
+    background-color: gray; 
+    margin-top: 20px;
+  }
+  .po-rev{
+    position: relative;
+  }
+  .tp-10{
+    top: 10px;
+  }
+  .wd-100{
+    width: 100%;
+  }
+</style>
   {% if not user.is_authenticated %}
-  <div class="container mt-3" style="position: relative; top: 60px;">
+  <div class="container mt-3 pf-1">
    <div id="notificationBar" class="alert alert-danger alert-dismissible fade show" role="alert">
        <strong>You are not login!</strong> Please login now. <a class="btn btn-danger" href="{% url 'login' %}"><span>Go to login</span></a>
        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
    </div>
    </div>
    {% else %}
-   <div class="container mt-3" style="position: relative; top: 60px;">
+   <div class="container mt-3 pf-1">
     <div id="successNotification" class="alert alert-success alert-dismissible fade show mt-3" role="alert">
         <strong>You have successfully logged in!</strong>
     </div>
   </div>
   {% endif %}
-    <div class="container" style="overflow: hidden;">
-        <div class="channel-header" style="margin-top: 80px;">
+    <div class="container overflow-hd">
+        <div class="channel-header mt-80">
             <img src="/media/{{ form.video_thumbnail }}" alt="Channel Profile">
             <div>
                 <h3>{{ form.video_title }}</h3>
@@ -157,11 +184,11 @@
                 <button class="btn btn-dark">Subscribed ✓</button>
             </div>
         </div>
-        <div style="width: 100%; height: 1px; background-color: gray; margin-top: 20px;"></div>
+        <div class="hr-lineProfile"></div>
         {% if form1 %}
-        <div class="container div-1-mt mt-3" style="position: relative; top: 10px;">
+        <div class="container div-1-mt mt-3 po-rev tp-10">
             <h2 class="txt-div-1">Video</h2>
-              <div class="movie-container" style="width: 100%;">
+              <div class="movie-container wd-100">
                 {% for vd in form1 %}
                 <a href="{% url 'video_page' vd.video_title %}" style="text-decoration: none; color: #111; height: 32.5vh;">
                   <div class="movie-card" title="{{ vd.view }}k views">

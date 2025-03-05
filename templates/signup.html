@@ -32,7 +32,7 @@
             {% for field in form %}
                 <div class="mb-3">
                     <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-                    {{ field }}
+                    <span style="margin-left: 5px;">{{ field }}</span>
                 </div>
             {% endfor %}
             <button type="submit" class="btn btn-primary w-100">Register</button>

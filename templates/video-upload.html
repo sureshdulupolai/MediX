@@ -30,13 +30,7 @@
                 {% if field.name in "video_thumbnail video_title video_link video_description video_aim customer_name" %}
                     <div class="mb-3">
                         <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-                        {{ field }}  <!-- Render input field -->
-                        {% if field.help_text %}
-                            <small class="form-text text-muted">{{ field.help_text }}</small>
-                        {% endif %}
-                        {% for error in field.errors %}
-                            <div class="text-danger">{{ error }}</div>
-                        {% endfor %}
+                        <span style="margin-left: 5px;">{{ field }} </span> 
                     </div>
                 {% endif %}
             {% endfor %}

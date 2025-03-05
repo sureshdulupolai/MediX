@@ -7,15 +7,15 @@
     height: 100vh;
     overflow: hidden;
   }
-.card:hover{
+  .card:hover{
     box-sizing: border-box;
     border: 1px solid black;
-}
-.active {
+  }
+  .active {
     background-color: rgb(199, 25, 25) !important;
     color: white !important;
-}
-.overlay {
+  }
+  .overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -26,21 +26,21 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
-}
+  }
 
-.share-box {
+  .share-box {
     background: white;
     padding: 15px;
     /* border-radius: 10px; */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
     text-align: center;
-}
+  }
 
-/* Prevent scrolling when share modal is active */
-.no-scroll {
+  /* Prevent scrolling when share modal is active */
+  .no-scroll {
     overflow: hidden;
-}
-.video_side_div{
+  }
+  .video_side_div{
     width: 90%; 
     margin-left: 10px;
     border: 5px solid transparent; 
@@ -49,40 +49,40 @@
     /* border-radius: 5px;  */
     box-shadow: 0px 4px 6px rgb(192, 192, 192); 
     /* background-color: yellow; */
-}
-.video_1{
+  }
+  .video_1{
     width: 98%; 
     margin-top: 10px;
     /* background-color: yellow; */
-}
-.video_div_hover:hover{
+  }
+  .video_div_hover:hover{
     border-radius: 0px;
     border: 5px double rgb(92, 91, 91);
-}
-.video_div_hover{
+  }
+  .video_div_hover{
     border: 5px double transparent;
-}
-.btn-danger{
+  }
+  .btn-danger{
     margin-left: 10px;
     height: 30px;
-}
-.btn-danger span{
+  }
+  .btn-danger span{
     position: relative;
     top: -5px;
-}
+  }
 
 
-.d-flex {
-  display: flex;
-  width: 100%;
-}
+  .d-flex {
+    display: flex;
+    width: 100%;
+  }
 
-.video-section {
-  width: 70%;
-  transition: width 0.3s ease-in-out;
-}
+  .video-section {
+    width: 70%;
+    transition: width 0.3s ease-in-out;
+  }
 
-.suggested-videos {
+  .suggested-videos {
     position: relative;
     top: 80px;
     width: 30%;
@@ -90,36 +90,120 @@
     overflow-y: auto;
     scrollbar-width: none; /* For Firefox */
     -ms-overflow-style: none; /* For Internet Explorer and Edge */
-}
+  }
 
-/* Hide scrollbar for WebKit browsers (Chrome, Safari) */
-.suggested-videos::-webkit-scrollbar {
-  display: none;
-}
+  /* Hide scrollbar for WebKit browsers (Chrome, Safari) */
+  .suggested-videos::-webkit-scrollbar {
+    display: none;
+  }
 
-.video_div_hover {
-  border-radius: 4px;
-  width: 97%;
-  margin-bottom: 10px;
-  margin-left: 5px;
-}
+  .video_div_hover {
+    border-radius: 4px;
+    width: 97%;
+    margin-bottom: 10px;
+    margin-left: 5px;
+  }
 
-.card-img-top {
-  border-radius: 4px;
-  height: 160px;
-}
+  .card-img-top {
+    border-radius: 4px;
+    height: 160px;
+  }
 
-#commentSection {
-  display: none;
-}
+  #commentSection {
+    display: none;
+  }
 
-div::-webkit-scrollbar {
-          display: none;
-        }
+  div::-webkit-scrollbar {
+    display: none;
+  }
+  .ov-1{
+    position: relative; 
+    top: 60px;
+  }
+  .ov-2{
+    width: 100%;
+  }
+  .ov-3{
+    position: relative; 
+    top: 30px; 
+    width: 70%; 
+    float: left;
+  }
+  .ov-4{
+    width: 95%; 
+    margin-left: 2%;
+  }
+  .ov-5{
+    width: 100%; 
+    height: 90vh; 
+    border: 1px solid rgb(192, 192, 192); 
+    border-radius: 5px; 
+    box-shadow: 0px 4px 6px rgb(192, 192, 192); 
+    padding: 10px;
+  }
+  .ov-6{
+    width: 100%; 
+    display: flex; 
+    justify-content: center;
+  }
+  .ov-7{
+    width: 98%; 
+    margin-top: 10px; 
+    max-height: calc(90vh - 20px); 
+    overflow-y: auto; 
+    scrollbar-width: none; 
+    -ms-overflow-style: none;
+  }
+  .ov-8{
+    border: 1px solid black; 
+    box-sizing: border-box;
+  }
+  .po-rev{
+    position: relative;
+  }
+  .ov-9{
+    position: absolute; 
+    top: -35px; 
+    right: 5px; 
+    height: 27px;
+  }
+  .ov-10{
+    width: 26px; 
+    border-radius: 50%; 
+    height: 100%;
+  }
+  .ov-11{
+    color: black; 
+    top: 2.5px;
+  }
+  .fw-600{
+    font-weight: 600;
+  }
+  .hr-line{
+    height: 2px; 
+    width: 100%; 
+    background-color: black; 
+    margin-bottom: 20px;
+  }
+  .mb-10{
+    margin-bottom: 10px;
+  }
+  .ov-12{
+    top: -15px;
+  }
+  .td-None{
+    text-decoration: none;
+  }
+  .br-None{
+    border-radius: 0px;
+  }
+  .fs-13{
+    font-size: 13px;
+  }
 </style>
   <!-- Section 1 -->
    {% if not user.is_authenticated %}
-   <div class="container mt-3" style="position: relative; top: 60px;">
+   <div class="container mt-3 ov-1">
     <div id="notificationBar" class="alert alert-danger alert-dismissible fade show" role="alert">
         <strong>You are not login!</strong> Please login now. <a class="btn btn-danger" href="#"><span>Go to login</span></a>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -127,15 +211,15 @@ div::-webkit-scrollbar {
     </div>
    {% endif %}
    {% if video %}
-   <div style="width: 100%;">
-    <div class="container mt-5" style="position: relative; top: 30px; width: 70%; float: left;">
+   <div class="ov-2">
+    <div class="container mt-5 ov-3">
       <div class="row">
-        <div class="col-md-8" style="width: 95%; margin-left: 2%;">
+        <div class="col-md-8 ov-4">
           <!-- Scrollable Video Section -->
-          <div style="width: 100%; height: 90vh; border: 1px solid rgb(192, 192, 192); border-radius: 5px; box-shadow: 0px 4px 6px rgb(192, 192, 192); padding: 10px;">
-            <div style="width: 100%; display: flex; justify-content: center;">
-              <div style="width: 98%; margin-top: 10px; max-height: calc(90vh - 20px); overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none;">
-                <div class="ratio ratio-16x9" style="border: 1px solid black; box-sizing: border-box;">
+          <div class="ov-5">
+            <div class="ov-6">
+              <div class="ov-7">
+                <div class="ratio ratio-16x9 ov-8">
                    <video id="myVideo" width="100%" controls autoplay muted preload="metadata">
                      <source src="/media/{{ video.video_link }}" type="video/mp4">
                      Your browser does not support the video tag.
@@ -144,7 +228,7 @@ div::-webkit-scrollbar {
                  <h4 class="mt-3" style="font-size: 20px;">{{ video.video_title }}</h4>
                  <p>{{ video.view }}M views | 11 months ago</p>
    
-                 <div class="d-flex justify-content-between align-items-center mt-3" style="position: relative;">
+                 <div class="d-flex justify-content-between align-items-center mt-3 po-rev">
                    <!-- Like, Unlike, Share Buttons -->
                    <div>
                      <button id="likeBtn" class="btn btn-dark btn-sm me-2" onclick="toggleLike()">
@@ -170,9 +254,9 @@ div::-webkit-scrollbar {
                        <button class="btn btn-danger btn-sm" onclick="closeShareBox()">Close</button>
                      </div>
                    </div>
-                   <div style="position: absolute; top: -35px; right: 5px; height: 27px;">
-                    <img src="/media/{{ video.video_thumbnail }}" alt=".." style="width: 26px; border-radius: 50%; height: 100%;">
-                    <span style="color: black; position: relative; top: 2.5px;">{{ video.video_title | truncatechars:10 }}</span>
+                   <div class="ov-9">
+                    <img src="/media/{{ video.video_thumbnail }}" alt=".." class="po-rev ov-10">
+                    <span class="ov-11">{{ video.video_title | truncatechars:10 }}</span>
                    </div>
                    <!-- Subscribe Button -->
                    <div>
@@ -182,18 +266,18 @@ div::-webkit-scrollbar {
    
                  <hr />
                  <p>
-                   <span style="font-weight: 600;">Description</span>
-                   <div style="height: 2px; width: 100%; background-color: black; margin-bottom: 20px;"></div>
+                   <span class="fw-600">Description</span>
+                   <div class="hr-line"></div>
                    <span>{{ video.video_description }}</span>
                  </p>
    
                  <p>
-                   <span style="font-weight: 600;">Aim</span>
-                   <div style="height: 2px; width: 100%; background-color: black; margin-bottom: 20px;"></div>
+                   <span class="fw-600">Aim</span>
+                   <div class="hr-line"></div>
                    <span>{{ video.video_aim }}</span>
                  </p>
    
-                 <div class="mt-4" style="margin-bottom: 10px;">
+                 <div class="mt-4 mb-10">
                    <button class="btn btn-secondary btn-sm mb-2" onclick="toggleComments()">Comments <i class="fas fa-chevron-down"></i></button>
                    <div id="commentSection" style="display: none;">
                      <div class="mb-3 d-flex">
@@ -228,15 +312,15 @@ div::-webkit-scrollbar {
 
 
     <div class="suggested-videos">
-        <div class="video_side_div" style="position: relative; top: -15px;">
+        <div class="video_side_div po-rev ov-12">
           <div class="video_1">
             {% for i in other_videos %}
-            <a href="{% url 'video_page' i.video_title %}" style="text-decoration: none;">
+            <a href="{% url 'video_page' i.video_title %}" class="td-None">
               <div class="card video_div_hover">
-                <img src="/media/{{ i.video_thumbnail }}" class="card-img-top" alt="Video Thumbnail" style="border-radius: 0px;">
+                <img src="/media/{{ i.video_thumbnail }}" class="card-img-top br-None" alt="Video Thumbnail">
                 <div class="card-body">
                   <h6 class="card-title">{{ i.video_title | truncatechars:60 }}</h6>
-                  <p class="card-text" style="font-size: 13px;">{{ i.view }}k views • 1 year ago</p>
+                  <p class="card-text fs-13">{{ i.view }}k views • 1 year ago</p>
                 </div>
               </div>
             </a>

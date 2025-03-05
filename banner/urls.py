@@ -1,8 +1,6 @@
 from django.urls import path
 from . import views
 
-
-
 urlpatterns = [
-    path('', views.bannerPage, name='banner'),
+    path('banner-upload/', views.bannerPage, name='banner'),
 ]

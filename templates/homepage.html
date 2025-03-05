@@ -1,5 +1,106 @@
 {% extends 'base.html' %}
 {% block body %}
+<style>
+  input:focus, textarea:focus, select:focus {
+  outline: none !important;  /* Removes default browser outline */
+  box-shadow: none !important; /* Removes the shadow */
+  border-color: #ccc; /* Optional: Keeps border color consistent */
+}
+.short-a:hover{
+  border: 1px solid rgb(201, 198, 198);
+  box-shadow: 2px 2px 10px rgba(201, 198, 198, 0.7);
+  box-sizing: border-box;
+}
+.btn-danger{
+    margin-left: 10px;
+    height: 30px;
+}
+.btn-danger span{
+    position: relative;
+    top: -5px;
+}
+.hp-1{
+  margin-top: 20px;
+}
+.hp-2{
+  margin-left: 1%; 
+  border-radius: 10px; 
+  overflow: hidden; 
+  box-shadow: 5px 10px 10px gray;
+}
+.hp-3{
+  margin: 0px;
+}
+.hp-4{
+  text-decoration: none; 
+  color: #111; 
+  height: 32.5vh;
+}
+.hp-5{
+  height: 174px;
+}
+.hp-6{
+  width: 100%; 
+  height: 100%;
+}
+.hp-7{
+  font-weight: 600; 
+  font-style: italic;
+}
+.hp-8{
+  margin-left: 5px;
+}
+.hp-9{
+  width: 96vw;
+}
+.hp-10{
+  display: flex; 
+  overflow-x: auto; 
+  gap: 5px; 
+  width: 96vw; 
+  padding: 10px; 
+  scrollbar-width: none; 
+  justify-content: start;
+}
+.hp-11{
+  width: 220px; 
+  flex: 0 0 auto; 
+  border-radius: 5px; 
+  padding: 10px; 
+  text-align: center; 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center;
+}
+.hp-12{
+  width: 100%; 
+  height: 300px; 
+  object-fit: cover; 
+  border-radius: 5px;
+}
+.hp-13{
+  display: block; 
+  font-size: 16px; 
+  font-weight: bold; 
+  margin-top: 5px;
+}
+.hp-14{
+  font-style: italic;
+}
+.hp-15{
+  font-size: 14px; 
+  color: gray;
+}
+.hp-16{
+  position: relative;
+}
+.hp-17{
+  text-decoration: none; 
+  color: #111; 
+  height: 33.5vh;
+}
+
+</style>
     <!-- Section 2 -->
 
     {% if banner %}
@@ -7,7 +108,7 @@
       <div class="carousel-inner hp-2">
         {% for ban in banner %}
           <a href="https://wa.me/91{{ ban.contact_no }}" target="_blank">
-            <div class="carousel-item active">
+            <div class="carousel-item hp-3 active">
               <img src="/media/{{ ban.banner_img }}" class="d-block w-100" alt="Slide 1" />
             </div>
           </a>
@@ -26,17 +127,17 @@
       <h2 class="txt-div-1">Recommended searches</h2>
         <div class="movie-container">
           {% for vd in video %}
-          <a class="hp-3" href="{% url 'video_page' vd.video_title %}">
+          <a href="{% url 'video_page' vd.video_title %}" class="hp-4">
             <div class="movie-card" title="{{ vd.view }}k views">
-              <div class="img-Div hp-4">
-                <img class="hp-5" src="/media/{{ vd.video_thumbnail }}" alt="Image is Not Loading"/>
+              <div class="img-Div hp-5">
+                <img src="/media/{{ vd.video_thumbnail }}" alt="Image is Not Loading" class="hp-6" />
               </div>
               <div class="txtDivVideo">
                 <span class="txt-1">{{ vd.video_title }}</span><br/>
                 <div class="txt-3">
                   <span>
-                    <div><span class="hp-6">{{ vd.customer_name  | truncatechars:20 }}</span></div>
-                    <i class="fa-solid fa-eye"></i><span class="hp-7">{{ vd.created_date }}</span>
+                    <div><span class="hp-7">{{ vd.customer_name  | truncatechars:20 }}</span></div>
+                    <i class="fa-solid fa-eye"></i><span class="hp-8">{{ vd.created_date }}</span>
                   </span>
                 </div>
               </div>
@@ -49,16 +150,16 @@
     
     {% if shorts %}
       <!-- Shorts Section -->
-      <div class="container div-1-mt mt-3 hp-8">
+      <div class="container div-1-mt mt-3 hp-9">
         <h2 class="txt-div-1">Shorts</h2>
-        <div class="shorts-container hp-9">
+        <div class="shorts-container hp-10">
           {% for st in shorts %}
           <a href="{% url 'shorts_page' st.id %}" class="short-a">
-            <div class="short-card hp-10">
-              <img class="hp-11" src="/media/{{ st.short_thumbnail }}" alt="Short 1" />
-              <span class="short-title hp-12">{{ st.short_title | truncatechars:20 }} </span>
-              <span class="hp-13">{{ st.customer_name  | truncatechars:12 }}</span>
-              <span class="short-views hp-14">{{ st.view }}M views</span>
+            <div class="short-card hp-11">
+              <img src="/media/{{ st.short_thumbnail }}" alt="Short 1" class="hp-12" />
+              <span class="short-title hp-13">{{ st.short_title | truncatechars:20 }} </span>
+              <span class="hp-14">{{ st.customer_name  | truncatechars:12 }}</span>
+              <span class="short-views hp-15">{{ st.view }}M views</span>
             </div>
           </a>
           {% endfor %}
@@ -68,21 +169,21 @@
 
     {% if video2 %}
     <!-- Section 3 -->
-    <div class="container div-1-mt mt-3 hp-15">
+    <div class="container div-1-mt mt-3 hp-16">
       <h2 class="txt-div-1">Popular Search</h2>
         <div class="movie-container">
           {% for vd in video2 %}
-          <a class="hp-16" href="{% url 'video_page' vd.video_title %}">
-            <div class="movie-card hp-15" title="{{ vd.view }}k views">
-              <div class="img-Div hp-4">
-                <img class="hp-17" src="/media/{{ vd.video_thumbnail }}" alt="Image is Not Loading"/>
+          <a href="{% url 'video_page' vd.video_title %}" class="hp-17">
+            <div class="movie-card hp-16" title="{{ vd.view }}k views">
+              <div class="img-Div hp-5">
+                <img src="/media/{{ vd.video_thumbnail }}" alt="Image is Not Loading" class="hp-6"/>
               </div>
               <div class="txtDivVideo">
                 <span class="txt-1">{{ vd.video_title | truncatechars:60 }}</span><br/>
                 <div class="txt-3">
                   <span>
-                    <div><span class="hp-18">{{ vd.customer_name  | truncatechars:20 }}</span></div>
-                    <i class="fa-solid fa-eye"></i> <span class="hp-19">{{ vd.created_date }}</span>
+                    <div><span class="hp-7">{{ vd.customer_name  | truncatechars:20 }}</span></div>
+                    <i class="fa-solid fa-eye"></i> <span class="hp-8">{{ vd.created_date }}</span>
                   </span>
                 </div>
               </div>
@@ -92,5 +193,6 @@
         </div>
     </div>
     {% endif %}
+
     <!-- <div style="position: relative; top: 100px; color: aqua;">position</div> -->
 {% endblock %}

@@ -1,16 +1,42 @@
 {% extends 'base.html' %}
 {% block body %}
-<div class="container d-flex justify-content-center align-items-center lg-1">
-    <div class="p-4 border rounded shadow bg-white lg-2">
-        <h2 class="text-center text-dark lg-3">Login</h2>
+<style>
+    input:focus, textarea:focus, select:focus {
+        outline: none !important;
+        box-shadow: none !important;
+        border-color: #ccc;
+    }
+    body {
+        background-color: #f8f9fa;
+    }
+    .log-1{
+        height: 100vh;
+    }
+    .log-2{
+        width: 50%;
+    }
+    .log-3{
+        font-size: 30px;
+    }
+    .log-4{
+        margin-top: 20px;
+    }
+    .log-5{
+        margin: 0px 10px;
+    }
+</style>
 
-        <form method="POST" class="lg-form">
+<div class="container d-flex justify-content-center align-items-center log-1">
+    <div class="p-4 border rounded shadow bg-white log-2">
+        <h2 class="text-center text-dark log-3">Login</h2>
+
+        <form method="POST" class="log-4">
             {% csrf_token %}
 
             {% for field in form %}
                 <div class="mb-3">
                     <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-                    <span class="lg-4">{{ field }}</span>
+                    <span class="log-5">{{ field }}</span>
                 </div>
             {% endfor %}
             <button type="submit" class="btn btn-primary w-100">Login</button>

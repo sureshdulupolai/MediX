@@ -56,7 +56,6 @@ def openVideoPage(request, video_data=None):
     other_videos = VideoDetails.objects.all()
 
     if video_data:
-        print('debug 1')
         if video_data.isdigit():
             video = VideoDetails.objects.filter(id=video_data).first()
         else: 
@@ -65,10 +64,17 @@ def openVideoPage(request, video_data=None):
                     VideoDetails.objects.filter(customer_name__icontains=video_data) | \
                     VideoDetails.objects.filter(video_description__icontains=video_data)
             video = video.first()
-            print('v1', video)
+        print(video)
+        if video:
+            # removing a particular video, which is running on
+            other_videos = other_videos.exclude(id=video.id)
 
-    elif request.method == 'POST' and 'videoName' in request.POST:
-        print('debug 2')
+    context = {"video": video, "other_videos": other_videos}  
+    return render(request, 'Open-Video.html', context)
+
+def searchPage(request):
+    if request.method == 'POST' and 'videoName' in request.POST:
+        data = request.POST['videoName']
         video_data = request.POST['videoName']
         print(video_data)
         if video_data.isdigit():  
@@ -77,16 +83,14 @@ def openVideoPage(request, video_data=None):
             video = VideoDetails.objects.filter(video_title__icontains=video_data) | \
                     VideoDetails.objects.filter(customer_name__icontains=video_data) | \
                     VideoDetails.objects.filter(video_description__icontains=video_data)
-            video = video.first()
             print('v2', video)
-
-    if video:
-        # removing a particular video, which is running on
-        other_videos = other_videos.exclude(id=video.id)
-
-
-    context = {"video": video, "other_videos": other_videos}  
-    return render(request, 'Open-Video.html', context)
+        
+    val = list(video)
+    context = {
+        'video': val,
+        'data' : data,
+    }
+    return render(request, 'searchPage.html', context)
 
 @csrf_exempt
 def videoUpload(request):

@@ -8,8 +8,9 @@ from django.conf import settings
 urlpatterns = [
     path('', views.homepage, name='home'),
     path('video/<str:video_data>/', views.openVideoPage, name='video_page'),
-    path('video/', views.openVideoPage, name='video_search'), 
+    path('video/', views.searchPage, name='video_search'), 
     path('videoupload/', views.videoUpload, name='video_upload'),
+    path('search-page/', views.openVideoPage, name='search_page'),
     path('check-video/', views.CheckVideoPage),
 ]
 if settings.DEBUG:

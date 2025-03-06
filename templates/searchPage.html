@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block body %}
+<style>
+.movie-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Rows ke beech gap */
+    align-items: center;
+}
+
+.movie-row {
+    display: flex;
+    /* justify-content: center; */
+    gap: 10px; /* Videos ke beech gap */
+    width: 100%;
+}
+
+.movie-card {
+    width: 22vw; /* 2 videos ek row me aaye */
+    text-decoration: none;
+    color: #111;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.img-Div {
+    height: 165px;
+}
+
+.hp-6 {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.txt-1 {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.hp-7 {
+    font-weight: 600;
+    font-style: italic;
+}
+
+.hp-8 {
+    margin-left: 5px;
+}
+</style>
+
+<!-- Section 3 -->
+<div class="container div-1-mt mt-3">
+    <h2 class="txt-div-1">Recommended searches for {{ data }}</h2>
+      <div class="movie-container">
+        {% for vd in video %}
+        
+        {% if forloop.counter0|divisibleby:4 %}
+          <div class="movie-row"> <!-- Har 2 videos ka ek row -->
+        {% endif %}
+        
+        <a href="{% url 'video_page' vd.video_title %}" class="hp-4">
+          <div class="movie-card" title="{{ vd.view }}k views">
+            <div class="img-Div hp-5">
+              <img src="/media/{{ vd.video_thumbnail }}" alt="Image is Not Loading" class="hp-6" />
+            </div>
+            <div class="txtDivVideo">
+              <span class="txt-1">{{ vd.video_title | truncatechars:50 }}</span><br/>
+              <div class="txt-3">
+                <span>
+                  <div><span class="hp-7">{{ vd.customer_name  | truncatechars:20 }}</span></div>
+                  <i class="fa-solid fa-eye"></i><span class="hp-8">{{ vd.created_date }}</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        {% if forloop.counter|divisibleby:4 or forloop.last %}
+          </div> <!-- Row close -->
+        {% endif %}
+        
+        {% endfor %}
+      </div>
+  </div>
+
+
+{% endblock %}

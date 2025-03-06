@@ -99,6 +99,34 @@
   color: #111; 
   height: 33.5vh;
 }
+.movie-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Rows ke beech gap */
+    align-items: center;
+}
+
+.movie-row {
+    display: flex;
+    /* justify-content: center; */
+    gap: 10px; /* Videos ke beech gap */
+    width: 100%;
+}
+
+.movie-card {
+    width: 22vw; /* 2 videos ek row me aaye */
+    text-decoration: none;
+    color: #111;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.img-Div {
+    height: 165px;
+}
 
 </style>
     <!-- Section 2 -->
@@ -122,31 +150,40 @@
     {% endif %}
 
     {% if video %}
-    <!-- Section 3 -->
     <div class="container div-1-mt mt-3">
-      <h2 class="txt-div-1">Recommended searches</h2>
+        <h2 class="txt-div-1">Recommended searches</h2>
         <div class="movie-container">
-          {% for vd in video %}
-          <a href="{% url 'video_page' vd.video_title %}" class="hp-4">
-            <div class="movie-card" title="{{ vd.view }}k views">
-              <div class="img-Div hp-5">
-                <img src="/media/{{ vd.video_thumbnail }}" alt="Image is Not Loading" class="hp-6" />
-              </div>
-              <div class="txtDivVideo">
-                <span class="txt-1">{{ vd.video_title }}</span><br/>
-                <div class="txt-3">
-                  <span>
-                    <div><span class="hp-7">{{ vd.customer_name  | truncatechars:20 }}</span></div>
-                    <i class="fa-solid fa-eye"></i><span class="hp-8">{{ vd.created_date }}</span>
-                  </span>
+            {% for vd in video %}
+            
+            {% if forloop.counter0|divisibleby:4 %}
+              <div class="movie-row"> <!-- Har 4 videos ka ek row -->
+            {% endif %}
+            
+            <a href="{% url 'video_page' vd.video_title %}" class="hp-4">
+              <div class="movie-card" title="{{ vd.view }}k views">
+                <div class="img-Div hp-5">
+                  <img src="/media/{{ vd.video_thumbnail }}" alt="Image is Not Loading" class="hp-6" />
+                </div>
+                <div class="txtDivVideo">
+                  <span class="txt-1">{{ vd.video_title }}</span><br/>
+                  <div class="txt-3">
+                    <span>
+                      <div><span class="hp-7">{{ vd.customer_name  | truncatechars:20 }}</span></div>
+                      <i class="fa-solid fa-eye"></i><span class="hp-8">{{ vd.created_date }}</span>
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-          </a>
-          {% endfor %}
+            </a>
+
+            {% if forloop.counter|divisibleby:4 or forloop.last %}
+              </div> <!-- Row close -->
+            {% endif %}
+            
+            {% endfor %}
         </div>
     </div>
-    {% endif %}
+{% endif %}
     
     {% if shorts %}
       <!-- Shorts Section -->
@@ -168,31 +205,40 @@
     {% endif %}
 
     {% if video2 %}
-    <!-- Section 3 -->
     <div class="container div-1-mt mt-3 hp-16">
-      <h2 class="txt-div-1">Popular Search</h2>
+        <h2 class="txt-div-1">Popular Search</h2>
         <div class="movie-container">
-          {% for vd in video2 %}
-          <a href="{% url 'video_page' vd.video_title %}" class="hp-17">
-            <div class="movie-card hp-16" title="{{ vd.view }}k views">
-              <div class="img-Div hp-5">
-                <img src="/media/{{ vd.video_thumbnail }}" alt="Image is Not Loading" class="hp-6"/>
-              </div>
-              <div class="txtDivVideo">
-                <span class="txt-1">{{ vd.video_title | truncatechars:60 }}</span><br/>
-                <div class="txt-3">
-                  <span>
-                    <div><span class="hp-7">{{ vd.customer_name  | truncatechars:20 }}</span></div>
-                    <i class="fa-solid fa-eye"></i> <span class="hp-8">{{ vd.created_date }}</span>
-                  </span>
+            {% for vd in video2 %}
+            
+            {% if forloop.counter0|divisibleby:4 %}
+              <div class="movie-row"> <!-- Har 4 videos ka ek row -->
+            {% endif %}
+            
+            <a href="{% url 'video_page' vd.video_title %}" class="hp-17">
+              <div class="movie-card hp-16" title="{{ vd.view }}k views">
+                <div class="img-Div hp-5">
+                  <img src="/media/{{ vd.video_thumbnail }}" alt="Image is Not Loading" class="hp-6"/>
+                </div>
+                <div class="txtDivVideo">
+                  <span class="txt-1">{{ vd.video_title | truncatechars:60 }}</span><br/>
+                  <div class="txt-3">
+                    <span>
+                      <div><span class="hp-7">{{ vd.customer_name  | truncatechars:20 }}</span></div>
+                      <i class="fa-solid fa-eye"></i> <span class="hp-8">{{ vd.created_date }}</span>
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-          </a>
-          {% endfor %}
+            </a>
+
+            {% if forloop.counter|divisibleby:4 or forloop.last %}
+              </div> <!-- Row close -->
+            {% endif %}
+            
+            {% endfor %}
         </div>
     </div>
-    {% endif %}
+{% endif %}
 
     <!-- <div style="position: relative; top: 100px; color: aqua;">position</div> -->
 {% endblock %}

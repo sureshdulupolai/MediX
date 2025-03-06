@@ -52,6 +52,7 @@ def homepage(request):
 
 
 def openVideoPage(request, video_data=None):
+    req = request
     video = None
     other_videos = VideoDetails.objects.all()
 
@@ -68,8 +69,7 @@ def openVideoPage(request, video_data=None):
         if video:
             # removing a particular video, which is running on
             other_videos = other_videos.exclude(id=video.id)
-
-    context = {"video": video, "other_videos": other_videos}  
+    context = {"video": video, "other_videos": other_videos, 'req' : req}  
     return render(request, 'Open-Video.html', context)
 
 def searchPage(request):

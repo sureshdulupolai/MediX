@@ -245,7 +245,7 @@
                        <a href="#" class="btn btn-outline-primary btn-sm"><i class="fab fa-twitter"></i> Twitter</a>
                        <a href="#" class="btn btn-outline-primary btn-sm"><i class="fab fa-linkedin"></i> LinkedIn</a>
                        <a href="#" class="btn btn-outline-primary btn-sm"><i class="fab fa-instagram"></i> Instagram</a>
-                       <a href="#" class="btn btn-outline-primary btn-sm"><i class="fas fa-link"></i> Copy Link</a>
+                       <a href="#" class="btn btn-outline-primary btn-sm" onclick="copyToClipboard()"><i class="fas fa-link"></i> Copy Link</a>
                        <br><br>
                        <button class="btn btn-danger btn-sm" onclick="closeShareBox()">Close</button>
                      </div>
@@ -328,6 +328,15 @@
   {% endif %}
 
   <script>
+  function copyToClipboard() {
+    var dummy = document.createElement("textarea");
+    dummy.value = "{{ req.build_absolute_uri }}";  // Copy full video URL
+    document.body.appendChild(dummy);
+    dummy.select();
+    document.execCommand("copy");
+    document.body.removeChild(dummy);
+  }
+
   function addComment() {
     let commentInput = document.getElementById("commentInput");
     let commentText = commentInput.value.trim();

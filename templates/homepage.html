@@ -151,7 +151,7 @@
     </div>
     {% endif %}
 
-    {% if video %}
+  {% if video %}
     <div class="container div-1-mt mt-3">
         <h2 class="txt-div-1">Recommended searches</h2>
         <div class="movie-container">
@@ -168,11 +168,9 @@
                 </div>
                 <div class="txtDivVideo">
                   <span class="txt-1">{{ vd.video_title }}</span><br/>
-                  <div class="txt-3">
-                    <span>
-                      <div><span class="hp-7">{{ vd.customer_name  | truncatechars:20 }}</span></div>
+                  <div class="txt-3" style="position: relative;">
+                      <div style="position: relative;"><span class="hp-7">{{ vd.customer_name  | truncatechars:20 }}</span></div>
                       <i class="fa-solid fa-eye"></i><span class="hp-8">{{ vd.created_date }}</span>
-                    </span>
                   </div>
                 </div>
               </div>
@@ -185,7 +183,7 @@
             {% endfor %}
         </div>
     </div>
-{% endif %}
+  {% endif %}
     
     {% if shorts %}
       <!-- Shorts Section -->

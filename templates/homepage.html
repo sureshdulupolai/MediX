@@ -102,7 +102,7 @@
 .movie-container {
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Rows ke beech gap */
+    gap: 40px; /* Rows ke beech gap  */
     align-items: center;
 }
 
@@ -127,7 +127,9 @@
 .img-Div {
     height: 165px;
 }
-
+.gp{
+  gap: 50px;
+}
 </style>
     <!-- Section 2 -->
 
@@ -207,7 +209,7 @@
     {% if video2 %}
     <div class="container div-1-mt mt-3 hp-16">
         <h2 class="txt-div-1">Popular Search</h2>
-        <div class="movie-container">
+        <div class="movie-container gp">
             {% for vd in video2 %}
             
             {% if forloop.counter0|divisibleby:4 %}
@@ -220,7 +222,7 @@
                   <img src="/media/{{ vd.video_thumbnail }}" alt="Image is Not Loading" class="hp-6"/>
                 </div>
                 <div class="txtDivVideo">
-                  <span class="txt-1">{{ vd.video_title | truncatechars:60 }}</span><br/>
+                  <span class="txt-1">{{ vd.video_title | truncatechars:50 }}</span><br/>
                   <div class="txt-3">
                     <span>
                       <div><span class="hp-7">{{ vd.customer_name  | truncatechars:20 }}</span></div>

@@ -193,10 +193,10 @@
   {% endif %}
     <div class="container overflow-hd">
         <div class="channel-header mt-80">
-            <img src="/media/{{ form.video_thumbnail }}" alt="Channel Profile">
+            <img src="/media/{{ profile.Profile_Image }}" alt="Channel Profile">
             <div>
-                <h3>{{ form.video_title }}</h3>
-                <p>@{{ form.video_title | truncatechars:10 }} · 378 subscribers · 6 videos</p>
+                <h3>{{ profile.Channel_Name }}</h3>
+                <p>@{{ profile.uName | truncatechars:20 }} · 378 subscribers · 6 videos</p>
                 <button class="btn btn-dark">Subscribed ✓</button>
             </div>
         </div>

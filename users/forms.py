@@ -11,4 +11,4 @@ class RegisterForm(UserCreationForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = ProfileDetails
-        fields = ['Profile_Image', 'Name', 'Channel_Name', 'Title']
+        fields = ['Profile_Image', 'NamesUser', 'Channel_Name', 'uName']

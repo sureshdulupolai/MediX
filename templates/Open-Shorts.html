@@ -1,188 +1,70 @@
 {% extends 'base.html' %}
 {% block body %}
-    <style>
-        /* Page Background */
-        body {
-            /* background-color: #f9f9f9; */
-            background-color: #333;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
 
-        /* Video Section */
-        .shorts-container {
-            width: 400px;
-            height: 85vh;
-            background: white;
-            border-radius: 5px;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 5%;
-            border: 2px solid black;
-        }
-
-        /* Video Styling */
-        video {
-            width: 99%;
-            height: 99%;
-            object-fit: cover;
-        }
-
-        /* Interaction Buttons (Right Side, Centered) */
-        .interaction-buttons {
-            position: absolute;
-            top: 50%;
-            right: 20px;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .interaction-buttons button {
-            background: none;
-            border: none;
-            text-align: center;
-            font-size: 14px;
-            color: #333;
-        }
-
-        .interaction-buttons img {
-            width: 30px;
-            display: block;
-        }
-
-        /* Next & Previous Buttons (Moved to Right Side) */
-        .nav-buttons {
-            position: absolute;
-            top: 70%;
-            right: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .nav-buttons button {
-            background: white;
-            border: none;
-            font-size: 20px;
-            padding: 10px 15px;
-            border-radius: 50%;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-            color: white;
-        }
-
-        .button_text_shorts{
-            color: white;
-        }
-
-        .os-1{
-            position: absolute; 
-            right: 440px; 
-            bottom: 200px;
-        }
-        /* Smooth Slide Animation */
-        @keyframes slideUp {
-            from {
-                transform: translateY(100%);
-            }
-            to {
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideDown {
-            from {
-                transform: translateY(-100%);
-            }
-            to {
-                transform: translateY(0);
-            }
-        }
-    </style>
-
-    {% if short %}
-    <div class="shorts-container">
-        <video id="shortsVideo" src="/media/{{ short.short_link }}" controls autoplay muted></video>
+<div class="d-flex justify-content-center align-items-center min-vh-100 bg-dark">
+    <div class="position-relative bg-white border rounded shadow mt-5" style="width: 400px; height: 85vh; overflow: hidden; border: 2px solid black; position: relative; top: 10px;">
+        {% if short %}
+            <video id="shortsVideo" src="/media/{{ short.short_link }}" controls autoplay muted class="w-100 h-100 object-fit-cover"></video>
+        {% endif %}
     </div>
-    {% endif %}
 
     <!-- Interaction Buttons -->
-    <div class="interaction-buttons os-1">
-        <button><img src="https://cdn-icons-png.flaticon.com/512/889/889140.png"> <br><span class="button_text_shorts">27K</span></button>
-        <button><img src="https://cdn-icons-png.flaticon.com/512/1828/1828843.png"> <br> <span class="button_text_shorts">Dislike</span></button>
-        <button><img src="https://cdn-icons-png.flaticon.com/512/2462/2462719.png"> <br> <span class="button_text_shorts">23</span></button>
-        <button><img src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png"> <br> <span class="button_text_shorts">Share</span></button>
+    <div class="position-absolute d-flex flex-column align-items-center gap-3" style="right: 425px; bottom: 160px;">
+        <button class="btn bg-transparent border-0"><img src="https://cdn-icons-png.flaticon.com/512/889/889140.png" width="30"> <br><span class="text-white">27K</span></button>
+        <button class="btn bg-transparent border-0"><img src="https://cdn-icons-png.flaticon.com/512/1828/1828843.png" width="30"> <br> <span class="text-white">Dislike</span></button>
+        <button class="btn bg-transparent border-0"><img src="https://cdn-icons-png.flaticon.com/512/2462/2462719.png" width="30"> <br> <span class="text-white">23</span></button>
+        <button class="btn bg-transparent border-0"><img src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png" width="30"> <br> <span class="text-white">Share</span></button>
     </div>
 
-    <!-- Next & Previous Buttons (Moved to Right Side) -->
-    <div class="nav-buttons">
-        <button id="prevBtn">⬆</button>
-        <button id="nextBtn">⬇</button>
+    <!-- Next & Previous Buttons -->
+    <div class="position-absolute d-flex flex-column align-items-center gap-3" style="top: 70%; right: 20px;">
+        <button id="prevBtn" class="btn btn-light border rounded-circle p-3">⬆</button>
+        <button id="nextBtn" class="btn btn-light border rounded-circle p-3">⬇</button>
     </div>
+</div>
 
-    <script>
-    window.addEventListener("load", function () {
+<script>
+document.addEventListener("DOMContentLoaded", function () {
     const videoElement = document.getElementById("shortsVideo");
+    const nextBtn = document.getElementById("nextBtn");
+    const prevBtn = document.getElementById("prevBtn");
 
-    // Ensure video starts with sound
-    function playVideo() {
-        videoElement.muted = false;
-        videoElement.play().catch(error => {
-            console.log("Autoplay with sound failed:", error);
-            document.addEventListener("click", () => {
-                videoElement.muted = false;
-                videoElement.play();
-            }, { once: true });
-        });
+    // List of videos (Replace with actual video URLs)
+    const videos = [
+        "/media/video1.mp4",
+        "/media/video2.mp4",
+        "/media/video3.mp4"
+    ];
+
+    let currentVideo = 0;
+
+    function playVideo(index) {
+        if (index >= 0 && index < videos.length) {
+            videoElement.src = videos[index];
+            videoElement.load();
+            videoElement.play();
+            currentVideo = index;
+        }
     }
 
-    // Function to check if video is stuck and resume it
-    function monitorVideo() {
-        let lastTime = 0;
-        setInterval(() => {
-            if (videoElement.currentTime === lastTime && !videoElement.paused && !videoElement.ended) {
-                console.log("Shorts video might be stuck, resuming...");
-                videoElement.play();
-            }
-            lastTime = videoElement.currentTime;
-        }, 5000); // Check every 5 seconds
-    }
-
-    // Restart video when it ends
-    videoElement.addEventListener("ended", function () {
-        videoElement.currentTime = 0; // Reset to start
-        videoElement.play();
+    // Next Video
+    nextBtn.addEventListener("click", function () {
+        let nextIndex = (currentVideo + 1) % videos.length;
+        playVideo(nextIndex);
     });
 
-    playVideo();
-    monitorVideo();
+    // Previous Video
+    prevBtn.addEventListener("click", function () {
+        let prevIndex = (currentVideo - 1 + videos.length) % videos.length;
+        playVideo(prevIndex);
+    });
+
+    // Ensure video starts with sound after user interaction
+    document.addEventListener("click", () => {
+        videoElement.muted = false;
+        videoElement.play();
+    }, { once: true });
 });
+</script>
 
-        const videos = ["video1.mp4", "video2.mp4", "video3.mp4"]; // Add video links
-        let currentVideo = 0;
-        const videoElement = document.getElementById("shortsVideo");
-
-        document.getElementById("nextBtn").addEventListener("click", function () {
-            currentVideo = (currentVideo + 1) % videos.length;
-            videoElement.src = videos[currentVideo];
-            videoElement.classList.add("slideUp");
-            setTimeout(() => videoElement.classList.remove("slideUp"), 500);
-        });
-
-        document.getElementById("prevBtn").addEventListener("click", function () {
-            currentVideo = (currentVideo - 1 + videos.length) % videos.length;
-            videoElement.src = videos[currentVideo];
-            videoElement.classList.add("slideDown");
-            setTimeout(() => videoElement.classList.remove("slideDown"), 500);
-        });
-    </script>
 {% endblock %}

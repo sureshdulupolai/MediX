@@ -1,20 +1,22 @@
 {% extends 'base.html' %}
 {% block body %}
 <style>
-  body{
+  body {
     background-color: #f8f9fa;
     width: 100%;
     height: 100vh;
     overflow: hidden;
   }
-  .card:hover{
-    box-sizing: border-box;
+  
+  .card:hover {
     border: 1px solid black;
   }
+
   .active {
     background-color: rgb(199, 25, 25) !important;
     color: white !important;
   }
+
   .overlay {
     position: fixed;
     top: 0;
@@ -31,55 +33,50 @@
   .share-box {
     background: white;
     padding: 15px;
-    /* border-radius: 10px; */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
     text-align: center;
   }
 
-  /* Prevent scrolling when share modal is active */
   .no-scroll {
     overflow: hidden;
   }
-  .video_side_div{
-    width: 90%; 
+
+  .video_side_div {
+    width: 90%;
     margin-left: 10px;
-    border: 5px solid transparent; 
-    display: flex; 
-    justify-content: center; 
-    /* border-radius: 5px;  */
-    box-shadow: 0px 4px 6px rgb(192, 192, 192); 
-    /* background-color: yellow; */
+    border: 5px solid transparent;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0px 4px 6px rgb(192, 192, 192);
   }
-  .video_1{
-    width: 98%; 
+
+  .video_1 {
+    width: 98%;
     margin-top: 10px;
-    /* background-color: yellow; */
   }
-  .video_div_hover:hover{
+
+  .video_div_hover:hover {
     border-radius: 0px;
     border: 5px double rgb(92, 91, 91);
   }
-  .video_div_hover{
+
+  .video_div_hover {
     border: 5px double transparent;
   }
-  .btn-danger{
+
+  .btn-danger {
     margin-left: 10px;
     height: 30px;
   }
-  .btn-danger span{
+
+  .btn-danger span {
     position: relative;
     top: -5px;
   }
 
-
   .d-flex {
     display: flex;
     width: 100%;
-  }
-
-  .video-section {
-    width: 70%;
-    transition: width 0.3s ease-in-out;
   }
 
   .suggested-videos {
@@ -88,20 +85,12 @@
     width: 30%;
     max-height: 670px;
     overflow-y: auto;
-    scrollbar-width: none; /* For Firefox */
-    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
 
-  /* Hide scrollbar for WebKit browsers (Chrome, Safari) */
   .suggested-videos::-webkit-scrollbar {
     display: none;
-  }
-
-  .video_div_hover {
-    border-radius: 4px;
-    width: 97%;
-    margin-bottom: 10px;
-    margin-left: 5px;
   }
 
   .card-img-top {
@@ -113,87 +102,100 @@
     display: none;
   }
 
-  div::-webkit-scrollbar {
-    display: none;
-  }
-  .ov-1{
-    position: relative; 
+  .ov-1 {
+    position: relative;
     top: 60px;
   }
-  .ov-2{
+
+  .ov-2 {
     width: 100%;
   }
-  .ov-3{
-    position: relative; 
-    top: 30px; 
-    width: 70%; 
+
+  .ov-3 {
+    position: relative;
+    top: 30px;
+    width: 70%;
     float: left;
   }
-  .ov-4{
-    width: 95%; 
+
+  .ov-4 {
+    width: 95%;
     margin-left: 2%;
   }
-  .ov-5{
-    width: 100%; 
-    height: 90vh; 
-    border: 1px solid rgb(192, 192, 192); 
-    border-radius: 5px; 
-    box-shadow: 0px 4px 6px rgb(192, 192, 192); 
+
+  .ov-5 {
+    width: 100%;
+    height: 90vh;
+    border: 1px solid rgb(192, 192, 192);
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgb(192, 192, 192);
     padding: 10px;
   }
-  .ov-6{
-    width: 100%; 
-    display: flex; 
+
+  .ov-6 {
+    width: 100%;
+    display: flex;
     justify-content: center;
   }
-  .ov-7{
-    width: 98%; 
-    margin-top: 10px; 
-    max-height: calc(90vh - 20px); 
-    overflow-y: auto; 
-    scrollbar-width: none; 
+
+  .ov-7 {
+    width: 98%;
+    margin-top: 10px;
+    max-height: calc(90vh - 20px);
+    overflow-y: auto;
+    scrollbar-width: none;
     -ms-overflow-style: none;
   }
-  .ov-8{
-    border: 1px solid black; 
-    box-sizing: border-box;
+
+  .ov-8 {
+    border: 1px solid black;
   }
-  .po-rev{
+
+  .po-rev {
     position: relative;
   }
-  .ov-10{
-    width: 25px; 
-    border-radius: 50%; 
+
+  .ov-10 {
+    width: 25px;
+    border-radius: 50%;
     height: 3vh;
     margin-right: 5px;
   }
-  .ov-11{
-    color: black; 
+
+  .ov-11 {
+    color: black;
     top: 2.5px;
     margin-right: 10px;
   }
-  .fw-600{
+
+  .fw-600 {
     font-weight: 600;
   }
-  .hr-line{
-    height: 2px; 
-    width: 100%; 
-    background-color: black; 
+
+  .hr-line {
+    height: 2px;
+    width: 100%;
+    background-color: black;
     margin-bottom: 20px;
   }
-  .mb-10{
+
+  .mb-10 {
     margin-bottom: 10px;
   }
-  .ov-12{
+
+  .ov-12 {
     top: -15px;
   }
-  .td-None{
+
+  .td-None {
     text-decoration: none;
   }
-  .br-None{
+
+  .br-None {
     border-radius: 0px;
   }
-  .fs-13{
+
+  .fs-13 {
     font-size: 13px;
   }
 </style>

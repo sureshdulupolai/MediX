@@ -1,27 +1,9 @@
 {% extends 'base.html' %}
 {% block body %}
-<style>
-    body {
-        /* background-color: #f8f9fa; */
-        /* background-color: yellow; */
-        background-color: #f8f9fa;
-    }
-    .lgo-1{
-        /* height: 100vh; */
-        position: relative;
-        top: 260px;
-    }
-    .lgo-2{
-        width: 50%;
-    }
-    .lgo-3{
-        font-size: 30px;
-    }
-</style>
 
-<div class="container d-flex justify-content-center align-items-center lgo-1">
-    <div class="p-4 border rounded shadow bg-white text-center lgo-2">
-        <h2 class="text-dark lgo-3">Confirm Logout</h2>
+<div class="container d-flex justify-content-center align-items-center min-vh-100 bg-light">
+    <div class="p-4 border rounded shadow bg-white text-center w-50">
+        <h2 class="text-dark fs-3">Confirm Logout</h2>
         <p class="mt-3">Are you sure you want to logout from the system?</p>
 
         <div class="d-flex justify-content-center mt-4">
@@ -30,4 +12,5 @@
         </div>
     </div>
 </div>
+
 {% endblock %}

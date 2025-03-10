@@ -64,6 +64,7 @@ def ProfilePage(request):
             'form1' : data1,
             'profile' : profile,
         }
+        print(profile.Profile_Image)
         return render(request, 'profile.html', context)
 
     else:

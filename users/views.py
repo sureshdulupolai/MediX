@@ -72,15 +72,20 @@ def ProfilePage(request):
 
 def ProfileEdit(request):
     if request.user.is_authenticated:
-        form = ProfileForm()
+        try:
+            user_profile = ProfileDetails.objects.get(NamesUser=request.user)  # Get existing user profile
+        except ProfileDetails.DoesNotExist:
+            user_profile = ProfileDetails(NamesUser=request.user)  # Create profile if not exists
+
         if request.method == 'POST':
-            form = ProfileForm(request.POST,  request.FILES)
+            form = ProfileForm(request.POST, request.FILES, instance=user_profile)  # Update existing profile
             if form.is_valid():
                 form.save()
-                return redirect('profile')
-        
-        context = {'form':form}
+                return redirect('profile')  # Redirect to profile page after saving
+        else:
+            form = ProfileForm(instance=user_profile)  # Pre-fill form with existing data
+
+        context = {'form': form}
         return render(request, 'editProfile.html', context)
 
-    else:
-        return redirect('login')
+    return redirect('login')  # Redirect to login if not authenticated

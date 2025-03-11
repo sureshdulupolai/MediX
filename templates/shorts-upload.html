@@ -41,15 +41,25 @@
 
         <form method="POST" enctype="multipart/form-data" class="su-4">
             <!-- {{ csrf_token }} -->
+            <div class="mb-3">
+                <label for="" class="form-label">Thumbnail Link : </label>
+                <span class="su-5">{{ form.short_thumbnail }}</span>
+            </div>
 
-            {% for field in form %}
-                {% if field.name in "short_title short_thumbnail short_link short_description customer_name" %}
-                    <div class="mb-3">
-                        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-                        <span class="su-5">{{ field }}</span>
-                    </div>
-                {% endif %}
-            {% endfor %}
+            <div class="mb-3">
+                <label for="" class="form-label">Short Link : </label>
+                <span class="su-5">{{ form.short_link }}</span>
+            </div>
+
+            <div class="mb-3">
+                <label for="" class="form-label">Short Title : </label>
+                <span class="su-5">{{ form.short_title }}</span>
+            </div>
+
+            <div class="mb-3">
+                <label for="" class="form-label">Short Description : </label><br>
+                <span class="su-5">{{ form.short_description }}</span>
+            </div>
 
             <button type="submit" class="btn btn-primary w-100">Upload</button>
         </form>

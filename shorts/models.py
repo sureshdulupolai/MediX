@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 # Create your models here.
 class ShortsDetails(models.Model):
@@ -8,7 +9,7 @@ class ShortsDetails(models.Model):
     short_link = models.FileField(upload_to='video/')
     short_description = models.CharField(max_length=200)
     created_date = models.DateField(default=timezone.now)
-    customer_name = models.CharField(max_length=100)
+    customer_name = models.ForeignKey(User, on_delete=models.CASCADE, default='user_name')
     view = models.FloatField(default=230.64)
 
     def __str__(self):

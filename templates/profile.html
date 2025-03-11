@@ -216,10 +216,10 @@
         {% if form1 %}
         <div class="container div-1-mt mt-3 po-rev tp-10">
             <h2 class="txt-div-1">Video</h2>
-              <div class="movie-container wd-100">
+              <div class="movie-container wd-100" style="height: 38vh; position: relative; top: 10px;">
                 {% for vd in form1 %}
                 <a href="{% url 'video_page' vd.video_title %}" class="pf-2">
-                  <div class="movie-card" title="{{ vd.view }}k views">
+                  <div class="movie-card" title="{{ vd.view }}k views" style="position: absolute; top: 0px;">
                     <div class="img-Div" style="height: 174px;">
                       <img src="/media/{{ vd.video_thumbnail }}" alt="Image is Not Loading" class="pf-3" />
                     </div>

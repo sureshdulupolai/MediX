@@ -178,6 +178,11 @@
   .ml-5{
     margin-left: 5px;
   }
+  .edit-profile{
+    width: 12%;
+    height: 40px;
+    background-color: #111;
+  }
 </style>
   {% if not user.is_authenticated %}
   <div class="container mt-3 pf-1">
@@ -197,7 +202,12 @@
         <div class="channel-header mt-80">
             <img src="{{ profile.Profile_Image.url }}" alt="Channel Profile">
             <div>
-                <h3>{{ profile.Channel_Name }}</h3>
+              <h3 class="d-flex align-items-center">
+                {{ profile.Channel_Name }}
+                <a href="#" class="ms-2 text-decoration-none text-primary" role="button">
+                  <i class="fas fa-edit"></i>
+                </a>
+              </h3>
                 <p>@{{ profile.uName | truncatechars:20 }} · 378 subscribers · 6 videos</p>
                 <button class="btn btn-dark">Subscribed ✓</button>
             </div>

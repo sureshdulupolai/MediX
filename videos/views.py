@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from shorts.models import ShortsDetails
 from banner.models import BannerDetails
+from users.models import ProfileDetails
 from django.db.models import Q
 import random
 
@@ -23,29 +24,15 @@ def homepage(request):
     ban = list(BannerDetails.objects.all().values())
     val = callVideo()
     shorts = list(short())
-    val1 = []; val2 = []
-    # for i in val:
-    #     if len(i['video_title']) <= 32:
-    #         if i['customer_name']:
-    #             i['customer_name'] = i['customer_name'].title()
-    #         val1 += [i]
-    #     else:
-    #         if i['customer_name']:
-    #             i['customer_name'] = i['customer_name'].title()
-    #         val2 += [i]
-    # for j in shorts:
-    #     if j['customer_name']:
-    #             j['customer_name'] = j['customer_name'].title()
-
 
     random.shuffle(val)
-    random.shuffle(val2)
     random.shuffle(shorts)
     random.shuffle(ban)
 
+    print(val)
+
     context = {
         'video' : val,
-        'video2' : val2,
         'shorts' : shorts,
         'banner' : ban,
     }

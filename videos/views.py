@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from shorts.models import ShortsDetails
 from banner.models import BannerDetails
+from django.db.models import Q
 import random
 
 def short():
@@ -23,27 +24,27 @@ def homepage(request):
     val = callVideo()
     shorts = list(short())
     val1 = []; val2 = []
-    for i in val:
-        if len(i['video_title']) <= 32:
-            if i['customer_name']:
-                i['customer_name'] = i['customer_name'].title()
-            val1 += [i]
-        else:
-            if i['customer_name']:
-                i['customer_name'] = i['customer_name'].title()
-            val2 += [i]
-    for j in shorts:
-        if j['customer_name']:
-                j['customer_name'] = j['customer_name'].title()
+    # for i in val:
+    #     if len(i['video_title']) <= 32:
+    #         if i['customer_name']:
+    #             i['customer_name'] = i['customer_name'].title()
+    #         val1 += [i]
+    #     else:
+    #         if i['customer_name']:
+    #             i['customer_name'] = i['customer_name'].title()
+    #         val2 += [i]
+    # for j in shorts:
+    #     if j['customer_name']:
+    #             j['customer_name'] = j['customer_name'].title()
 
 
-    random.shuffle(val1)
+    random.shuffle(val)
     random.shuffle(val2)
     random.shuffle(shorts)
     random.shuffle(ban)
 
     context = {
-        'video' : val1,
+        'video' : val,
         'video2' : val2,
         'shorts' : shorts,
         'banner' : ban,
@@ -60,16 +61,17 @@ def openVideoPage(request, video_data=None):
         if video_data.isdigit():
             video = VideoDetails.objects.filter(id=video_data).first()
         else: 
-            print(video_data)
-            video = VideoDetails.objects.filter(video_title__icontains=video_data) | \
-                    VideoDetails.objects.filter(customer_name__icontains=video_data) | \
-                    VideoDetails.objects.filter(video_description__icontains=video_data)
-            video = video.first()
-        print(video)
+            video = VideoDetails.objects.filter(
+                Q(video_title__icontains=video_data) |
+                Q(customer_name__username__icontains=video_data) |
+                Q(video_description__icontains=video_data)
+            ).first()
+
         if video:
-            # removing a particular video, which is running on
+            # Removing the currently playing video from the list
             other_videos = other_videos.exclude(id=video.id)
-    context = {"video": video, "other_videos": other_videos, 'req' : req}  
+
+    context = {"video": video, "other_videos": other_videos, 'req': req}  
     return render(request, 'Open-Video.html', context)
 
 def searchPage(request):

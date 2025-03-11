@@ -57,7 +57,7 @@ def logout_ask(request):
 def ProfilePage(request):
     if request.user.is_authenticated:
         # data = VideoDetails.objects.get(id=8)
-        data1 = VideoDetails.objects.all().values()
+        data1 = VideoDetails.objects.filter(customer_name=request.user.id)
         profile = ProfileDetails.objects.filter(NamesUser=request.user).first() 
         context = {
             # 'form' : data,

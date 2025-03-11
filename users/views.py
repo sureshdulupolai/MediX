@@ -56,11 +56,11 @@ def logout_ask(request):
 
 def ProfilePage(request):
     if request.user.is_authenticated:
-        data = VideoDetails.objects.get(id=8)
+        # data = VideoDetails.objects.get(id=8)
         data1 = VideoDetails.objects.all().values()
         profile = ProfileDetails.objects.filter(NamesUser=request.user).first() 
         context = {
-            'form' : data,
+            # 'form' : data,
             'form1' : data1,
             'profile' : profile,
         }

@@ -7,7 +7,7 @@ class VideoDetails(models.Model):
     video_thumbnail = models.ImageField(upload_to='thum/')
     video_title = models.CharField(max_length=200)
     video_link = models.FileField(upload_to='video/')
-    video_description = models.CharField(max_length=5000)
+    video_description = models.TextField(max_length=5000)
     created_date = models.DateField(default=timezone.now)
     video_aim = models.CharField(max_length=100)
     customer_name = models.CharField(max_length=100)

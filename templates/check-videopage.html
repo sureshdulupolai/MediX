@@ -1,29 +1,47 @@
 {% extends 'base.html' %}
 {% block body %}
-{% for i in category %}
-<div class="container div-1-mt mt-3">
-    <h2 class="txt-div-1">{{ i }}</h2>
-    <div class="movie-container">
-        {% for video in videos %}
-        <a href="#" class="cv-a">
-            <div class="movie-card cv-1" title="{{ video.view }} views">
-                <div class="img-Div cv-2">
-                    <img class="cv-3" src="{{ video.video_thumbnail.url }}" alt="Image Not Loading" />
-                </div>
-                <div class="txtDivVideo">
-                    <span class="txt-1">{{ video.video_title | truncatechars:60 }}</span><br/>
-                    <div class="txt-3">
-                        <span>
-                            <div><span class="cv-4">{{ video.customer_name }}</span></div>
-                            <i class="fa-solid fa-eye"></i>
-                            <span class="cv-5">{{ video.created_date }}</span>
-                        </span>
+
+<style>
+    .custom-width {
+        width: 100%;
+        max-width: 800px; /* Adjust the max width as needed */
+    }
+    .movie-card {
+        transition: transform 0.3s ease-in-out;
+    }
+    .movie-card:hover {
+        transform: scale(1.05);
+    }
+</style>
+
+<div class="container d-flex flex-column align-items-center bg-light py-4">
+    <h2 class="text-center text-dark mb-4">Video Categories</h2>
+
+    {% for i in category %}
+    <div class="p-4 border rounded shadow bg-white custom-width mb-4">
+        <h3 class="text-primary">{{ i }}</h3>
+        <div class="row g-3">
+            {% for video in videos %}
+            <div class="col-md-6 col-lg-4">
+                <a href="#" class="text-decoration-none text-dark">
+                    <div class="movie-card p-3 border rounded shadow-sm" title="{{ video.view }} views">
+                        <div class="img-Div text-center">
+                            <img class="img-fluid rounded" src="{{ video.video_thumbnail.url }}" alt="Thumbnail Not Loading">
+                        </div>
+                        <div class="mt-2">
+                            <span class="fw-bold">{{ video.video_title|truncatechars:60 }}</span>
+                            <div class="d-flex justify-content-between text-muted small">
+                                <span>{{ video.customer_name }}</span>
+                                <span>{{ video.created_date }}</span>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
-        </a>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
+    {% endfor %}
 </div>
-{% endfor %}
+
 {% endblock %}

@@ -73,7 +73,6 @@ def ProfilePage(request):
 def ProfileEdit(request):
     if request.user.is_authenticated:
         form = ProfileForm()
-
         if request.method == 'POST':
             form = ProfileForm(request.POST,  request.FILES)
             if form.is_valid():

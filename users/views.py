@@ -61,7 +61,7 @@ def ProfilePage(request):
         data1 = VideoDetails.objects.filter(customer_name=request.user.id)
         profile = ProfileDetails.objects.filter(NamesUser=request.user).first() 
         Banner = BannerDetails.objects.filter(uName=request.user.id)
-        print(Banner)
+        # print(Banner)
         context = {
             # 'form' : data,
             'form1' : data1,

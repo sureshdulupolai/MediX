@@ -16,21 +16,29 @@ def short():
     return short
 
 def callVideo():
-    return list(VideoDetails.objects.all())  # Convert QuerySet to list
+    return VideoDetails.objects.all().values()
 
 def homepage(request):
-    ban = list(BannerDetails.objects.all().values())  # Ensure this is a list
+    ban = list(BannerDetails.objects.all().values())
     val = callVideo()  # Already converted to list
     shorts = list(short())  # Ensure this is a list
+    val1 = []
+    for i in val:
+        title = i['video_title']
+        if len(title) >= 32:
+            val1 += [i]
+        else:
+            continue
 
-    random.shuffle(val)  # Now it works
-    random.shuffle(shorts)  # Ensure shorts is a list before shuffling
-    random.shuffle(ban)  # Ensure ban is a list before shuffling
+    # print(val1)
+    random.shuffle(val1)
+    random.shuffle(shorts)
+    random.shuffle(ban)
 
-    print(val)
+    # print(val)
 
     context = {
-        'video': val,
+        'video': val1,
         'shorts': shorts,
         'banner': ban,
     }

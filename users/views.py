@@ -93,7 +93,7 @@ def ProfileEdit(request):
                 if c1 == 0:
                     form.save()
                     return redirect('profile')
-                else: messages.warning(request,'Nickname Already Exist')
+                else: messages.warning(request,'Nickname Already Exist "{}", Choose another Nickname'.format(value1))
         else:
             form = ProfileForm(instance=user_profile)  # Pre-fill form with existing data
             messages.success(request,'You Can Edit Your Profile Here')

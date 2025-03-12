@@ -84,30 +84,19 @@ def ProfileEdit(request):
         if request.method == 'POST':
             form = ProfileForm(request.POST, request.FILES, instance=user_profile)
             if form.is_valid():
-                lst1 = []; c1 = 0
-                user_details = ProfileDetails.objects.all().values()
+                lst1 = []; c1 = 0; user_details = ProfileDetails.objects.all().values(); value1 = form.instance.uName
                 for i in user_details:
                     lst1 += [i['uName']]
-                value1 = form.instance.uName
                 for j in lst1:
-                    if value1 == j:
-                        c1 = 1
-                    else:
-                        continue
+                    if value1 == j: c1 = 1
+                    else: continue
                 if c1 == 0:
                     form.save()
                     return redirect('profile')
-                else:
-                    messages.warning(
-                        request,
-                        'UserName Already Exist'
-                    )
+                else: messages.warning(request,'Nickname Already Exist')
         else:
             form = ProfileForm(instance=user_profile)  # Pre-fill form with existing data
-            messages.success(
-                request,
-                'You Can Edit Your Profile Here'
-            )
+            messages.success(request,'You Can Edit Your Profile Here')
 
         context = {'form': form}
         return render(request, 'editProfile.html', context)

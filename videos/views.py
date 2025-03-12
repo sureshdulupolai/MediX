@@ -15,26 +15,24 @@ def short():
     short = ShortsDetails.objects.all().values()
     return short
 
-# Create your views here.
 def callVideo():
-    video = VideoDetails.objects.all().values()
-    return video
+    return list(VideoDetails.objects.all())  # Convert QuerySet to list
 
 def homepage(request):
-    ban = list(BannerDetails.objects.all().values())
-    val = callVideo()
-    shorts = list(short())
+    ban = list(BannerDetails.objects.all().values())  # Ensure this is a list
+    val = callVideo()  # Already converted to list
+    shorts = list(short())  # Ensure this is a list
 
-    random.shuffle(val)
-    random.shuffle(shorts)
-    random.shuffle(ban)
+    random.shuffle(val)  # Now it works
+    random.shuffle(shorts)  # Ensure shorts is a list before shuffling
+    random.shuffle(ban)  # Ensure ban is a list before shuffling
 
     print(val)
 
     context = {
-        'video' : val,
-        'shorts' : shorts,
-        'banner' : ban,
+        'video': val,
+        'shorts': shorts,
+        'banner': ban,
     }
     return render(request, 'homepage.html', context)
 

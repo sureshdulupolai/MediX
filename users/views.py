@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from videos.models import VideoDetails
 from .models import ProfileDetails
+from banner.models import BannerDetails
 
 # Create your views here.
 def SignupPage(request):
@@ -59,10 +60,13 @@ def ProfilePage(request):
         # data = VideoDetails.objects.get(id=8)
         data1 = VideoDetails.objects.filter(customer_name=request.user.id)
         profile = ProfileDetails.objects.filter(NamesUser=request.user).first() 
+        Banner = BannerDetails.objects.filter(uName=request.user.id)
+        print(Banner)
         context = {
             # 'form' : data,
             'form1' : data1,
             'profile' : profile,
+            'banner' : Banner,
         }
         # print(profile.Profile_Image)
         return render(request, 'profile.html', context)

@@ -267,53 +267,52 @@
             </div>
         </div>
         <div class="hr-lineProfile"></div>
-        {% if form1 %}
-        <div class="container div-1-mt mt-3 po-rev tp-10">
-            <h2 class="txt-div-1">Your Uploaded Video</h2>
-              <div class="movie-container wd-100" style="height: 38vh; position: relative; top: 10px;">
-                {% for vd in form1 %}
-                <a href="{% url 'video_page' vd.video_title %}" class="pf-2">
-                  <div class="movie-card" title="{{ vd.view }}k views" style="position: absolute; top: 0px;">
-                    <div class="img-Div" style="height: 174px;">
-                      <img src="/media/{{ vd.video_thumbnail }}" alt="Image is Not Loading" class="pf-3" />
-                    </div>
-                    <div class="txtDivVideo">
-                      <span class="txt-1">{{ vd.video_title | truncatechars:55 }}</span><br/>
-                      <div class="txt-3">
-                        <span>
-                          <div><span class="pf-4">{{ profile.Channel_Name | truncatechars:20 }}</span></div>
-                          <i class="fa-solid fa-eye"></i><span class="ml-5">{{ vd.created_date }}</span>
-                        </span>
-                      </div>
-                    </div>
+        {% if form1 or banner %}
+          {% if form1 %}
+              <div class="container div-1-mt mt-3 po-rev tp-10">
+                  <h2 class="txt-div-1">Your Uploaded Videos</h2>
+                  <div class="movie-container wd-100" style="height: 38vh; position: relative; top: 10px;">
+                      {% for vd in form1 %}
+                      <a href="{% url 'video_page' vd.video_title %}" class="pf-2">
+                          <div class="movie-card" title="{{ vd.view }}k views" style="position: absolute; top: 0px;">
+                              <div class="img-Div" style="height: 174px;">
+                                  <img src="/media/{{ vd.video_thumbnail }}" alt="Image is Not Loading" class="pf-3" />
+                              </div>
+                              <div class="txtDivVideo">
+                                  <span class="txt-1">{{ vd.video_title | truncatechars:55 }}</span><br/>
+                                  <div class="txt-3">
+                                      <span>
+                                          <div><span class="pf-4">{{ profile.Channel_Name | truncatechars:20 }}</span></div>
+                                          <i class="fa-solid fa-eye"></i><span class="ml-5">{{ vd.created_date }}</span>
+                                      </span>
+                                  </div>
+                              </div>
+                          </div>
+                      </a>
+                      {% endfor %}
                   </div>
-                </a>
-                {% endfor %}
               </div>
-          </div>
-        {% else %}
-        <div class="no-data">
-            <p>You have not posted something yet.</p>
-        </div>
-        {% endif %}
+          {% endif %}
 
-        <!-- -->
-        {% if banner %}
-        <div class="banner-section">
-          <h3>Your Uploaded Banners</h3>
-          <div class="banner-container">
-            {% for ban in banner %}
-              <div class="banner-card">
-                  <div class="img-div"><img src="{{ ban.banner_img.url }}" alt="Banner"></div>
-                  <span class="text-banner">Uploaded on: {{ ban.banner_datetime }}</span>
+          {% if banner %}
+              <div class="banner-section">
+                  <h3>Your Uploaded Banners</h3>
+                  <div class="banner-container">
+                      {% for ban in banner %}
+                      <div class="banner-card">
+                          <div class="img-div"><img src="{{ ban.banner_img.url }}" alt="Banner"></div>
+                          <span class="text-banner">Uploaded on: {{ ban.banner_datetime }}</span>
+                      </div>
+                      {% endfor %}
+                  </div>
               </div>
-            {% endfor %}
+          {% endif %}
+      {% else %}
+          <div class="no-data">
+              <p>You have not posted anything yet.</p>
           </div>
-      </div>
       {% endif %}
-    </div>
-    
-    <!-- -->
+
     
 <script>
   setTimeout(function() {

@@ -76,29 +76,35 @@ def ProfilePage(request):
 
 def ProfileEdit(request):
     if request.user.is_authenticated:
-        try:
-            user_profile = ProfileDetails.objects.get(NamesUser=request.user)
-        except ProfileDetails.DoesNotExist:
-            user_profile = ProfileDetails(NamesUser=request.user)
-
-        if request.method == 'POST':
-            form = ProfileForm(request.POST, request.FILES, instance=user_profile)
-            if form.is_valid():
-                lst1 = []; c1 = 0; user_details = ProfileDetails.objects.all().values(); value1 = form.instance.uName
-                for i in user_details:
-                    lst1 += [i['uName']]
-                for j in lst1:
-                    if value1 == j: c1 = 1
-                    else: continue
-                if c1 == 0:
-                    form.save()
-                    return redirect('profile')
-                else: messages.warning(request,'Nickname Already Exist "{}", Choose another Nickname'.format(value1))
-        else:
-            form = ProfileForm(instance=user_profile)  # Pre-fill form with existing data
+        if request.method == 'GET':
             messages.success(request,'You Can Edit Your Profile Here')
 
+        user_profile = ProfileDetails.objects.get(NamesUser=request.user)
+        form = ProfileForm(request.POST or None, request.FILES or None, instance=user_profile)  # Pre-fill form with existing data
+        v1 = form.instance.uName
+        
+        if request.method == 'POST':
+            if form.is_valid():
+                if 'Profile_Image' in request.FILES:
+                    form.instance.Profile_Image = request.FILES['Profile_Image']
+                    
+                if form.instance.uName == v1:
+                    form.save()
+                    return redirect('profile')
+                else:
+                    lst1 = []; c1 = 0; user_details = ProfileDetails.objects.all().values(); value1 = form.instance.uName
+                    for i in user_details:
+                        lst1 += [i['uName']]
+                    for j in lst1:
+                        if value1 == j: c1 = 1
+                        else: continue
+                    if c1 == 0:
+                        form.save()
+                        return redirect('profile')
+                    else: messages.warning(request,'Nickname Already Exist "{}", Choose another Nickname'.format(value1))
+                
         context = {'form': form}
         return render(request, 'editProfile.html', context)
 
     return redirect('login')
+

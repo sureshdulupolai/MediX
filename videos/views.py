@@ -62,7 +62,8 @@ def openVideoPage(request, video_data=None):
 
         if video:
             # Removing the currently playing video from the list
-            other_videos = other_videos.exclude(id=video.id)
+            other_videos = list(other_videos.exclude(id=video.id))
+            random.shuffle(other_videos)
 
     context = {"video": video, "other_videos": other_videos, 'req': req}  
     return render(request, 'Open-Video.html', context)

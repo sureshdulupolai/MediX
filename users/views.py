@@ -84,12 +84,13 @@ def ProfileEdit(request):
         v1 = form.instance.uName
         
         if request.method == 'POST':
+            print(form.instance.Profile_Image)
             if form.is_valid():
-                if 'Profile_Image' in request.FILES:
-                    form.instance.Profile_Image = request.FILES['Profile_Image']
-                    
+                print(form.instance.Profile_Image)
                 if form.instance.uName == v1:
+                    print(form.instance.Profile_Image)
                     form.save()
+                    print(form.instance.Profile_Image)
                     return redirect('profile')
                 else:
                     lst1 = []; c1 = 0; user_details = ProfileDetails.objects.all().values(); value1 = form.instance.uName

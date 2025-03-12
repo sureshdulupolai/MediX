@@ -77,10 +77,9 @@ def searchPage(request):
             video = VideoDetails.objects.filter(id=video_data).first()
         else:
             video = VideoDetails.objects.filter(video_title__icontains=video_data) | \
-                    VideoDetails.objects.filter(customer_name__icontains=video_data) | \
                     VideoDetails.objects.filter(video_description__icontains=video_data)
             # print('v2', video)
-        
+    
     val = list(video)
     context = {
         'video': val,

@@ -40,11 +40,11 @@ def homepage(request):
         lst1 += [(date_part, t1, t2)]
     print(lst1)
 
-    date_list = []; now = datetime.now(); date1 = int(now.strftime("%d")); time_now = now.strftime("%H:%M")
+    now = datetime.now(); date1 = int(now.strftime("%d")); time_now = now.strftime("%H:%M")
     t3 = int(time_now[0:2]); t4 = int(time_now[3:])
-    date_list.append((date1, t3, t4))
+    current_day_time = (date1, t3, t4)
     date2 = date1 - 1  
-    print(date_list)
+    print(current_day_time)
 
     
 

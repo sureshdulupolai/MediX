@@ -65,16 +65,21 @@ def ProfilePage(request):
         shorts = ShortsDetails.objects.filter(customer_name=request.user.id)
 
         count_video = videos.count()
+        count_banner = Banner.count()
         count_short = shorts.count()
+
+        total_data = count_video + count_short + count_banner
 
         context = {
             # 'form' : data,
             'form1' : videos,
             'profile' : profile,
             'banner' : Banner,
+            'ban_count' : count_banner,
             'vd_count' : count_video,
             'shorts': shorts,
             'st_count': count_short,
+            'total_data' : total_data,
         }
         # print(profile.Profile_Image)
         return render(request, 'profile.html', context)

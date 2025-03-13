@@ -301,8 +301,8 @@
                   <i class="fas fa-edit"></i>
                 </a>
               </h3>
-                <p>@{{ profile.uName | truncatechars:20 }} · 378 subscribers</p>
-                <button class="btn btn-dark">Subscribed ✓</button>
+                <p>@{{ profile.uName | truncatechars:20 }} · 378 subscribers · {{ total_data }} total post</p>
+                <button class="btn btn-dark">Subscribed <span class="ms-1">✓</span></button>
             </div>
         </div>
         <div class="hr-lineProfile"></div>
@@ -335,7 +335,7 @@
 
           {% if banner %}
               <div class="banner-section">
-                  <h3>Your Uploaded Banners</h3>
+                  <h3>Your Uploaded Banner<span class="gray_text">· {{ ban_count }} banners uploaded</span></h3>
                   <div class="banner-container">
                       {% for ban in banner %}
                       <div class="banner-card">
@@ -350,7 +350,7 @@
           {% if shorts %}
           <!-- Shorts Section -->
           <div class="container hp-9" style="margin-top: 30px;">
-            <h2 class="txt-div-1">Short<span class="gray_text">· {{ st_count }} short uploaded</span></h2>
+            <h2 class="txt-div-1">Short<span class="gray_text">· {{ st_count }} shorts uploaded</span></h2>
             <div class="shorts-container hp-10">
               {% for st in shorts %}
               <a href="{% url 'check_connection' st.id %}" class="short-a">

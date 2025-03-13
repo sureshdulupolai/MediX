@@ -20,22 +20,27 @@ def callVideo():
 
 def homepage(request):
     ban = list(BannerDetails.objects.all().values())
-    val = callVideo()  # Already converted to list
-    shorts = list(short())  # Ensure this is a list
-    val1 = []
+    val = callVideo()
+    
+    shorts = list(short())
+    val1 = []; a1 = 0
     for i in val:
         title = i['video_title']
         if len(title) >= 32:
             val1 += [i]
+            a1 += 1
         else:
             continue
-
-    # print(val1)
+    
     random.shuffle(val1)
     random.shuffle(shorts)
     random.shuffle(ban)
 
-    # print(val)
+    if len(val1) / 4 == 0:
+        pass
+    else:
+        val1.pop()
+        print(len(val1))
 
     context = {
         'video': val1,

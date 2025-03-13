@@ -38,13 +38,13 @@ def homepage(request):
         date_part = int(i['banner_datetime'].strftime("%d")); time_part = i['banner_datetime'].strftime("%H:%M")
         t1 = int(time_part[0:2]); t2 = int(time_part[3:])
         lst1 += [(date_part, t1, t2)]
-    print(lst1)
+    # print(lst1)
 
     now = datetime.now(); date1 = int(now.strftime("%d")); time_now = now.strftime("%H:%M")
     t3 = int(time_now[0:2]); t4 = int(time_now[3:])
     current_day_time = (date1, t3, t4)
     date2 = date1 - 1
-    print(current_day_time)
+    # print(current_day_time)
 
     
 

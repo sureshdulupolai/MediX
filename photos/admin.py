@@ -12,4 +12,4 @@ class PostAdmin(admin.ModelAdmin):
     inlines = [PostImageInline]  # Allows adding multiple images inside the Post admin
 
 admin.site.register(Post, PostAdmin)
-admin.site.register(PostImage) 
+admin.site.register(PostImage)

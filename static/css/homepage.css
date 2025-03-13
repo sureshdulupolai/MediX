@@ -39,9 +39,7 @@ body {
   .carousel-control-prev {
     height: 90%;
     width: 100px;
-    /* background-color: wheat; */
     position: absolute;
-    /* left: 20px; */
     top: 40px;
   }
   .carousel-control-next {
@@ -60,7 +58,6 @@ body {
     position: relative;
     top: 80px;
     margin: 0px;
-    margin-left: 0%;
     width: 100%;
   }
   .txt-div-1 {
@@ -76,7 +73,6 @@ body {
     /* overflow-x: auto; */
     padding: 20px 0;
     width: 96vw;
-    margin-top: -15px;
     overflow-y: scroll;
     -ms-overflow-style: none;
     scrollbar-width: none;

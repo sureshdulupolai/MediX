@@ -43,7 +43,7 @@ def homepage(request):
     now = datetime.now(); date1 = int(now.strftime("%d")); time_now = now.strftime("%H:%M")
     t3 = int(time_now[0:2]); t4 = int(time_now[3:])
     current_day_time = (date1, t3, t4)
-    date2 = date1 - 1  
+    date2 = date1 - 1
     print(current_day_time)
 
     

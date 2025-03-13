@@ -62,11 +62,14 @@ def ProfilePage(request):
         profile = ProfileDetails.objects.filter(NamesUser=request.user).first() 
         Banner = BannerDetails.objects.filter(uName=request.user.id)
 
+        count_video = data1.count()
+
         context = {
             # 'form' : data,
             'form1' : data1,
             'profile' : profile,
             'banner' : Banner,
+            'vd_count' : count_video,
         }
         # print(profile.Profile_Image)
         return render(request, 'profile.html', context)

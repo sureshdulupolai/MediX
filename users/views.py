@@ -35,7 +35,7 @@ def SignupPage(request):
 
 def Login_in(request):
     if request.method == "POST":
-        form = AuthenticationForm(data=request.POST)  # django built-in login form
+        form = AuthenticationForm(data=request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
@@ -58,7 +58,6 @@ def logout_ask(request):
 
 def ProfilePage(request):
     if request.user.is_authenticated:
-        # data = VideoDetails.objects.get(id=8)
         videos = VideoDetails.objects.filter(customer_name=request.user.id)
         profile = ProfileDetails.objects.filter(NamesUser=request.user).first() 
         Banner = BannerDetails.objects.filter(uName=request.user.id)
@@ -71,7 +70,6 @@ def ProfilePage(request):
         total_data = count_video + count_short + count_banner
 
         context = {
-            # 'form' : data,
             'form1' : videos,
             'profile' : profile,
             'banner' : Banner,
@@ -81,7 +79,6 @@ def ProfilePage(request):
             'st_count': count_short,
             'total_data' : total_data,
         }
-        # print(profile.Profile_Image)
         return render(request, 'profile.html', context)
 
     else:
@@ -130,7 +127,6 @@ def checkConnection(request, item_title):
     return render(request, 'check-connection.html', context)
 
 def checkConnectionShorts(request, id):
-    # print(st_id)
     a2 = ShortsDetails.objects.filter(id=id).first()
     context = {
         'a2' : a2,

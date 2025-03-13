@@ -313,12 +313,12 @@
         <div class="video_side_div po-rev ov-12">
           <div class="video_1">
             {% for i in other_videos %}
-            <a href="{% url 'video_page' i.video_title %}" class="td-None">
+            <a href="{% url 'video_page' i.video_title %}" class="td-None" title="{{ i.view }} views">
               <div class="card video_div_hover">
                 <img src="/media/{{ i.video_thumbnail }}" class="card-img-top br-None" alt="Video Thumbnail">
                 <div class="card-body">
                   <h6 class="card-title">{{ i.video_title | truncatechars:60 }}</h6>
-                  <p class="card-text fs-13">{{ i.view }}k views • 1 year ago</p>
+                  <p class="card-text fs-13"><i class="fa-solid fa-eye"></i> {{ i.created_date }}</p>
                 </div>
               </div>
             </a>

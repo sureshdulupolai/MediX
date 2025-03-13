@@ -6,6 +6,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from videos.models import VideoDetails
 from .models import ProfileDetails
 from banner.models import BannerDetails
+from shorts.models import ShortsDetails
 
 # Create your views here.
 def SignupPage(request):
@@ -58,18 +59,22 @@ def logout_ask(request):
 def ProfilePage(request):
     if request.user.is_authenticated:
         # data = VideoDetails.objects.get(id=8)
-        data1 = VideoDetails.objects.filter(customer_name=request.user.id)
+        videos = VideoDetails.objects.filter(customer_name=request.user.id)
         profile = ProfileDetails.objects.filter(NamesUser=request.user).first() 
         Banner = BannerDetails.objects.filter(uName=request.user.id)
+        shorts = ShortsDetails.objects.filter(customer_name=request.user.id)
 
-        count_video = data1.count()
+        count_video = videos.count()
+        count_short = shorts.count()
 
         context = {
             # 'form' : data,
-            'form1' : data1,
+            'form1' : videos,
             'profile' : profile,
             'banner' : Banner,
             'vd_count' : count_video,
+            'shorts': shorts,
+            'st_count': count_short,
         }
         # print(profile.Profile_Image)
         return render(request, 'profile.html', context)
@@ -116,5 +121,13 @@ def checkConnection(request, item_title):
     a1 = VideoDetails.objects.filter(video_title=item_title).first()
     context = {
         'a1' : a1,
+    }
+    return render(request, 'check-connection.html', context)
+
+def checkConnectionShorts(request, id):
+    # print(st_id)
+    a2 = ShortsDetails.objects.filter(id=id).first()
+    context = {
+        'a2' : a2,
     }
     return render(request, 'check-connection.html', context)

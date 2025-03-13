@@ -237,21 +237,10 @@
     box-sizing: border-box; 
     padding-left: 20px;
   }
+  .three-dot-class:hover{
+    background-color: turquoise;
+  }
 </style>
-  {% if not user.is_authenticated %}
-  <div class="container mt-3 pf-1">
-   <div id="notificationBar" class="alert alert-danger alert-dismissible fade show" role="alert">
-       <strong>You are not login!</strong> Please login now. <a class="btn btn-danger" href="{% url 'login' %}"><span>Go to login</span></a>
-       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-   </div>
-   </div>
-   {% else %}
-   <div class="container mt-3 pf-1">
-    <div id="successNotification" class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-        <strong>You have successfully logged in!</strong>
-    </div>
-  </div>
-  {% endif %}
     <div class="container overflow-hd">
         <div class="channel-header mt-80">
             <img src="{{ profile.Profile_Image.url }}" alt="Channel Profile">
@@ -273,16 +262,16 @@
                   <h2 class="txt-div-1">Your Uploaded Videos</h2>
                   <div class="movie-container wd-100" style="height: 38vh; position: relative; top: 10px;">
                       {% for vd in form1 %}
-                      <a href="{% url 'video_page' vd.video_title %}" class="pf-2">
+                      <a href="{% url 'check_connection' vd.video_title %}" class="pf-2">
                           <div class="movie-card" title="{{ vd.view }}k views">
                               <div class="img-Div" style="height: 174px;">
                                   <img src="/media/{{ vd.video_thumbnail }}" alt="Image is Not Loading" class="pf-3" />
                               </div>
                               <div class="txtDivVideo">
-                                  <span class="txt-1">{{ vd.video_title | truncatechars:55 }}</span><br/>
-                                  <div class="txt-3">
+                                  <span class="txt-1">{{ vd.video_title | truncatechars:32 }}</span><br/>
+                                  <div class="txt-3" style="position: relative;">
                                       <span>
-                                          <div><span class="pf-4">{{ profile.Channel_Name | truncatechars:20 }}</span></div>
+                                          <div><span class="pf-4">{{ profile.uName | truncatechars:20 }}</span></div>
                                           <i class="fa-solid fa-eye"></i><span class="ml-5">{{ vd.created_date }}</span>
                                       </span>
                                   </div>
@@ -312,21 +301,4 @@
               <p>You have not posted anything yet.</p>
           </div>
       {% endif %}
-
-    
-<script>
-  setTimeout(function() {
-            let successNotification = document.getElementById("notificationBar");
-            if (successNotification) {
-                successNotification.remove();
-            }
-        }, 9000);
-
-  setTimeout(function() {
-            let successNotification = document.getElementById("successNotification");
-            if (successNotification) {
-                successNotification.remove();
-            }
-        }, 4000);
-</script>
 {% endblock %}

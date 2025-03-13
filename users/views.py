@@ -109,3 +109,9 @@ def ProfileEdit(request):
 
     return redirect('login')
 
+def checkConnection(request, item_title):
+    a1 = VideoDetails.objects.filter(video_title=item_title).first()
+    context = {
+        'a1' : a1,
+    }
+    return render(request, 'check-connection.html', context)

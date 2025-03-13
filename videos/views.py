@@ -7,8 +7,9 @@ from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from shorts.models import ShortsDetails
 from banner.models import BannerDetails
-from users.models import ProfileDetails
+# from users.models import ProfileDetails
 from django.db.models import Q
+from datetime import datetime, date
 import random
 
 def short():
@@ -32,6 +33,26 @@ def homepage(request):
         else:
             continue
     
+    lst1 = []
+    for i in ban:
+        date_part = int(i['banner_datetime'].strftime("%d")); time_part = i['banner_datetime'].strftime("%H:%M")
+        t1 = int(time_part[0:2]); t2 = int(time_part[3:])
+        lst1 += [(date_part, t1, t2)]
+    print(lst1)
+
+    date_list = []; now = datetime.now(); date1 = int(now.strftime("%d")); time_now = now.strftime("%H:%M")
+    t3 = int(time_now[0:2]); t4 = int(time_now[3:])
+    date_list.append((date1, t3, t4))
+    date2 = date1 - 1  
+    print(date_list)
+
+    
+
+    # if str(date2) in lst1:
+    #     print('hi')
+    # else:
+    #     print('hello')
+
     random.shuffle(val1)
     random.shuffle(shorts)
     random.shuffle(ban)

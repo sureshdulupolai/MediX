@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'shorts',
     'users',
     'banner',
+    'photos',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

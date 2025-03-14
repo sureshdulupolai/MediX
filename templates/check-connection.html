@@ -18,12 +18,13 @@
         <div class="d-flex justify-content-center mt-4">
             {% if a1 %}
                 <a href="{% url 'video_page' a1.video_title %}" class="btn btn-success me-3">Play</a>
+                <a href="{% url 'delete_video' a1.video_title %}" class="btn btn-danger">Delete</a>
             {% elif a2 and a2.id %}
                 <a href="{% url 'shorts_page' a2.id %}" class="btn btn-success me-3">Play</a>
             {% else %}
                 <a href="#" class="btn btn-success me-3">Not Play</a>
             {% endif %}
-            <a href="#" class="btn btn-danger">Delete</a>
+            
             <a href="{% url 'profile' %}" class="btn btn-primary ms-3">Back</a>
         </div>
     </div>

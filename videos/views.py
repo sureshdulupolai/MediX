@@ -150,6 +150,19 @@ def CheckVideoPage(request):
     }
     return render(request, 'check-videopage.html', context)
 
+def videoDelete(request, video_title):
+    a1 = VideoDetails.objects.get(video_title=video_title)
+    context = {
+        'a1' : a1,
+        'video_name' : video_title,
+    }
+    return render(request, 'video-delete.html', context)
+
+def successfullydeleted(request, video_title):
+    video = VideoDetails.objects.get(video_title=video_title)
+    video.delete()
+    return redirect('profile')
+
 # def CheckVideoPage(request):
 #     lst = []
 #     val = VideoCategory.objects.all().values()

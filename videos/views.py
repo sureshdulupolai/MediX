@@ -159,7 +159,7 @@ def videoDelete(request, video_title):
     return render(request, 'video-delete.html', context)
 
 def successfullydeleted(request, video_title):
-    video = VideoDetails.objects.get(video_title=video_title)
+    video = VideoDetails.objects.get(video_title=video_title, )
     video.delete()
     return redirect('profile')
 

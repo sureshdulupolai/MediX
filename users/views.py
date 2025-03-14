@@ -120,9 +120,21 @@ def ProfileEdit(request):
     return redirect('login')
 
 def checkConnection(request, item_title):
-    a1 = VideoDetails.objects.filter(video_title=item_title).first()
+    a1 = None
+    a2 = None
+
+    try:
+        if item_title.isdigit():
+            item = int(item_title)
+            a2 = ShortsDetails.objects.get(id=item)
+        else:
+            a1 = VideoDetails.objects.get(video_title=item_title)
+    except (VideoDetails.DoesNotExist, ShortsDetails.DoesNotExist):
+        pass
+
     context = {
-        'a1' : a1,
+        'a1': a1,
+        'a2': a2,
     }
     return render(request, 'check-connection.html', context)
 

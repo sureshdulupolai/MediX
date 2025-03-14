@@ -46,8 +46,6 @@ def homepage(request):
     date2 = date1 - 1
     # print(current_day_time)
 
-    
-
     # if str(date2) in lst1:
     #     print('hi')
     # else:
@@ -57,11 +55,11 @@ def homepage(request):
     random.shuffle(shorts)
     random.shuffle(ban)
 
-    if len(val1) / 4 == 0:
-        pass
-    else:
-        val1.pop()
-        print(len(val1))
+    while len(val1):
+        if len(val1) == 8:
+            break
+        else:
+            val1.pop()
 
     context = {
         'video': val1,

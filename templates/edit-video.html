@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<style>
+    input:focus, textarea:focus, select:focus {
+        outline: none !important;
+        box-shadow: none !important;
+        border-color: #ccc;
+    }
+    body {
+        background-color: #f8f9fa;
+    }
+    .form-container {
+        height: 100vh;
+    }
+    .form-box {
+        width: 50%;
+        max-width: 600px; /* Adjust width */
+    }
+    .form-title {
+        font-size: 30px;
+        margin-left: -10px;
+    }
+    /* .form-label {
+        font-weight: bold;
+    } */
+    .field-container {
+        margin-top: 15px;
+    }
+    .mg-top{
+        position: relative;
+        top: 150px;
+    }
+</style>
+
+<div class="container d-flex justify-content-center align-items-center form-container mg-top">
+    <div class="p-4 border rounded shadow bg-white form-box">
+        <h2 class="text-center text-dark form-title">Upload Video</h2>
+
+        {% if messages %}
+            <div class="alert alert-info mt-3">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="POST" enctype="multipart/form-data" class="mt-3">
+            {% csrf_token %}
+
+            <div class="field-container">
+                <label class="form-label" for="{{ form.video_thumbnail.id_for_label }}">Video Thumbnail</label>
+                <div>{{ form.video_thumbnail }}</div>
+            </div>
+
+            <div class="field-container">
+                <label class="form-label" for="{{ form.video_title.id_for_label }}">Video Title:</label>
+                <div style="margin-bottom: 10px;">Currently: <strong><span class="text-primary">{{ video.video_title }}</span></strong></div>
+                <div>{{ form.video_title }}</div>
+            </div>
+
+            <div class="field-container">
+                <label class="form-label" for="{{ form.video_link.id_for_label }}">Video File</label>
+                <div>{{ form.video_link }}</div>
+            </div>
+
+            <div class="field-container">
+                <label class="form-label" for="{{ form.video_description.id_for_label }}">Description</label>
+                <div>{{ form.video_description }}</div>
+            </div>
+
+            <div class="field-container">
+                <label class="form-label" for="{{ form.video_aim.id_for_label }}">Video Aim</label>
+                <div>{{ form.video_aim }}</div>
+            </div>
+
+            <div class="field-container">
+                <label class="form-label" for="{{ form.customer_name.id_for_label }}">Customer Name</label>
+                <div>{{ form.customer_name }}</div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 mt-3">Upload</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -129,6 +129,25 @@ def videoUpload(request):
 
     else:
         return redirect ('login')
+    
+def updateVideo(request, item_id):
+    video = VideoDetails.objects.get(id=item_id)
+    form = VideoForm(request.POST or None, request.FILES or None, instance=video)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+
+            return redirect('profile')
+        else:
+            print(form.errors)
+
+    context = {
+        'form' : form,
+        'video': video,
+    }
+
+    return render(request, 'edit-video.html', context)
  
 def CheckVideoPage(request):
     val = VideoCategory.objects.values_list('vd_category', flat=True)

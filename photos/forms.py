@@ -1,19 +1,12 @@
 from django import forms
-from .models import Post, PostImage
+from .models import Post, PostImage  # Import your models
 
-class PostForm(forms.ModelForm):
+class PostWithImagesForm(forms.ModelForm):
+    images = forms.FileField(
+        widget=forms.ClearableFileInput(attrs={'multiple': True}),  # ✅ Corrected Widget
+        required=False
+    )
+
     class Meta:
         model = Post
         fields = ['title', 'content']
-
-class PostImageForm(forms.ModelForm):
-    class Meta:
-        model = PostImage
-        fields = ['image']
-
-class PostWithImagesForm(forms.ModelForm):
-    images = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}), required=False)
-
-    class Meta:
-        model = Post
-        fields = ['title', 'content', 'images']

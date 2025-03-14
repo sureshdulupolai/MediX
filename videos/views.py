@@ -151,17 +151,43 @@ def CheckVideoPage(request):
     return render(request, 'check-videopage.html', context)
 
 def videoDelete(request, video_title):
-    a1 = VideoDetails.objects.get(video_title=video_title)
+    a1 = None
+    a2 = None
+
+    try:
+        if video_title.isdigit():
+            item = int(video_title)
+            a2 = ShortsDetails.objects.get(id=item)
+            video_title = a2.short_title
+        else:
+            a1 = VideoDetails.objects.get(video_title=video_title)
+    except (VideoDetails.DoesNotExist, ShortsDetails.DoesNotExist):
+        pass
+
+    # a1 = VideoDetails.objects.get(video_title=video_title)
     context = {
         'a1' : a1,
+        'a2' : a2,
         'video_name' : video_title,
     }
     return render(request, 'video-delete.html', context)
 
 def successfullydeleted(request, video_title):
-    video = VideoDetails.objects.get(video_title=video_title, )
-    video.delete()
-    return redirect('profile')
+    a1 = None
+    a2 = None
+
+    if video_title.isdigit():
+        item = int(video_title)
+        a2 = ShortsDetails.objects.get(id=item)
+        print("in shorts", 1)
+        a2.delete()
+        return redirect('profile')
+    else:
+        a1 = VideoDetails.objects.get(video_title=video_title)
+        print("In video", 2)
+        a1.delete()
+        return redirect('profile')
+
 
 # def CheckVideoPage(request):
 #     lst = []

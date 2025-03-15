@@ -109,7 +109,15 @@ def searchPage(request):
             )
             
     val = list(video)
-    print(len(val))
+    if len(val) >= 4:
+        while len(val):
+            if len(val) % 4 == 0:
+                break
+            else:
+                val.pop()
+    
+    random.shuffle(val)
+
     context = {
         'video': val,
         'data' : data,

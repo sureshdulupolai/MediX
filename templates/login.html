@@ -14,8 +14,10 @@
                     <div class="d-inline-block ms-2">{{ field }}</div>
                 </div>
             {% endfor %}
-            
-            <button type="submit" class="btn btn-primary w-100">Login</button>
+            <div class="d-flex gap-3 mt-3">
+                <a class="btn btn-primary btn-lg flex-grow-1" href="{% url 'home' %}">Back</a>
+                <button type="submit" class="btn btn-primary btn-lg flex-grow-1">Login</button>
+            </div>
         </form>
     </div>
 </div>

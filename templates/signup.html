@@ -51,7 +51,10 @@
                     <span class="su-5">{{ field }}</span>
                 </div>
             {% endfor %}
-            <button type="submit" class="btn btn-primary w-100">Register</button>
+            <div class="d-flex gap-3 mt-3">
+                <a class="btn btn-primary btn-lg flex-grow-1" href="{% url 'home' %}">Back</a>
+                <button type="submit" class="btn btn-primary btn-lg flex-grow-1">Register</button>
+            </div>
         </form>
     </div>
 </div>

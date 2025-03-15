@@ -10,6 +10,7 @@ from banner.models import BannerDetails
 # from users.models import ProfileDetails
 from django.db.models import Q
 from datetime import datetime, date
+from django.contrib.auth.models import User
 import random
 
 def short():
@@ -118,6 +119,7 @@ def videoUpload(request):
         if request.method == 'POST':
             form = VideoForm(request.POST,  request.FILES)
             if form.is_valid():
+                form.instance.admin = request.user.username
                 messages.success( 
                     request, 'Your video uploaded successfully to system'
                 )

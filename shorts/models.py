@@ -9,7 +9,7 @@ class ShortsDetails(models.Model):
     short_link = models.FileField(upload_to='video/')
     short_description = models.TextField(max_length=200, null=True, blank=True)
     created_date = models.DateField(default=timezone.now)
-    customer_name = models.ForeignKey(User, on_delete=models.CASCADE, default='user_name')
+    customer_name = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     view = models.FloatField(default=230.64)
 
     def __str__(self):

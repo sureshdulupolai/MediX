@@ -10,7 +10,7 @@ class VideoDetails(models.Model):
     video_description = models.TextField(max_length=5000)
     created_date = models.DateField(default=timezone.now)
     video_aim = models.CharField(max_length=100)
-    customer_name = models.ForeignKey(User, on_delete=models.CASCADE, default='user_name')
+    customer_name = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     view = models.FloatField(default=120.20)
 
     def __str__(self):

@@ -11,6 +11,7 @@ from banner.models import BannerDetails
 from django.db.models import Q
 from datetime import datetime, date
 from django.contrib.auth.models import User
+from users.models import ProfileDetails
 import random
 
 def short():
@@ -97,18 +98,22 @@ def searchPage(request):
     if request.method == 'POST' and 'videoName' in request.POST:
         data = request.POST['videoName']
         video_data = request.POST['videoName']
-        print(video_data)
         if video_data.isdigit():  
             video = VideoDetails.objects.filter(id=video_data).first()
         else:
             video = VideoDetails.objects.filter(video_title__icontains=video_data) | \
                     VideoDetails.objects.filter(video_description__icontains=video_data)
-            # print('v2', video)
-    
+            video_profile = ProfileDetails.objects.filter(
+                    Q(Channel_Name__icontains=video_data) | \
+                    Q(uName__icontains=video_data)
+            )
+            
     val = list(video)
+    print(len(val))
     context = {
         'video': val,
         'data' : data,
+        'video_profile' : video_profile,
     }
     return render(request, 'searchPage.html', context)
 

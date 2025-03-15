@@ -57,6 +57,28 @@
 <!-- Section 3 -->
 <div class="container div-1-mt">
     <h2 class="txt-div-1">Recommended searches for '{{ data }}'</h2>
+    {% if video or video_profile %}
+      {% if video_profile %}
+          <div class="container-fluid mt-4" style="width: 97vw;">
+            {% for i in video_profile %}
+            <div class="row align-items-center border p-3 rounded shadow-sm ms-1 mt-3" style="width: 100%;">
+                <!-- Left Side -->
+                <div class="col-md-8 d-flex align-items-center">
+                    <img src="/media/{{ i.Profile_Image }}" alt="User Image" class="rounded-circle me-3" width="60" height="60">
+                    <div>
+                        <h5 class="mb-0">{{ i.Channel_Name }}</h5>
+                        <small class="text-muted">{{ i.uName }}</small>
+                    </div>
+                </div>
+                <!-- Right Side -->
+                <div class="col-md-4 text-md-end text-center">
+                    <button class="btn btn-primary">More Details</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+      {% endif %}
+
       {% if video %}
         <div class="movie-container">
           {% for vd in video %}
@@ -88,29 +110,13 @@
           
           {% endfor %}
         </div>
-        {% else %}
+        {% endif %}
+
+      {% else %}
           <div class="no-data" style="width: 90vw; height: 70vh; display: flex; justify-content: center; align-items: center;">
             <p style="position: relative; left: 60px;">No such result found for "{{ data }}"</p>
           </div>
       {% endif %}
-
-      <div class="container-fluid mt-4" style="width: 97vw;">
-        <div class="row align-items-center border p-3 rounded shadow-sm ms-1" style="width: 100%;">
-            <!-- Left Side -->
-            <div class="col-md-8 d-flex align-items-center">
-                <img src="../../ID/appka_kya_hoga.jpg" alt="User Image" class="rounded-circle me-3" width="60" height="60">
-                <div>
-                    <h5 class="mb-0">Username</h5>
-                    <small class="text-muted">Nickname</small>
-                </div>
-            </div>
-            <!-- Right Side -->
-            <div class="col-md-4 text-md-end text-center">
-                <button class="btn btn-primary">More Details</button>
-            </div>
-        </div>
-    </div>
-    
   </div>
 
 {% endblock %}

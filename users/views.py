@@ -137,5 +137,15 @@ def checkConnection(request, item_title):
 
 
 def profileData(request, profile_data):
-    profile = ProfileDetails.objects.get(Channel_Name=profile_data)
-    return HttpResponse(profile)
+    if request.user.is_authenticated:
+        profile = ProfileDetails.objects.get(Channel_Name=profile_data)
+        videos = VideoDetails.objects.filter(customer_name=profile.id)
+        count_video = videos.count()
+        context = {
+            "profile" : profile,
+            # 'form1' : videos,
+            # 'vd_count' : count_video,
+        }
+        return render(request, 'profile.html', context)
+    else:
+        return redirect('login')

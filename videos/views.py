@@ -111,7 +111,7 @@ def searchPage(request):
     }
     return render(request, 'searchPage.html', context)
 
-@csrf_exempt
+# @csrf_exempt
 def videoUpload(request):
     if request.user.is_authenticated:
         form = VideoForm()
@@ -139,8 +139,6 @@ def updateVideo(request, item_id):
             form.save()
 
             return redirect('profile')
-        else:
-            print(form.errors)
 
     context = {
         'form' : form,

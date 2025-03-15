@@ -81,6 +81,11 @@
   object-fit: cover; 
   border-radius: 5px;
 }
+.short-a:hover{
+  border: 1px solid rgb(201, 198, 198);
+  box-shadow: 2px 2px 10px rgba(201, 198, 198, 0.7);
+  box-sizing: border-box;
+}
 </style>
 
 <!-- Section 3 -->
@@ -150,7 +155,7 @@
           <div class="shorts-container hp-10">
             {% for st in shorts %}
             <a href="{% url 'shorts_page' st.id %}" class="short-a">
-              <div class="short-card hp-11" style="margin-top: -10px;">
+              <div class="short-card hp-11">
                 <img src="/media/{{ st.short_thumbnail }}" alt="Short 1" class="hp-12" />
                 <span class="short-title hp-13">{{ st.short_title | truncatechars:20 }} </span>
                 <span class="hp-14">{{ st.customer_name  | truncatechars:12 }}</span>

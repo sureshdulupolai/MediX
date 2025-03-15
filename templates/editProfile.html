@@ -36,7 +36,10 @@
                     <div class="d-inline-block ms-2 w-100">{{ form.NamesUser }}</div>
                 </div>
 
-            <button type="submit" class="btn btn-primary w-100">Submit</button>
+                <div class="d-flex gap-3 mt-3">
+                    <a class="btn btn-primary btn-lg flex-grow-1" href="{% url 'home' %}">Back</a>
+                    <button type="submit" class="btn btn-primary btn-lg flex-grow-1">Submit</button>
+                </div>
         </form>
     </div>
 </div>

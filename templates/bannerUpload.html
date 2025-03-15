@@ -19,10 +19,10 @@
                     <span class="ban-3">{{ field }}</span>
                 </div>
             {% endfor %}
-            <button type="submit" class="btn btn-primary w-100">Pay to Upload</button>
-            <!-- <div class="text-center">
-                <a class="btn btn-primary" href="#">Pay to Upload</a>
-            </div> -->
+            <div class="d-flex gap-3 mt-3">
+                <a class="btn btn-primary btn-lg flex-grow-1" href="{% url 'home' %}">Back</a>
+                <button type="submit" class="btn btn-primary btn-lg flex-grow-1">Pay to Upload</button>
+            </div>
         </form>
     </div>
 </div>

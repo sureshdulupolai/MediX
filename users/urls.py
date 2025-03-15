@@ -9,5 +9,5 @@ urlpatterns = [
     path('user-profile/', views.ProfilePage, name='profile'),
     path('user-edit-profile/', views.ProfileEdit, name='edit_profile'),
     path('check-connection/<str:item_title>/', views.checkConnection, name='check_connection'),
-    path('check-connection/<int:st_id>/', views.checkConnectionShorts, name='check_connection'),
+    # path('check-connection/<int:st_id>/', views.checkConnectionShorts, name='check_connection'),
 ]

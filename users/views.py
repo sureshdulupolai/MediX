@@ -134,10 +134,3 @@ def checkConnection(request, item_title):
         'a2': a2,
     }
     return render(request, 'check-connection.html', context)
-
-def checkConnectionShorts(request, id):
-    a2 = ShortsDetails.objects.filter(id=id).first()
-    context = {
-        'a2' : a2,
-    }
-    return render(request, 'check-connection.html', context)

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from .forms import RegisterForm, ProfileForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -134,3 +134,8 @@ def checkConnection(request, item_title):
         'a2': a2,
     }
     return render(request, 'check-connection.html', context)
+
+
+def profileData(request, profile_data):
+    print(profile_data)
+    return HttpResponse(profile_data)

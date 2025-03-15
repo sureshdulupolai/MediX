@@ -105,12 +105,21 @@ def searchPage(request):
                     VideoDetails.objects.filter(video_description__icontains=video_data)
             
             video_profile = ProfileDetails.objects.filter(
-                    Q(Channel_Name__icontains=video_data) | \
-                    Q(uName__icontains=video_data)
+                    Q(uName__icontains=video_data)  | \
+                    Q(Channel_Name__icontains=video_data)
             )
+
             short = ShortsDetails.objects.filter(short_title__icontains=video_data) | \
                     ShortsDetails.objects.filter(short_description__icontains=video_data)
             
+    profile = list(video_profile)
+
+    profile_data = []
+    for i in profile:
+        data_profile = ProfileDetails.objects.filter(Channel_Name=i.uName)
+        if data_profile:  # Avoid errors if no matching profile is found
+            profile_data.append(data_profile.uName)
+    
     val = list(video)
     shorts = list(short)
     if len(val) >= 4:
@@ -126,8 +135,9 @@ def searchPage(request):
     context = {
         'video': val,
         'data' : data,
-        'video_profile' : video_profile,
+        'video_profile' : profile,
         'shorts' : shorts,
+        'profile_data' : profile_data,
     }
     return render(request, 'searchPage.html', context)
 

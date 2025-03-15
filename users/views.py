@@ -137,5 +137,5 @@ def checkConnection(request, item_title):
 
 
 def profileData(request, profile_data):
-    print(profile_data)
-    return HttpResponse(profile_data)
+    profile = ProfileDetails.objects.get(Channel_Name=profile_data)
+    return HttpResponse(profile)

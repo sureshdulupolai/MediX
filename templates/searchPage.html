@@ -102,12 +102,12 @@
                     <img src="/media/{{ i.Profile_Image }}" alt="User Image" class="rounded-circle me-3" width="60" height="60">
                     <div>
                         <h5 class="mb-0">{{ i.Channel_Name }}</h5>
-                        <small class="text-muted">{{ i.uName }}</small>
+                        <small class="text-muted">@{{ i.uName }}</small>
                     </div>
                 </div>
                 <!-- Right Side -->
                 <div class="col-md-4 text-md-end text-center">
-                    <a class="btn btn-primary" href="{% url 'profile_link' i.uName %}">More Details</a>
+                    <a class="btn btn-primary" href="{% url 'profile_link' i %}">More Details</a>
                 </div>
             </div>
             {% endfor %}

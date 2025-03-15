@@ -52,14 +52,44 @@
 .hp-5{
   height: 174px;
 }
+.hp-9{
+  width: 96vw;
+  
+}
+.hp-10{
+  display: flex; 
+  overflow-x: auto; 
+  gap: 5px; 
+  width: 96vw; 
+  padding: 10px; 
+  scrollbar-width: none; 
+  justify-content: start;
+}
+.hp-11{
+  width: 220px; 
+  flex: 0 0 auto; 
+  border-radius: 5px; 
+  padding: 10px; 
+  text-align: center; 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center;
+}
+.hp-12{
+  width: 100%; 
+  height: 300px; 
+  object-fit: cover; 
+  border-radius: 5px;
+}
 </style>
 
 <!-- Section 3 -->
 <div class="container div-1-mt">
     <h2 class="txt-div-1">Recommended searches for '{{ data }}'</h2>
-    {% if video or video_profile %}
+    {% if video or video_profile or shorts %}
       {% if video_profile %}
           <div class="container-fluid mt-4" style="width: 97vw;">
+            <h2>Profile</h2>
             {% for i in video_profile %}
             <div class="row align-items-center border p-3 rounded shadow-sm ms-1 mt-3" style="width: 100%;">
                 <!-- Left Side -->
@@ -80,7 +110,8 @@
       {% endif %}
 
       {% if video %}
-        <div class="movie-container ms-2">
+      <h2 class="ms-3 mt-3">Video</h2>
+        <div class="movie-container ms-2" style="margin-top: -10px;">
           {% for vd in video %}
           
           {% if forloop.counter0|divisibleby:4 %}
@@ -110,6 +141,25 @@
           
           {% endfor %}
         </div>
+        {% endif %}
+
+        {% if shorts %}
+        <!-- Shorts Section -->
+        <div class="container hp-9">
+          <h2>Short</h2>
+          <div class="shorts-container hp-10">
+            {% for st in shorts %}
+            <a href="{% url 'shorts_page' st.id %}" class="short-a">
+              <div class="short-card hp-11" style="margin-top: -10px;">
+                <img src="/media/{{ st.short_thumbnail }}" alt="Short 1" class="hp-12" />
+                <span class="short-title hp-13">{{ st.short_title | truncatechars:20 }} </span>
+                <span class="hp-14">{{ st.customer_name  | truncatechars:12 }}</span>
+                <span class="short-views hp-15">{{ st.view }}M views</span>
+              </div>
+            </a>
+            {% endfor %}
+          </div>
+        </div>    
         {% endif %}
 
       {% else %}

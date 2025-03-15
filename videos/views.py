@@ -103,10 +103,13 @@ def searchPage(request):
         else:
             video = VideoDetails.objects.filter(video_title__icontains=video_data) | \
                     VideoDetails.objects.filter(video_description__icontains=video_data)
+            
             video_profile = ProfileDetails.objects.filter(
                     Q(Channel_Name__icontains=video_data) | \
                     Q(uName__icontains=video_data)
             )
+            shorts = ShortsDetails.objects.filter(short_title__icontains=video_data) | \
+                    ShortsDetails.objects.filter(short_description__icontains=video_data)
             
     val = list(video)
     if len(val) >= 4:
@@ -117,11 +120,13 @@ def searchPage(request):
                 val.pop()
     
     random.shuffle(val)
+    random.shuffle(shorts)
 
     context = {
         'video': val,
         'data' : data,
         'video_profile' : video_profile,
+        'shorts' : shorts,
     }
     return render(request, 'searchPage.html', context)
 

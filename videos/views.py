@@ -108,10 +108,11 @@ def searchPage(request):
                     Q(Channel_Name__icontains=video_data) | \
                     Q(uName__icontains=video_data)
             )
-            shorts = ShortsDetails.objects.filter(short_title__icontains=video_data) | \
+            short = ShortsDetails.objects.filter(short_title__icontains=video_data) | \
                     ShortsDetails.objects.filter(short_description__icontains=video_data)
             
     val = list(video)
+    shorts = list(short)
     if len(val) >= 4:
         while len(val):
             if len(val) % 4 == 0:

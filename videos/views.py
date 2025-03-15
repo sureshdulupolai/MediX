@@ -113,13 +113,17 @@ def searchPage(request):
                     ShortsDetails.objects.filter(short_description__icontains=video_data)
             
     profile = list(video_profile)
-
-    profile_data = []
+    print(profile)
+    prof = []; count_prof = 1
     for i in profile:
-        data_profile = ProfileDetails.objects.filter(Channel_Name=i.uName)
-        if data_profile:  # Avoid errors if no matching profile is found
-            profile_data.append(data_profile.uName)
-    
+        if (count_prof <= 3):
+            if (i.Channel_Name != 'MediX User Profile') and (i.uName != 'yourmedix'):
+                prof += [i]
+                count_prof += 1
+                print(count_prof)
+        else:
+            break
+
     val = list(video)
     shorts = list(short)
     if len(val) >= 4:
@@ -135,9 +139,8 @@ def searchPage(request):
     context = {
         'video': val,
         'data' : data,
-        'video_profile' : profile,
+        'video_profile' : prof,
         'shorts' : shorts,
-        'profile_data' : profile_data,
     }
     return render(request, 'searchPage.html', context)
 
@@ -210,7 +213,6 @@ def videoDelete(request, video_title):
     except (VideoDetails.DoesNotExist, ShortsDetails.DoesNotExist):
         pass
 
-    # a1 = VideoDetails.objects.get(video_title=video_title)
     context = {
         'a1' : a1,
         'a2' : a2,

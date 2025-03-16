@@ -41,24 +41,19 @@
             {% csrf_token %}
 
             <div class="field-container">
-                <label class="form-label" for="{{ form.video_thumbnail.id_for_label }}">Video Thumbnail</label>
-                <div>{{ form.video_thumbnail }}</div>
+                <label class="form-label" for="{{ form.short_thumbnail.id_for_label }}">Short Thumbnail</label>
+                <div>{{ form.short_thumbnail }}</div>
             </div>
 
             <div class="field-container">
-                <label class="form-label" for="{{ form.video_title.id_for_label }}">Video Title:</label>
-                <div style="margin-bottom: 10px;">Currently: <strong><span class="text-primary">{{ video.video_title }}</span></strong></div>
-                <div>{{ form.video_title }}</div>
+                <label class="form-label" for="{{ form.short_title.id_for_label }}">Short Title:</label>
+                <div style="margin-bottom: 10px;">Currently: <strong><span class="text-primary">{{ short.short_title }}</span></strong></div>
+                <div>{{ form.short_title }}</div>
             </div>
 
             <div class="field-container">
-                <label class="form-label" for="{{ form.video_description.id_for_label }}">Description</label>
-                <div>{{ form.video_description }}</div>
-            </div>
-
-            <div class="field-container">
-                <label class="form-label" for="{{ form.video_aim.id_for_label }}">Video Aim</label>
-                <div>{{ form.video_aim }}</div>
+                <label class="form-label" for="{{ form.short_description.id_for_label }}">Short Description</label>
+                <div>{{ form.short_description }}</div>
             </div>
 
             <div class="field-container">

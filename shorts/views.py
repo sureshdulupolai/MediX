@@ -31,3 +31,23 @@ def shortUpload(request):
     
     else:
         return redirect('login')
+    
+def editShort(request, id):
+    if request.user.is_authenticated:
+        short = ShortsDetails.objects.get(id=id)
+        form = ShortsForm(request.POST or None, request.FILES or None, instance=short)
+
+        if request.method == 'POST':
+            if form.is_valid():
+                form.save()
+                return redirect('profile')
+            
+        context = {
+            'form' : form,
+            'short': short,
+        }
+
+        return render(request, 'edit-short.html', context)
+    
+    else:
+        return redirect('login')

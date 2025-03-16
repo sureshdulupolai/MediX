@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from .forms import ShortsForm
 from django.contrib import messages
@@ -33,21 +33,25 @@ def shortUpload(request):
         return redirect('login')
     
 def editShort(request, id):
+    short = ShortsDetails.objects.get(id=id)
+    form = ShortsForm(request.POST or None, request.FILES or None, instance=short)
+    check_user = short.customer_name.username 
     if request.user.is_authenticated:
-        short = ShortsDetails.objects.get(id=id)
-        form = ShortsForm(request.POST or None, request.FILES or None, instance=short)
-
-        if request.method == 'POST':
-            if form.is_valid():
-                form.save()
-                return redirect('profile')
-            
-        context = {
-            'form' : form,
-            'short': short,
-        }
-
-        return render(request, 'edit-short.html', context)
+       if request.user.username == check_user:
+            if request.method == 'POST':
+                if form.is_valid():
+                    form.save()
+                    return redirect('profile')
+                
+            context = {
+                'form' : form,
+                'short': short,
+                'check_user' : check_user,
+            }
+            return render(request, 'edit-short.html', context)
+       
+       else:
+           return HttpResponse('Page Not Found')
     
     else:
         return redirect('login')

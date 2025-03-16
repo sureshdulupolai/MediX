@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from .models import VideoDetails, VideoCategory
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
@@ -7,7 +7,6 @@ from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from shorts.models import ShortsDetails
 from banner.models import BannerDetails
-# from users.models import ProfileDetails
 from django.db.models import Q
 from datetime import datetime, date
 from django.contrib.auth.models import User
@@ -167,19 +166,21 @@ def videoUpload(request):
 def updateVideo(request, item_id):
     video = VideoDetails.objects.get(id=item_id)
     form = VideoForm(request.POST or None, request.FILES or None, instance=video)
+    check_user = video.customer_name.username
 
-    if request.method == 'POST':
-        if form.is_valid():
-            form.save()
-
-            return redirect('profile')
-
-    context = {
-        'form' : form,
-        'video': video,
-    }
-
-    return render(request, 'edit-video.html', context)
+    if request.user.is_authenticated:
+       if request.user.username == check_user:
+            if request.method == 'POST':
+                if form.is_valid():
+                    form.save()
+                    return redirect('profile')
+            context = {'form' : form,'video': video,}
+            return render(request, 'edit-video.html', context)
+       else:
+           return HttpResponse('Page Not Found')
+    else:
+        return redirect('login')
+           
  
 def CheckVideoPage(request):
     val = VideoCategory.objects.values_list('vd_category', flat=True)

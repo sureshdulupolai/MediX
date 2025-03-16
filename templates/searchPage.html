@@ -120,7 +120,7 @@
           {% for vd in video %}
           
           {% if forloop.counter0|divisibleby:4 %}
-            <div class="movie-row"> <!-- Har 2 videos ka ek row -->
+            <div class="movie-row">
           {% endif %}
           
           <a href="{% url 'video_page' vd.video_title %}" class="hp-4">

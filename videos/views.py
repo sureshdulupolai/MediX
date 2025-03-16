@@ -150,7 +150,7 @@ def videoUpload(request):
         if request.method == 'POST':
             form = VideoForm(request.POST,  request.FILES)
             if form.is_valid():
-                form.instance.admin = request.user.username
+                # form.instance.admin = request.user.username
                 messages.success( 
                     request, 'Your video uploaded successfully to system'
                 )

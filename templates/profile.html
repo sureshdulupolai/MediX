@@ -306,13 +306,39 @@
             </div>
         </div>
         <div class="hr-lineProfile"></div>
-        {% if form1 or banner or shorts %}
+        {% if form1 or banner or shorts or video %}
           {% if form1 %}
               <div class="container div-1-mt mt-3 po-rev tp-10">
                   <h2 class="txt-div-1">Video Section<span class="gray_text">· {{ vd_count }} videos uploaded</span></h2>
                   <div class="movie-container wd-100" style="height: 38vh; position: relative; top: 10px;">
                       {% for vd in form1 %}
                       <a href="{% url 'check_connection' vd.video_title %}" class="pf-2">
+                          <div class="movie-card" title="{{ vd.view }}k views">
+                              <div class="img-Div" style="height: 174px;">
+                                  <img src="/media/{{ vd.video_thumbnail }}" alt="Image is Not Loading" class="pf-3" />
+                              </div>
+                              <div class="txtDivVideo">
+                                  <span class="txt-1">{{ vd.video_title | truncatechars:32 }}</span><br/>
+                                  <div class="txt-3" style="position: relative;">
+                                      <span>
+                                          <div><span class="pf-4">{{ profile.uName | truncatechars:20 }}</span></div>
+                                          <i class="fa-solid fa-eye"></i><span class="ml-5">{{ vd.created_date }}</span>
+                                      </span>
+                                  </div>
+                              </div>
+                          </div>
+                      </a>
+                      {% endfor %}
+                  </div>
+              </div>
+          {% endif %}
+
+          {% if video %}
+              <div class="container div-1-mt mt-3 po-rev tp-10">
+                  <h2 class="txt-div-1">Video Section<span class="gray_text">· {{ vd_count }} videos uploaded</span></h2>
+                  <div class="movie-container wd-100" style="height: 38vh; position: relative; top: 10px;">
+                      {% for vd in video %}
+                      <a href="{% url 'video_page' vd.video_title %}" class="pf-2">
                           <div class="movie-card" title="{{ vd.view }}k views">
                               <div class="img-Div" style="height: 174px;">
                                   <img src="/media/{{ vd.video_thumbnail }}" alt="Image is Not Loading" class="pf-3" />
@@ -372,4 +398,3 @@
           </div>
       {% endif %}
 {% endblock %}
-<!-- {% url 'check_connection' vd.video_title %} -->

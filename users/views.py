@@ -67,7 +67,7 @@ def ProfilePage(request):
         count_banner = Banner.count()
         count_short = shorts.count()
 
-        total_data = count_video + count_short + count_banner
+        total_data = count_video + count_short
 
         context = {
             'form1' : videos,
@@ -135,18 +135,28 @@ def checkConnection(request, item_title):
     }
     return render(request, 'check-connection.html', context)
 
-
 def profileData(request, profile_data):
     if request.user.is_authenticated:
         profile = ProfileDetails.objects.get(Channel_Name=profile_data)
-        print(profile.id)
         videos = VideoDetails.objects.filter(customer_name=profile.id)
-        print(videos)
+        Banner = BannerDetails.objects.filter(uName=profile.id)
+        short = ShortsDetails.objects.filter(customer_name=profile.id)
+
         count_video = videos.count()
+        count_banner = Banner.count()
+        count_short = short.count()
+
+        total_data = count_video + count_short
+
         context = {
-            "profile" : profile,
+            "profiles" : profile,
             'video' : videos,
             'vd_count' : count_video,
+            'total_data' : total_data,
+            'banner': Banner,
+            'ban_count' : count_banner,
+            'short' : short,
+            'st_count' : count_short,
         }
         return render(request, 'profile.html', context)
     else:

@@ -54,7 +54,10 @@ def Logout_in(request):
     return redirect('home')
 
 def logout_ask(request):
-    return render(request, 'logout.html')
+    if request.user.is_authenticated:
+        return render(request, 'logout.html')
+    else:
+        return HttpResponse('Page not found, first login to excess this page')
 
 def ProfilePage(request):
     if request.user.is_authenticated:
@@ -120,20 +123,23 @@ def ProfileEdit(request):
     return redirect('login')
 
 def checkConnection(request, item_title):
-    a1 = None
-    a2 = None
+    if request.user.is_authenticated:
+        a1 = None
+        a2 = None
 
-    if item_title.isdigit():
-        item = int(item_title)
-        a2 = ShortsDetails.objects.get(id=item)
+        if item_title.isdigit():
+            item = int(item_title)
+            a2 = ShortsDetails.objects.get(id=item)
+        else:
+            a1 = VideoDetails.objects.get(video_title=item_title)
+        
+        context = {
+            'a1': a1,
+            'a2': a2,
+        }
+        return render(request, 'check-connection.html', context)
     else:
-        a1 = VideoDetails.objects.get(video_title=item_title)
-    
-    context = {
-        'a1': a1,
-        'a2': a2,
-    }
-    return render(request, 'check-connection.html', context)
+        return HttpResponse('Page Not Found')
 
 def profileData(request, profile_data):
     if request.user.is_authenticated:

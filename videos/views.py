@@ -201,41 +201,47 @@ def CheckVideoPage(request):
     return render(request, 'check-videopage.html', context)
 
 def videoDelete(request, video_title):
-    a1 = None
-    a2 = None
+    if request.user.is_authenticated:
+        a1 = None
+        a2 = None
 
-    try:
+        try:
+            if video_title.isdigit():
+                item = int(video_title)
+                a2 = ShortsDetails.objects.get(id=item)
+                video_title = a2.short_title
+            else:
+                a1 = VideoDetails.objects.get(video_title=video_title)
+        except (VideoDetails.DoesNotExist, ShortsDetails.DoesNotExist):
+            pass
+
+        context = {
+            'a1' : a1,
+            'a2' : a2,
+            'video_name' : video_title,
+        }
+        return render(request, 'video-delete.html', context)
+    else:
+        return HttpResponse('What you want to delete ?, when you are not login')
+
+def successfullydeleted(request, video_title):
+    if request.user.is_authenticated:
+        a1 = None
+        a2 = None
+
         if video_title.isdigit():
             item = int(video_title)
             a2 = ShortsDetails.objects.get(id=item)
-            video_title = a2.short_title
+            print("in shorts", 1)
+            a2.delete()
+            return redirect('profile')
         else:
             a1 = VideoDetails.objects.get(video_title=video_title)
-    except (VideoDetails.DoesNotExist, ShortsDetails.DoesNotExist):
-        pass
-
-    context = {
-        'a1' : a1,
-        'a2' : a2,
-        'video_name' : video_title,
-    }
-    return render(request, 'video-delete.html', context)
-
-def successfullydeleted(request, video_title):
-    a1 = None
-    a2 = None
-
-    if video_title.isdigit():
-        item = int(video_title)
-        a2 = ShortsDetails.objects.get(id=item)
-        print("in shorts", 1)
-        a2.delete()
-        return redirect('profile')
+            print("In video", 2)
+            a1.delete()
+            return redirect('profile')
     else:
-        a1 = VideoDetails.objects.get(video_title=video_title)
-        print("In video", 2)
-        a1.delete()
-        return redirect('profile')
+        return HttpResponse('Page Not Found, check link properly')
 
 
 # def CheckVideoPage(request):

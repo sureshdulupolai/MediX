@@ -54,4 +54,4 @@ def editShort(request, id):
            return HttpResponse('Page Not Found')
     
     else:
-        return redirect('login')
+        return redirect('page')

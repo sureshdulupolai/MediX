@@ -20,6 +20,10 @@ def short():
 def callVideo():
     return VideoDetails.objects.all().values()
 
+def pageNotFound(request, data_link):
+    print(request)
+    return render(request, 'page_not_found.html')
+
 def homepage(request):
     ban = list(BannerDetails.objects.all().values())
     val = callVideo()
@@ -107,7 +111,7 @@ def openVideoPage(request, video_data=None):
         prof_data = profile.Channel_Name
 
     except:
-        return HttpResponse('page not found <strong> localhost:8000/video/{} </strong>'.format(video_data))
+        return redirect('page')
     
     context = {"video": video, "other_videos": other_videos, 'prof_data' : prof_data, 'prof_img' : prof_img, 'other_data' : other_data}
     return render(request, 'Open-Video.html', context)
@@ -198,7 +202,7 @@ def updateVideo(request, item_id):
        else:
            return HttpResponse('Page Not Found')
     else:
-        return redirect('login')
+        return redirect('page')
 
 def videoDelete(request, video_title):
     if request.user.is_authenticated:
@@ -222,7 +226,7 @@ def videoDelete(request, video_title):
         }
         return render(request, 'video-delete.html', context)
     else:
-        return HttpResponse('What you want to delete ?, when you are not login')
+        return redirect('page')
 
 def successfullydeleted(request, video_title):
     if request.user.is_authenticated:
@@ -241,4 +245,4 @@ def successfullydeleted(request, video_title):
             a1.delete()
             return redirect('profile')
     else:
-        return HttpResponse('Page Not Found, check link properly')
+        return redirect('page')

@@ -80,26 +80,22 @@ def homepage(request):
 
 
 def openVideoPage(request, video_data=None):
-    req = request
     video = None
     other_videos = VideoDetails.objects.all()
 
-    if video_data:
-        if video_data.isdigit():
-            video = VideoDetails.objects.filter(id=video_data).first()
-        else: 
-            video = VideoDetails.objects.filter(
-                Q(video_title__icontains=video_data) |
-                Q(customer_name__username__icontains=video_data) |
-                Q(video_description__icontains=video_data)
-            ).first()
+    try:
+        if video_data:
+            videos = VideoDetails.objects.get(id=video_data)
+            video = VideoDetails.objects.filter(video_title=videos).first()  # Fixed here
 
-        if video:
-            # Removing the currently playing video from the list
-            other_videos = list(other_videos.exclude(id=video.id))
-            random.shuffle(other_videos)
+            if video:
+                other_videos = list(other_videos.exclude(id=video.id))
+                random.shuffle(other_videos)
 
-    context = {"video": video, "other_videos": other_videos, 'req': req}  
+    except:
+        return HttpResponse('page not found <strong> localhost:8000/video/{} </strong>'.format(video_data))
+    
+    context = {"video": video, "other_videos": other_videos}
     return render(request, 'Open-Video.html', context)
 
 def searchPage(request):

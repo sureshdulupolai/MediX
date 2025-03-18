@@ -7,7 +7,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('', views.homepage, name='home'),
-    path('video/<str:video_data>/', views.openVideoPage, name='video_page'),
+    path('video/<int:video_data>/', views.openVideoPage, name='video_page'),
     path('search-page/', views.searchPage, name='video_search'), 
     path('videoupload/', views.videoUpload, name='video_upload'),
     path('search-page/', views.openVideoPage, name='search_page'),

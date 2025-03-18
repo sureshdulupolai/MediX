@@ -225,7 +225,7 @@
                    </video>
                  </div>
                  <h4 class="mt-3" style="font-size: 20px;">{{ video.video_title }}</h4>
-                 <p>{{ video.view }}M views | 11 months ago</p>
+                 <p>{{ video.view }}M views | {{ video.created_date }}</p>
    
                  <div class="d-flex justify-content-between align-items-center mt-3 po-rev">
                    <!-- Like, Unlike, Share Buttons -->
@@ -313,7 +313,7 @@
         <div class="video_side_div po-rev ov-12">
           <div class="video_1">
             {% for i in other_videos %}
-            <a href="{% url 'video_page' i.video_title %}" class="td-None" title="{{ i.view }} views">
+            <a href="{% url 'video_page' i.id %}" class="td-None" title="{{ i.view }} views">
               <div class="card video_div_hover">
                 <img src="/media/{{ i.video_thumbnail }}" class="card-img-top br-None" alt="Video Thumbnail">
                 <div class="card-body">

@@ -82,15 +82,26 @@ def homepage(request):
 def openVideoPage(request, video_data=None):
     video = None
     other_videos = VideoDetails.objects.all()
+    other_data = []
 
     try:
         if video_data:
             videos = VideoDetails.objects.get(id=video_data)
-            video = VideoDetails.objects.filter(video_title=videos).first()  # Fixed here
+            video = VideoDetails.objects.filter(video_title=videos).first()
 
             if video:
                 other_videos = list(other_videos.exclude(id=video.id))
                 random.shuffle(other_videos)
+            
+            for vid in other_videos:
+                try:
+                    other_profile = ProfileDetails.objects.get(NamesUser=vid.customer_name)
+                    other_data.append({'prof_data': other_profile.Channel_Name, 'prof_img': other_profile.Profile_Image,})
+                except ProfileDetails.DoesNotExist:
+                    pass
+
+        # print(other_data)
+                
         profile = ProfileDetails.objects.get(NamesUser=video.customer_name)
         prof_img = profile.Profile_Image
         prof_data = profile.Channel_Name
@@ -98,7 +109,7 @@ def openVideoPage(request, video_data=None):
     except:
         return HttpResponse('page not found <strong> localhost:8000/video/{} </strong>'.format(video_data))
     
-    context = {"video": video, "other_videos": other_videos, 'prof_data' : prof_data, 'prof_img' : prof_img}
+    context = {"video": video, "other_videos": other_videos, 'prof_data' : prof_data, 'prof_img' : prof_img, 'other_data' : other_data}
     return render(request, 'Open-Video.html', context)
 
 def searchPage(request):

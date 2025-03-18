@@ -39,22 +39,31 @@ def homepage(request):
         date_part = int(i['banner_datetime'].strftime("%d")); time_part = i['banner_datetime'].strftime("%H:%M")
         t1 = int(time_part[0:2]); t2 = int(time_part[3:])
         lst1 += [(date_part, t1, t2)]
-    # print(lst1)
+    # print(lst1) - [(12, 2, 54), (12, 2, 54), (12, 2, 55), (12, 2, 56), (12, 4, 15)]
 
     now = datetime.now(); date1 = int(now.strftime("%d")); time_now = now.strftime("%H:%M")
     t3 = int(time_now[0:2]); t4 = int(time_now[3:])
     current_day_time = (date1, t3, t4)
-    date2 = date1 - 1
-    # print(current_day_time)
+    
+    # print(current_day_time) - (18, 11, 11)
+    # date - hr - minute
+    # print(current_day_time, " ", lst1) - (18, 11, 14)   [(12, 2, 54), (12, 2, 54), (12, 2, 55), (12, 2, 56), (12, 4, 15)]
 
-    # if str(date2) in lst1:
-    #     print('hi')
-    # else:
-    #     print('hello')
-
+    ban1 = []; ban2 =[]; check_value = 1; ad = 0
+    for i in range(len(lst1)):
+        if (lst1[i][ad] == current_day_time[ad]) or (lst1[i][ad] >= (current_day_time[ad] - check_value)):
+            ad += 1
+            if (lst1[i][ad] <= current_day_time[ad]) or (lst1[i][ad] >= (current_day_time[ad] - check_value)):
+                ad += 1
+                if (lst1[i][ad] <= current_day_time[ad]) or (lst1[i][ad] >= (current_day_time[ad] - check_value)):
+                    ban1 += [lst1[i]]; ban2 += [ban[i]]; ad = 0
+        ad = 0
+    
+    # print(len(ban))
+    # print(len(ban2))
     random.shuffle(val1)
     random.shuffle(shorts)
-    random.shuffle(ban)
+    random.shuffle(ban2)
 
     while len(val1):
         if len(val1) == 8:
@@ -65,7 +74,7 @@ def homepage(request):
     context = {
         'video': val1,
         'shorts': shorts,
-        'banner': ban,
+        'banner': ban2,
     }
     return render(request, 'homepage.html', context)
 
@@ -242,26 +251,3 @@ def successfullydeleted(request, video_title):
             return redirect('profile')
     else:
         return HttpResponse('Page Not Found, check link properly')
-
-
-# def CheckVideoPage(request):
-#     lst = []
-#     val = VideoCategory.objects.all().values()
-#     val1 = list(val)
-
-#     for i in val1:
-#         lst += (i['vd_category'], )
-#     category = set(lst)
-    
-#     for x1 in category:
-#         for x2 in category:
-#             if x1 < x2:
-#                 x1, x2 = x2, x1
-
-#     cat = list(category)
-    
-#     random.shuffle(cat)
-#     context = {
-#         'category' :  cat,
-#     }
-#     return render(request, 'check-videopage.html', context)

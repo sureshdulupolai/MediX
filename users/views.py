@@ -57,7 +57,7 @@ def logout_ask(request):
     if request.user.is_authenticated:
         return render(request, 'logout.html')
     else:
-        return redirect('page')
+        return HttpResponse('Page not found, first login to excess this page')
 
 def ProfilePage(request):
     if request.user.is_authenticated:
@@ -119,9 +119,8 @@ def ProfileEdit(request):
                 
         context = {'form': form}
         return render(request, 'editProfile.html', context)
-    
-    else:
-        return redirect('page')
+
+    return redirect('login')
 
 def checkConnection(request, item_title):
     if request.user.is_authenticated:
@@ -140,7 +139,7 @@ def checkConnection(request, item_title):
         }
         return render(request, 'check-connection.html', context)
     else:
-        return redirect('page')
+        return HttpResponse('Page Not Found')
 
 def profileData(request, profile_data):
     if request.user.is_authenticated:

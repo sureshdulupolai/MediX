@@ -153,8 +153,8 @@
 
   {% if video %}
     <div class="container div-1-mt mt-3">
-        <h2 class="txt-div-1">Recommended searches</h2>
-        <div class="movie-container">
+        <h2 class="txt-div-1">Recommended top searches</h2>
+        <div class="movie-container ms-2">
             {% for vd in video %}
             
             {% if forloop.counter0|divisibleby:4 %}
@@ -189,9 +189,9 @@
       <!-- Shorts Section -->
       <div class="container div-1-mt mt-3 hp-9">
         <h2 class="txt-div-1">Shorts</h2>
-        <div class="shorts-container hp-10">
+        <div class="shorts-container hp-10 ms-1">
           {% for st in shorts %}
-          <a href="{% url 'shorts_page' st.id %}" class="short-a">
+          <a href="{% url 'shorts_page' st.id %}" class="short-a ms-1">
             <div class="short-card hp-11">
               <img src="/media/{{ st.short_thumbnail }}" alt="Short 1" class="hp-12" />
               <span class="short-title hp-13">{{ st.short_title | truncatechars:20 }} </span>

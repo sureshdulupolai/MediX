@@ -58,9 +58,9 @@ def homepage(request):
                 if (lst1[i][ad] <= current_day_time[ad]) or (lst1[i][ad] >= (current_day_time[ad] - check_value)):
                     ban1 += [lst1[i]]; ban2 += [ban[i]]; ad = 0
         ad = 0
-    
-    # print(len(ban))
-    # print(len(ban2))
+        
+    print(len(ban))
+    print(len(ban2))
     random.shuffle(val1)
     random.shuffle(shorts)
     random.shuffle(ban2)

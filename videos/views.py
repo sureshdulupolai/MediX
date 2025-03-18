@@ -91,11 +91,14 @@ def openVideoPage(request, video_data=None):
             if video:
                 other_videos = list(other_videos.exclude(id=video.id))
                 random.shuffle(other_videos)
+        profile = ProfileDetails.objects.get(NamesUser=video.customer_name)
+        prof_img = profile.Profile_Image
+        prof_data = profile.Channel_Name
 
     except:
         return HttpResponse('page not found <strong> localhost:8000/video/{} </strong>'.format(video_data))
     
-    context = {"video": video, "other_videos": other_videos}
+    context = {"video": video, "other_videos": other_videos, 'prof_data' : prof_data, 'prof_img' : prof_img}
     return render(request, 'Open-Video.html', context)
 
 def searchPage(request):

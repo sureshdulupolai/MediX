@@ -157,16 +157,17 @@
   }
 
   .ov-10 {
-    width: 25px;
+    width: 32px;
     border-radius: 50%;
-    height: 3vh;
+    height: 4vh;
     margin-right: 5px;
   }
 
   .ov-11 {
     color: black;
+    position: relative;
     top: 2.5px;
-    margin-right: 10px;
+    margin-right: 5px;
   }
 
   .fw-600 {
@@ -256,8 +257,8 @@
 
                    <!-- Subscribe Button -->
                    <div>
-                      <img src="/media/{{ video.video_thumbnail }}" alt=".." class="po-rev ov-10">
-                      <span class="ov-11">{{ video.video_title | truncatechars:15 }}</span>
+                      <img src="/media/{{ prof_img }}" alt=".." class="po-rev ov-10">
+                      <span class="ov-11">{{ prof_data | truncatechars:15 }}</span>
                      <button id="subscribeBtn" class="btn btn-primary btn-sm me-2" onclick="toggleSubscribe()">Subscribe</button>
                    </div>
                  </div>
@@ -314,11 +315,11 @@
           <div class="video_1">
             {% for i in other_videos %}
             <a href="{% url 'video_page' i.id %}" class="td-None" title="{{ i.view }} views">
-              <div class="card video_div_hover">
+              <div class="card video_div_hover mt-2">
                 <img src="/media/{{ i.video_thumbnail }}" class="card-img-top br-None" alt="Video Thumbnail">
                 <div class="card-body">
                   <h6 class="card-title">{{ i.video_title | truncatechars:60 }}</h6>
-                  <p class="card-text fs-13"><i class="fa-solid fa-eye"></i> {{ i.created_date }}</p>
+                  <p class="card-text fs-13"><i class="fa-solid fa-eye"></i> {{ i.created_date }} <span style="margin-left: 120px;">Channel Name</span></p>
                 </div>
               </div>
             </a>

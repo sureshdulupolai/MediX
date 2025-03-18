@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponse
-from .models import VideoDetails, VideoCategory
+from .models import VideoDetails
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from .forms import VideoForm
@@ -185,25 +185,6 @@ def updateVideo(request, item_id):
            return HttpResponse('Page Not Found')
     else:
         return redirect('login')
-           
- 
-def CheckVideoPage(request):
-    val = VideoCategory.objects.values_list('vd_category', flat=True)
-
-    category = list(set(val))
-    for x1 in category:
-        for x2 in category:
-            if x1 < x2:
-                x1, x2 = x2, x1
-
-    cat = list(category)
-
-    random.shuffle(cat)
-
-    context = {
-        'category' :  cat,
-    }
-    return render(request, 'check-videopage.html', context)
 
 def videoDelete(request, video_title):
     if request.user.is_authenticated:

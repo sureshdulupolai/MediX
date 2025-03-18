@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import VideoDetails, VideoCategory
+from .models import VideoDetails
 
 # Register your models here.
 class VideoDetailsAdmin(admin.ModelAdmin):
@@ -8,4 +8,3 @@ class VideoDetailsAdmin(admin.ModelAdmin):
     list_editable = ('view',)  # Enable editing for video_title in the list view
 
 admin.site.register(VideoDetails, VideoDetailsAdmin)
-admin.site.register(VideoCategory)

@@ -11,7 +11,6 @@ urlpatterns = [
     path('search-page/', views.searchPage, name='video_search'), 
     path('videoupload/', views.videoUpload, name='video_upload'),
     path('search-page/', views.openVideoPage, name='search_page'),
-    path('check-video/', views.CheckVideoPage, name='rought'),
     path('conformation/<str:video_title>/', views.videoDelete, name='delete_video'),
     path('successfully-deleted/<str:video_title>/', views.successfullydeleted,name='data_video_deleted'),
     path('edit-video/<int:item_id>/', views.updateVideo, name='edit_video'),

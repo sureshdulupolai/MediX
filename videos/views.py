@@ -49,7 +49,7 @@ def homepage(request):
     # date - hr - minute
     # print(current_day_time, " ", lst1) - (18, 11, 14)   [(12, 2, 54), (12, 2, 54), (12, 2, 55), (12, 2, 56), (12, 4, 15)]
 
-    ban1 = []; ban2 =[]; check_value = 1; ad = 0
+    ban1 = []; ban2 =[]; check_value = 10; ad = 0
     for i in range(len(lst1)):
         if (lst1[i][ad] == current_day_time[ad]) or (lst1[i][ad] >= (current_day_time[ad] - check_value)):
             ad += 1

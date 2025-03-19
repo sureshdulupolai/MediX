@@ -123,7 +123,7 @@
             <div class="movie-row">
           {% endif %}
           
-          <a href="{% url 'video_page' vd.video_title %}" class="hp-4">
+          <a href="{% url 'video_page' vd.id %}" class="hp-4">
             <div class="movie-card" title="{{ vd.view }}k views">
               <div class="img-Div hp-5">
                 <img src="/media/{{ vd.video_thumbnail }}" alt="Image is Not Loading" class="hp-6" />

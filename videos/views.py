@@ -62,8 +62,8 @@ def homepage(request):
                     ban1 += [lst1[i]]; ban2 += [ban[i]]; ad = 0
         ad = 0
         
-    print(len(ban))
-    print(len(ban2))
+    # print(len(ban))
+    # print(len(ban2))
     random.shuffle(val1)
     random.shuffle(shorts)
     random.shuffle(ban2)
@@ -116,54 +116,57 @@ def openVideoPage(request, video_data=None):
     return render(request, 'Open-Video.html', context)
 
 def searchPage(request):
-    if request.method == 'POST' and 'videoName' in request.POST:
-        data = request.POST['videoName']
-        video_data = request.POST['videoName']
-        if video_data.isdigit():  
-            video = VideoDetails.objects.filter(id=video_data).first()
-        else:
-            video = VideoDetails.objects.filter(video_title__icontains=video_data) | \
-                    VideoDetails.objects.filter(video_description__icontains=video_data)
-            
-            video_profile = ProfileDetails.objects.filter(
-                    Q(uName__icontains=video_data)  | \
-                    Q(Channel_Name__icontains=video_data)
-            )
-
-            short = ShortsDetails.objects.filter(short_title__icontains=video_data) | \
-                    ShortsDetails.objects.filter(short_description__icontains=video_data)
-            
-    profile = list(video_profile)
-    print(profile)
-    prof = []; count_prof = 1
-    for i in profile:
-        if (count_prof <= 3):
-            if (i.Channel_Name != 'MediX User Profile') and (i.uName != 'yourmedix'):
-                prof += [i]
-                count_prof += 1
-                print(count_prof)
-        else:
-            break
-
-    val = list(video)
-    shorts = list(short)
-    if len(val) >= 4:
-        while len(val):
-            if len(val) % 4 == 0:
-                break
+    try:
+        if request.method == 'POST' and 'videoName' in request.POST:
+            data = request.POST['videoName']
+            video_data = request.POST['videoName']
+            if video_data.isdigit(): 
+                video = VideoDetails.objects.filter(id=video_data).first()
             else:
-                val.pop()
-    
-    random.shuffle(val)
-    random.shuffle(shorts)
+                video = VideoDetails.objects.filter(video_title__icontains=video_data) | \
+                        VideoDetails.objects.filter(video_description__icontains=video_data)
+                
+                video_profile = ProfileDetails.objects.filter(
+                        Q(uName__icontains=video_data)  | \
+                        Q(Channel_Name__icontains=video_data)
+                )
 
-    context = {
-        'video': val,
-        'data' : data,
-        'video_profile' : prof,
-        'shorts' : shorts,
-    }
-    return render(request, 'searchPage.html', context)
+                short = ShortsDetails.objects.filter(short_title__icontains=video_data) | \
+                        ShortsDetails.objects.filter(short_description__icontains=video_data)
+                
+        profile = list(video_profile)
+        # print(profile)
+        prof = []; count_prof = 1
+        for i in profile:
+            if (count_prof <= 3):
+                if (i.Channel_Name != 'MediX User Profile') and (i.uName != 'yourmedix'):
+                    prof += [i]
+                    count_prof += 1
+                    # print(count_prof)
+            else:
+                break
+
+        val = list(video)
+        shorts = list(short)
+        if len(val) >= 4:
+            while len(val):
+                if len(val) % 4 == 0:
+                    break
+                else:
+                    val.pop()
+        
+        random.shuffle(val)
+        random.shuffle(shorts)
+
+        context = {
+            'video': val,
+            'data' : data,
+            'video_profile' : prof,
+            'shorts' : shorts,
+        }
+        return render(request, 'searchPage.html', context)
+    except:
+        return render(request, 'page_not_found.html')
 
 # @csrf_exempt
 def videoUpload(request):

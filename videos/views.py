@@ -1,15 +1,11 @@
 from django.shortcuts import render, redirect, HttpResponse
 from .models import VideoDetails
-from django.shortcuts import get_object_or_404
-from django.http import JsonResponse
 from .forms import VideoForm
 from django.contrib import messages
-from django.views.decorators.csrf import csrf_exempt
 from shorts.models import ShortsDetails
 from banner.models import BannerDetails
 from django.db.models import Q
-from datetime import datetime, date
-from django.contrib.auth.models import User
+from datetime import datetime
 from users.models import ProfileDetails
 import random
 
@@ -19,9 +15,6 @@ def short():
 
 def callVideo():
     return VideoDetails.objects.all().values()
-
-# def pageNotFound(request, data_link):
-#     return render(request, 'page_not_found.html')
 
 def homepage(request):
     ban = list(BannerDetails.objects.all().values())
@@ -42,7 +35,7 @@ def homepage(request):
         date_part = int(i['banner_datetime'].strftime("%d")); time_part = i['banner_datetime'].strftime("%H:%M")
         t1 = int(time_part[0:2]); t2 = int(time_part[3:])
         lst1 += [(date_part, t1, t2)]
-    # print(lst1) - [(12, 2, 54), (12, 2, 54), (12, 2, 55), (12, 2, 56), (12, 4, 15)]
+    # print(lst1) # [(12, 2, 54), (12, 2, 54), (12, 2, 55), (12, 2, 56), (12, 4, 15)]
 
     now = datetime.now(); date1 = int(now.strftime("%d")); time_now = now.strftime("%H:%M")
     t3 = int(time_now[0:2]); t4 = int(time_now[3:])
@@ -97,8 +90,6 @@ def openVideoPage(request, video_data=None):
                     other_data.append({'prof_data': other_profile.Channel_Name, 'prof_img': other_profile.Profile_Image,})
                 except ProfileDetails.DoesNotExist:
                     pass
-
-        # print(other_data)
                 
         profile = ProfileDetails.objects.get(NamesUser=video.customer_name)
         prof_img = profile.Profile_Image
@@ -129,15 +120,12 @@ def searchPage(request):
                 short = ShortsDetails.objects.filter(short_title__icontains=video_data) | \
                         ShortsDetails.objects.filter(short_description__icontains=video_data)
                 
-        profile = list(video_profile)
-        # print(profile)
-        prof = []; count_prof = 1
+        profile = list(video_profile); prof = []; count_prof = 1
         for i in profile:
             if (count_prof <= 3):
                 if (i.Channel_Name != 'MediX User Profile') and (i.uName != 'yourmedix'):
                     prof += [i]
                     count_prof += 1
-                    # print(count_prof)
             else:
                 break
 
@@ -163,14 +151,13 @@ def searchPage(request):
     except:
         return render(request, 'page_not_found.html')
 
-# @csrf_exempt
+
 def videoUpload(request):
     if request.user.is_authenticated:
         form = VideoForm()
         if request.method == 'POST':
             form = VideoForm(request.POST,  request.FILES)
             if form.is_valid():
-                # form.instance.admin = request.user.username
                 messages.success( 
                     request, 'Your video uploaded successfully to system'
                 )

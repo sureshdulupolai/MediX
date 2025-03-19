@@ -18,7 +18,7 @@
         <div class="d-flex justify-content-center mt-4">
             {% if a1 %}
                 <a href="{% url 'edit_video' a1.id %}" class="btn btn-warning me-3">edit</a>
-                <a href="{% url 'video_page' a1.video_title %}" class="btn btn-success me-3">Play</a>
+                <a href="{% url 'video_page' a1.id %}" class="btn btn-success me-3">Play</a>
                 <a href="{% url 'delete_video' a1.video_title %}" class="btn btn-danger">Delete</a>
             {% elif a2 and a2.id %}
                 <a href="{% url 'edit_short' a2.id %}" class="btn btn-warning me-3">edit</a>

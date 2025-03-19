@@ -55,12 +55,7 @@ def homepage(request):
     ban1 = []; ban2 =[]; check_value = 10; ad = 0
     for i in range(len(lst1)):
         if (lst1[i][ad] == current_day_time[ad]) or (lst1[i][ad] >= (current_day_time[ad] - check_value)):
-            ad += 1
-            if (lst1[i][ad] <= current_day_time[ad]) or (lst1[i][ad] >= (current_day_time[ad] - check_value)):
-                ad += 1
-                if (lst1[i][ad] <= current_day_time[ad]) or (lst1[i][ad] >= (current_day_time[ad] - check_value)):
-                    ban1 += [lst1[i]]; ban2 += [ban[i]]; ad = 0
-        ad = 0
+            ban1 += [lst1[i]]; ban2 += [ban[i]]
         
     # print(len(ban))
     # print(len(ban2))

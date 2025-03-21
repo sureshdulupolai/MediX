@@ -5,7 +5,7 @@
     <div class="p-4 border rounded shadow bg-white w-50">
         <h2 class="text-center text-dark fs-3">Form</h2>
 
-        <form method="POST" class="mt-3">
+        <form method="POST" class="mt-3" enctype="multipart/form-data">
             {% csrf_token %}
             {% if messages %}
                 <!-- one by one letter comming, form message. -->

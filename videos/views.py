@@ -151,7 +151,6 @@ def searchPage(request):
     except:
         return render(request, 'page_not_found.html')
 
-
 def videoUpload(request):
     if request.user.is_authenticated:
         form = VideoForm()
@@ -179,6 +178,8 @@ def updateVideo(request, item_id):
        if request.user.username == check_user:
             if request.method == 'POST':
                 if form.is_valid():
+                    video = form.save(commit=False)  # Don't save yet
+                    video.customer_name = request.user
                     form.save()
                     return redirect('profile')
             context = {'form' : form,'video': video,}

@@ -12,25 +12,23 @@ class VideoDetails(models.Model):
     video_aim = models.CharField(max_length=100)
     customer_name = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     view = models.FloatField(default=120.20)
+    likes_count = models.PositiveIntegerField(default=0)
+    dislikes_count = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.video_title
+    
+class Vd_Like_Dislike(models.Model):
+    user_vd = models.ForeignKey(User, on_delete=models.CASCADE)
+    video = models.ForeignKey(VideoDetails, on_delete=models.CASCADE)
+    like = models.PositiveIntegerField(default=0)
+    dislike = models.PositiveIntegerField(default=0)
 
-class VideoCategory(models.Model):
-    options = [
-        ('comedy', 'comedy'),
-        ('song', 'song'),
-        ('movie', 'movie'),
-        ('study', 'study'),
-        ('games', 'games'),
-        ('other activity', 'other activity'),
-    ]
-
-    vd_category = models.CharField(max_length=50, choices=options)
-    vd_primary_key = models.ForeignKey(VideoDetails, related_name='video_primary', on_delete=models.CASCADE)
+    class Meta:
+        unique_together = ('user_vd', 'video')
 
     def __str__(self):
-        return str((self.vd_category, self.vd_primary_key.video_title))
+        return self.video.video_title
 
 # ---------------------------------------------------------------------------------------------------------------
 # CASCADE:

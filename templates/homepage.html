@@ -151,11 +151,11 @@
     </div>
     {% endif %}
 
-  {% if video %}
+    {% if video %}
     <div class="container div-1-mt mt-3">
         <h2 class="txt-div-1">Recommended top searches</h2>
         <div class="movie-container ms-2">
-            {% for vd in video %}
+            {% for vd, user in video %}
             
             {% if forloop.counter0|divisibleby:4 %}
               <div class="movie-row" style="height: 38vh;"> <!-- Har 4 videos ka ek row -->
@@ -169,7 +169,9 @@
                 <div class="txtDivVideo">
                   <span class="txt-1">{{ vd.video_title | truncatechars:60 }}</span><br/>
                   <div class="txt-3" style="position: relative;">
-                      <div style="position: relative;"><span class="hp-7">Channel Name</span></div>
+                      <div style="position: relative;">
+                          <span class="hp-7">{{ user }}</span> <!-- Show Username Here -->
+                      </div>
                       <i class="fa-solid fa-eye"></i><span class="hp-8">{{ vd.created_date }}</span>
                   </div>
                 </div>
@@ -183,7 +185,7 @@
             {% endfor %}
         </div>
     </div>
-  {% endif %}
+{% endif %}
     
     {% if shorts %}
       <!-- Shorts Section -->

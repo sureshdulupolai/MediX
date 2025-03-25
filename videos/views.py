@@ -64,6 +64,8 @@ def homepage(request):
         get_name = User.objects.get(id = z2)
         lstNameOfUser +=  [get_name.username]
 
+    DataCarringTwo = zip(val1, lstNameOfUser)
+
 
     random.shuffle(shorts)
     random.shuffle(ban2)
@@ -75,7 +77,7 @@ def homepage(request):
             val1.pop()
 
     context = {
-        'video': val1,
+        'video': DataCarringTwo,
         'shorts': shorts,
         'banner': ban2,
     }

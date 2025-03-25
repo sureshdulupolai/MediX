@@ -8,6 +8,7 @@ from django.db.models import Q
 from datetime import datetime
 from users.models import ProfileDetails
 import random
+from django.contrib.auth.models import User
 
 def short():
     short = ShortsDetails.objects.all().values()
@@ -53,6 +54,17 @@ def homepage(request):
     # print(len(ban))
     # print(len(ban2))
     random.shuffle(val1)
+    lstOfUser = []
+    for z1 in val1:
+        lstOfUser += [z1['customer_name_id']]
+    
+    # print(lstOfUser)
+    lstNameOfUser = []
+    for z2 in lstOfUser:
+        get_name = User.objects.get(id = z2)
+        lstNameOfUser +=  [get_name.username]
+
+
     random.shuffle(shorts)
     random.shuffle(ban2)
 

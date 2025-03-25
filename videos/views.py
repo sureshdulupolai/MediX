@@ -155,7 +155,7 @@ def videoUpload(request):
     if request.user.is_authenticated:
         form = VideoForm()
         if request.method == 'POST':
-            form = VideoForm(request.POST,  request.FILES)
+            form = VideoForm(request.POST, request.FILES)
             if form.is_valid():
                 messages.success( 
                     request, 'Your video uploaded successfully to system'
@@ -168,7 +168,7 @@ def videoUpload(request):
 
     else:
         return redirect ('login')
-    
+
 def updateVideo(request, item_id):
     video = VideoDetails.objects.get(id=item_id)
     form = VideoForm(request.POST or None, request.FILES or None, instance=video)

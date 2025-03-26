@@ -170,7 +170,7 @@
                   <span class="txt-1">{{ vd.video_title | truncatechars:60 }}</span><br/>
                   <div class="txt-3" style="position: relative;">
                       <div style="position: relative;">
-                          <span class="hp-7">{{ user }}</span> <!-- Show Username Here -->
+                          <span class="hp-7">{{ user | truncatechars:40 }}</span> <!-- Show Username Here -->
                       </div>
                       <i class="fa-solid fa-eye"></i><span class="hp-8">{{ vd.created_date }}</span>
                   </div>

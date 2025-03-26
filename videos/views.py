@@ -54,17 +54,21 @@ def homepage(request):
     # print(len(ban))
     # print(len(ban2))
     random.shuffle(val1)
-    print(val1)
+
     lstOfUser = []
     for z1 in val1:
         lstOfUser += [z1['customer_name_id']]
     
     # print(lstOfUser)
-    lstNameOfUser = []
+    lstNameOfUser = []; lst__1 = []
     for z2 in lstOfUser:
         get_name = User.objects.get(id = z2)
-        lstNameOfUser +=  [get_name.username]
-
+        pf_get_data = ProfileDetails.objects.filter(NamesUser = get_name)
+        lst__1 += [pf_get_data]
+    
+    for t1 in lst__1:
+        for t2 in t1:
+           lstNameOfUser += [t2.Channel_Name]
     DataCarringTwo = zip(val1, lstNameOfUser)
 
 

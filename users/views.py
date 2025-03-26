@@ -118,16 +118,15 @@ def ProfileEdit(request):
 
     return redirect('login')
 
-def checkConnection(request, item_title):
+def checkConnection(request, item_id, data):
     if request.user.is_authenticated:
         a1 = None
         a2 = None
 
-        if item_title.isdigit():
-            item = int(item_title)
-            a2 = ShortsDetails.objects.get(id=item)
-        else:
-            a1 = VideoDetails.objects.get(video_title=item_title)
+        if data == '2':
+            a2 = ShortsDetails.objects.get(id=item_id)
+        elif data == '1':
+            a1 = VideoDetails.objects.get(id=item_id)
         
         context = {
             'a1': a1,

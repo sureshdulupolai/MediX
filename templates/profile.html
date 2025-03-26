@@ -324,7 +324,7 @@
                   <h2 class="txt-div-1">Video Section<span class="gray_text">· {{ vd_count }} videos uploaded</span></h2>
                   <div class="movie-container wd-100" style="height: 38vh; position: relative; top: 10px;">
                       {% for vd in form1 %}
-                      <a href="{% url 'check_connection' vd.id %}" class="pf-2">
+                      <a href="{% url 'check_connection' vd.id 1 %}" class="pf-2">
                           <div class="movie-card" title="{{ vd.view }}k views">
                               <div class="img-Div" style="height: 174px;">
                                   <img src="/media/{{ vd.video_thumbnail }}" alt="Image is Not Loading" class="pf-3" />
@@ -349,18 +349,18 @@
               <div class="container div-1-mt mt-3 po-rev tp-10">
                   <h2 class="txt-div-1">Video Section<span class="gray_text">· {{ vd_count }} videos uploaded</span></h2>
                   <div class="movie-container wd-100" style="height: 38vh; position: relative; top: 10px;">
-                      {% for vd in video %}
-                      <a href="{% url 'video_page' vd.id %}" class="pf-2">
+                      {% for vds in video %}
+                      <a href="{% url 'video_page' vds.id  %}" class="pf-2">
                           <div class="movie-card" title="{{ vd.view }}k views">
                               <div class="img-Div" style="height: 174px;">
-                                  <img src="/media/{{ vd.video_thumbnail }}" alt="Image is Not Loading" class="pf-3" />
+                                  <img src="/media/{{ vds.video_thumbnail }}" alt="Image is Not Loading" class="pf-3" />
                               </div>
                               <div class="txtDivVideo">
-                                  <span class="txt-1">{{ vd.video_title | truncatechars:32 }}</span><br/>
+                                  <span class="txt-1">{{ vds.video_title | truncatechars:32 }}</span><br/>
                                   <div class="txt-3" style="position: relative;">
                                       <span>
                                           <div><span class="pf-4">{{ profile.uName | truncatechars:20 }}</span></div>
-                                          <i class="fa-solid fa-eye"></i><span class="ml-5">{{ vd.created_date }}</span>
+                                          <i class="fa-solid fa-eye"></i><span class="ml-5">{{ vds.created_date }}</span>
                                       </span>
                                   </div>
                               </div>
@@ -391,7 +391,7 @@
             <h2 class="txt-div-1">Short<span class="gray_text">· {{ st_count }} shorts uploaded</span></h2>
             <div class="shorts-container hp-10">
               {% for st in shorts %}
-              <a href="{% url 'check_connection' st.id %}" class="short-a">
+              <a href="{% url 'check_connection' st.id 2 %}" class="short-a">
                 <div class="short-card hp-11">
                   <img src="/media/{{ st.short_thumbnail }}" alt="Short 1" class="hp-12" />
                   <span class="short-title hp-13">{{ st.short_title | truncatechars:20 }} </span>

@@ -167,21 +167,35 @@ def searchPage(request):
 
 def videoUpload(request):
     if request.user.is_authenticated:
-        form = VideoForm()
         if request.method == 'POST':
-            form = VideoForm(request.POST, request.FILES)
-            if form.is_valid():
-                messages.success( 
-                    request, 'Your video uploaded successfully to system'
-                )
-                form.save()
-                return redirect('video_upload')
+            video_thumbnail = request.FILES.get('video_thumbnail')
+            video_title = request.POST.get('video_title')
+            video_link = request.FILES.get('video_link')
+            video_description = request.POST.get('video_description')
+            video_aim = request.POST.get('video_aim')
+            customer_name = request.user
 
-        context = {'form': form}
-        return render(request, 'video-upload.html', context)
+            video = VideoDetails(
+                video_thumbnail=video_thumbnail,
+                video_title=video_title,
+                video_link=video_link,
+                video_description=video_description,
+                video_aim=video_aim,
+                customer_name=customer_name,
+            )
+            video.save()
+
+            messages.success(
+                request, 'Your video has been uploaded successfully!'
+            )
+            return redirect('video_upload')
+
+        # videos = VideoDetails.objects.all().order_by('-created_date')
+        # context = {'videos': videos}
+        return render(request, 'video-upload.html')
 
     else:
-        return redirect ('login')
+        return redirect('login')
 
 def updateVideo(request, item_id):
     video = VideoDetails.objects.get(id=item_id)
@@ -189,17 +203,17 @@ def updateVideo(request, item_id):
     check_user = video.customer_name.username
 
     if request.user.is_authenticated:
-       if request.user.username == check_user:
+        if request.user.username == check_user:
             if request.method == 'POST':
                 if form.is_valid():
                     video = form.save(commit=False)  # Don't save yet
-                    video.customer_name = request.user
-                    form.save()
+                    video.customer_name = request.user  # Assign authenticated user
+                    video.save()  # Save with updated customer name
                     return redirect('profile')
-            context = {'form' : form,'video': video,}
+            context = {'form': form, 'video': video}
             return render(request, 'edit-video.html', context)
-       else:
-           return HttpResponse('Page Not Found')
+        else:
+            return HttpResponse('Page Not Found')
     else:
         return redirect('login')
 

@@ -54,6 +54,7 @@ def homepage(request):
     # print(len(ban))
     # print(len(ban2))
     random.shuffle(val1)
+    print(val1)
     lstOfUser = []
     for z1 in val1:
         lstOfUser += [z1['customer_name_id']]
@@ -188,34 +189,38 @@ def videoUpload(request):
             messages.success(
                 request, 'Your video has been uploaded successfully!'
             )
-            return redirect('video_upload')
+            return redirect('profile')
 
-        # videos = VideoDetails.objects.all().order_by('-created_date')
-        # context = {'videos': videos}
         return render(request, 'video-upload.html')
 
     else:
         return redirect('login')
-
 def updateVideo(request, item_id):
     video = VideoDetails.objects.get(id=item_id)
     form = VideoForm(request.POST or None, request.FILES or None, instance=video)
     check_user = video.customer_name.username
-
+    
     if request.user.is_authenticated:
         if request.user.username == check_user:
             if request.method == 'POST':
+                print('print 1111')
+                # print(form['video_thumbnail'], ' ', form['video_title'], ' ', form['video_description'], ' ', form['video_aim'], ' ', form['customer_name'])
                 if form.is_valid():
-                    video = form.save(commit=False)  # Don't save yet
-                    video.customer_name = request.user  # Assign authenticated user
-                    video.save()  # Save with updated customer name
+                    video = form.save(commit=False)
+                    video.customer_name = request.user
+                    print('print 222')
+                    video.save()
                     return redirect('profile')
+                else:
+                    print('not filled form')
+
             context = {'form': form, 'video': video}
             return render(request, 'edit-video.html', context)
         else:
             return HttpResponse('Page Not Found')
     else:
         return redirect('login')
+    
 
 def videoDelete(request, video_title):
     if request.user.is_authenticated:

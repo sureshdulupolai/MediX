@@ -313,13 +313,13 @@
     <div class="suggested-videos">
         <div class="video_side_div po-rev ov-12">
           <div class="video_1">
-            {% for i in other_videos %}
-            <a href="{% url 'video_page' i.id %}" class="td-None" title="{{ i.view }} views">
+            {% for i1, i2 in other_videos %}
+            <a href="{% url 'video_page' i1.id %}" class="td-None" title="{{ i1.view }} views">
               <div class="card video_div_hover mt-2">
-                <img src="/media/{{ i.video_thumbnail }}" class="card-img-top br-None" alt="Video Thumbnail">
+                <img src="/media/{{ i1.video_thumbnail }}" class="card-img-top br-None" alt="Video Thumbnail">
                 <div class="card-body">
-                  <h6 class="card-title">{{ i.video_title | truncatechars:60 }}</h6>
-                  <p class="card-text fs-13"><i class="fa-solid fa-eye"></i> {{ i.created_date }} <span style="margin-left: 120px;">Channel Name</span></p>
+                  <h6 class="card-title">{{ i1.video_title | truncatechars:60 }}</h6>
+                  <p class="card-text fs-13"><i class="fa-solid fa-eye"></i> {{ i1.created_date }} <span style="margin-left: 140px; font-weight: 600;">{{ i2 | truncatechars:16 }}</span></p>
                 </div>
               </div>
             </a>

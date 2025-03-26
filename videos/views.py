@@ -114,10 +114,21 @@ def openVideoPage(request, video_data=None):
         prof_img = profile.Profile_Image
         prof_data = profile.Channel_Name
 
+        if other_videos:
+            lst1 = []
+            for i in other_videos:
+                # geting query set
+                f1 = ProfileDetails.objects.filter(NamesUser = i.customer_name)
+                # excessing queryset with for loop
+                for j in f1:
+                    lst1 += [j.Channel_Name]
+
+            other_datas_zip = zip(other_videos, lst1)
+        
     except:
         return HttpResponse('page not found <strong> localhost:8000/video/{} </strong>'.format(video_data))
     
-    context = {"video": video, "other_videos": other_videos, 'prof_data' : prof_data, 'prof_img' : prof_img, 'other_data' : other_data}
+    context = {"video": video, "other_videos": other_datas_zip, 'prof_data' : prof_data, 'prof_img' : prof_img, 'other_data' : other_data}
     return render(request, 'Open-Video.html', context)
 
 def searchPage(request):

@@ -11,7 +11,7 @@
         background-color: #f8f9fa;
     }
     .form-container {
-        height: 100vh;
+        height: auto;
     }
     .form-box {
         width: 50%;
@@ -21,15 +21,15 @@
         font-size: 30px;
         margin-left: -10px;
     }
-    /* .form-label {
-        font-weight: bold;
-    } */
     .field-container {
         margin-top: 15px;
     }
-    .mg-top{
+    .mg-top {
         position: relative;
-        top: 100px;
+        top: 120px;
+    }
+    textarea {
+        resize: none; /* Prevent resizing */
     }
 </style>
 
@@ -49,34 +49,34 @@
             {% csrf_token %}
 
             <div class="field-container">
-                <label class="form-label" for="{{ form.video_thumbnail.id_for_label }}">Video Thumbnail</label>
-                <div>{{ form.video_thumbnail }}</div>
+                <label class="form-label" for="video_thumbnail">Video Thumbnail</label>
+                <input type="file" name="video_thumbnail" id="video_thumbnail" class="form-control">
             </div>
 
             <div class="field-container">
-                <label class="form-label" for="{{ form.video_title.id_for_label }}">Video Title</label>
-                <div>{{ form.video_title }}</div>
+                <label class="form-label" for="video_title">Video Title</label>
+                <input type="text" name="video_title" id="video_title" class="form-control" placeholder="Enter Video Title">
             </div>
 
             <div class="field-container">
-                <label class="form-label" for="{{ form.video_link.id_for_label }}">Video File</label>
-                <div>{{ form.video_link }}</div>
+                <label class="form-label" for="video_link">Video File</label>
+                <input type="file" name="video_link" id="video_link" class="form-control">
             </div>
 
             <div class="field-container">
-                <label class="form-label" for="{{ form.video_description.id_for_label }}">Description</label>
-                <div>{{ form.video_description }}</div>
+                <label class="form-label" for="video_description">Description</label>
+                <textarea name="video_description" id="video_description" class="form-control" rows="4" placeholder="Enter Video Description"></textarea>
             </div>
 
             <div class="field-container">
-                <label class="form-label" for="{{ form.video_aim.id_for_label }}">Video Aim</label>
-                <div>{{ form.video_aim }}</div>
+                <label class="form-label" for="video_aim">Video Aim</label>
+                <input type="text" name="video_aim" id="video_aim" class="form-control" placeholder="Enter Video Aim">
             </div>
 
-            <div class="field-container">
-                <label class="form-label" for="{{ form.customer_name.id_for_label }}">Customer Name</label>
-                <div>{{ form.customer_name }}</div>
-            </div>
+            <!-- <div class="field-container">
+                <label class="form-label" for="customer_name">Customer Name</label>
+                <input type="text" name="customer_name" id="customer_name" class="form-control" placeholder="Enter Customer Name">
+            </div> -->
 
             <div class="d-flex gap-3 mt-3">
                 <a class="btn btn-primary btn-lg flex-grow-1" href="{% url 'home' %}">Back</a>

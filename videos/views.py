@@ -210,6 +210,8 @@ def videoUpload(request):
 
     else:
         return redirect('login')
+  
+
 def updateVideo(request, item_id):
     video = VideoDetails.objects.get(id=item_id)
     form = VideoForm(request.POST or None, request.FILES or None, instance=video)

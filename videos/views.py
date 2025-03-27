@@ -153,7 +153,7 @@ def searchPage(request):
         profile = list(video_profile); prof = []; count_prof = 1
         for i in profile:
             if (count_prof <= 3):
-                if (i.Channel_Name != 'MediX User Profile') and (i.uName != 'yourmedix'):
+                if (i.Channel_Name != 'MediX User Profile') and (i.uName != 'yourmedix') and (i.Profile_Image != 'profile/user_profile.jpg'):
                     prof += [i]
                     count_prof += 1
             else:

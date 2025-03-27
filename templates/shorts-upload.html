@@ -1,78 +1,77 @@
 {% extends 'base.html' %}
 {% block body %}
 <style>
-    input:focus, textarea:focus, select:focus {
-        outline: none !important;
-        box-shadow: none !important;
-        border-color: #ccc;
+    .text-area-su {
+        resize: none;
+        height: 200px;
     }
-    body {
-        background-color: #f8f9fa;
+    .pos-su {
+        position: relative;
+        top: 25px;
     }
-    .su-1{
-        height: 100vh;
+    .thumbnail-preview {
+        width: 100%;
+        height: auto;
+        max-height: 200px;
+        margin-top: 10px;
     }
-    .su-2{
-        width: 50%;
-    }
-    .su-3{
-        font-size: 30px; 
-        margin-left: -20px;
-    }
-    .su-4{
-        margin-top: 20px;
-    }
-    .su-5{
-        margin-left: 5px;
+    .video-preview {
+        width: 100%;
+        margin-top: 10px;
     }
 </style>
 
-<div class="container d-flex justify-content-center align-items-center su-1">
-    <div class="p-4 border rounded shadow bg-white su-2">
-        <h2 class="text-center text-dark su-3">indianews</h2>
+<div class="container d-flex justify-content-center align-items-center min-vh-100 bg-light">
+    <div class="p-4 border rounded shadow bg-white w-50 pos-su">
+        <h2 class="text-center text-dark fs-3">indianews</h2>
 
-        {% if messages %}
-            <div class="alert alert-info su-4">
-                {% for message in messages %}
-                    {{ message }}
-                {% endfor %}
-            </div>
-        {% endif %}
+        <form method="POST" enctype="multipart/form-data" class="mt-3">
+            {% csrf_token %}
 
-        <form method="POST" enctype="multipart/form-data" class="su-4">
-            <!-- {{ csrf_token }} -->
             <div class="mb-3">
-                <label for="" class="form-label">Thumbnail Link : </label>
-                <span class="su-5">{{ form.short_thumbnail }}</span>
+                <label for="short_thumbnail" class="form-label">Video Thumbnail</label>
+                <input type="file" name="short_thumbnail" id="short_thumbnail" class="form-control" required>
+                <img id="thumbnail-preview" class="thumbnail-preview d-none" />
             </div>
 
             <div class="mb-3">
-                <label for="" class="form-label">Short Link : </label>
-                <span class="su-5">{{ form.short_link }}</span>
+                <label for="short_link" class="form-label">Short Upload</label>
+                <input type="file" name="short_link" id="short_link" class="form-control" accept="video/*" required>
+                <video id="video-preview" class="video-preview d-none" controls></video>
             </div>
 
             <div class="mb-3">
-                <label for="" class="form-label">Short Title : </label>
-                <span class="su-5">{{ form.short_title }}</span>
+                <label for="short_title" class="form-label">Short Title</label>
+                <input type="text" name="short_title" id="short_title" class="form-control" placeholder="Enter Short Title" required>
             </div>
 
             <div class="mb-3">
-                <label for="" class="form-label">Short Description : </label><br>
-                <span class="su-5">{{ form.short_description }}</span>
-            </div>
-
-            <div class="mb-3">
-                <label for="" class="form-label">Short Description : </label><br>
-                <span class="su-5">{{ form.customer_name }}</span>
+                <label for="short_description" class="form-label">Short Description</label>
+                <textarea name="short_description" id="short_description" rows="3" class="form-control text-area-su" placeholder="Enter Short Description" required></textarea>
             </div>
 
             <div class="d-flex gap-3 mt-3">
                 <a class="btn btn-primary btn-lg flex-grow-1" href="{% url 'home' %}">Back</a>
                 <button type="submit" class="btn btn-primary btn-lg flex-grow-1">Upload</button>
             </div>
-
         </form>
     </div>
 </div>
+
+<!-- <script>
+    // Preview Thumbnail Image
+    function previewImage(event) {
+        var output = document.getElementById('thumbnail-preview');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.classList.remove('d-none');
+    }
+
+    // Preview Uploaded Video
+    function previewVideo(event) {
+        var output = document.getElementById('video-preview');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.classList.remove('d-none');
+    }
+</script> -->
 
 {% endblock %}

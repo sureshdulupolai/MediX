@@ -213,31 +213,40 @@ def videoUpload(request):
   
 
 def updateVideo(request, item_id):
-    video = VideoDetails.objects.get(id=item_id)
-    form = VideoForm(request.POST or None, request.FILES or None, instance=video)
-    check_user = video.customer_name.username
-    
     if request.user.is_authenticated:
+        video = VideoDetails.objects.get(id=item_id)
+        form = VideoForm(request.POST or None, request.FILES or None, instance=video)
+        check_user = video.customer_name.username
+        formImg = form.instance.video_thumbnail
+        formLink = form.instance.video_link
+
         if request.user.username == check_user:
             if request.method == 'POST':
-                print('print 1111')
-                # print(form['video_thumbnail'], ' ', form['video_title'], ' ', form['video_description'], ' ', form['video_aim'], ' ', form['customer_name'])
-                if form.is_valid():
-                    video = form.save(commit=False)
-                    video.customer_name = request.user
-                    print('print 222')
-                    video.save()
-                    return redirect('profile')
-                else:
-                    print('not filled form')
+                # Check if the file fields are empty, retain old files if not updated
+                if not request.FILES.get('video_thumbnail'):
+                    form.instance.video_thumbnail = formImg
+                
+                if not request.FILES.get('video_link'):
+                    form.instance.video_link = formLink
 
-            context = {'form': form, 'video': video}
+                print(request.FILES.get('video_thumbnail'), ' ', request.FILES.get('video_link'), ' ', request.POST.get('video_title'), ' ', request.POST.get('video_description'))
+
+                if form.is_valid():
+                    form.save()
+                    return redirect('profile')
+                
+            context = {
+                'form': form,
+                'video': video,
+                'check_user': check_user,
+            }
             return render(request, 'edit-video.html', context)
+        
         else:
             return HttpResponse('Page Not Found')
+    
     else:
         return redirect('login')
-    
 
 def videoDelete(request, video_title):
     if request.user.is_authenticated:

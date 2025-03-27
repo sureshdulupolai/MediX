@@ -39,12 +39,24 @@ def shortUpload(request):
         return redirect('login')
     
 def editShort(request, id):
-    short = ShortsDetails.objects.get(id=id)
-    form = ShortsForm(request.POST or None, request.FILES or None, instance=short)
-    check_user = short.customer_name.username 
     if request.user.is_authenticated:
-       if request.user.username == check_user:
+        short = ShortsDetails.objects.get(id=id)
+        form = ShortsForm(request.POST or None, request.FILES or None, instance=short)
+        check_user = short.customer_name.username 
+        formImg = form.instance.short_thumbnail
+        formLink = form.instance.short_link
+
+        if request.user.username == check_user:
             if request.method == 'POST':
+
+                if not request.FILES.get('short_thumbnail'):
+                    form.instance.short_thumbnail = formImg
+                
+                if not request.FILES.get('short_link'):
+                    form.instance.short_link = formLink
+
+                print(request.FILES.get('short_thumbnail'), ' ', request.FILES.get('short_link'), ' ', request.POST.get('short_title'), ' ', request.POST.get('short_description'))
+                
                 if form.is_valid():
                     form.save()
                     return redirect('profile')
@@ -55,9 +67,9 @@ def editShort(request, id):
                 'check_user' : check_user,
             }
             return render(request, 'edit-short.html', context)
-       
-       else:
-           return HttpResponse('Page Not Found')
+        
+        else:
+            return HttpResponse('Page Not Found')
     
     else:
         return redirect('page')

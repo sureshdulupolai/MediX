@@ -21,55 +21,74 @@
         font-size: 30px;
         margin-left: -10px;
     }
-    /* .form-label {
-        font-weight: bold;
-    } */
     .field-container {
         margin-top: 15px;
     }
-    .mg-top{
+    .mg-top {
         position: relative;
-        top: 150px;
+        top: 25px;
+    }
+    .text-es {
+        height: 200px;
+        resize: none;
     }
 </style>
 
 <div class="container d-flex justify-content-center align-items-center form-container mg-top">
     <div class="p-4 border rounded shadow bg-white form-box">
-        <h2 class="text-center text-dark form-title">Upload Video</h2>
+        <h2 class="text-center text-dark form-title">Edit Short</h2>
 
         <form method="POST" enctype="multipart/form-data" class="mt-3">
             {% csrf_token %}
 
+            <!-- Error Handling -->
+            {% if form.errors %}
+            <div class="alert alert-danger">
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <!-- Short Thumbnail -->
             <div class="field-container">
                 <label class="form-label" for="{{ form.short_thumbnail.id_for_label }}">Short Thumbnail</label>
                 <div>{{ form.short_thumbnail }}</div>
             </div>
 
+            <!-- Short Title -->
             <div class="field-container">
                 <label class="form-label" for="{{ form.short_title.id_for_label }}">Short Title:</label>
                 <div style="margin-bottom: 10px;">Currently: <strong><span class="text-primary">{{ short.short_title }}</span></strong></div>
                 <div>{{ form.short_title }}</div>
             </div>
 
+            <!-- Short File -->
+            <div class="field-container">
+                <label class="form-label" for="{{ form.short_link.id_for_label }}">Short File</label>
+                <div>{{ form.short_link }}</div>
+                <div style="margin-top: 5px;">Currently: 
+                    <strong><a href="{{ short.short_link.url }}" target="_blank">{{ short.short_link.name }}</a></strong>
+                </div>
+            </div>
+
+            <!-- Short Description -->
             <div class="field-container">
                 <label class="form-label" for="{{ form.short_description.id_for_label }}">Short Description</label>
                 <div>{{ form.short_description }}</div>
             </div>
 
-            <div class="field-container">
-                <label class="form-label" for="{{ form.customer_name.id_for_label }}">Customer Name</label>
-                <div>{{ form.customer_name }}</div>
-            </div>
-
+            <!-- Buttons -->
             <div class="d-flex gap-3 mt-3">
-                <!-- <a class="btn btn-primary btn-lg flex-grow-1" href="{% url 'profile' %}">Back</a> -->
                 <a class="btn btn-primary btn-lg flex-grow-1" href="{% url 'profile' %}">Back</a>
                 <button type="submit" class="btn btn-primary btn-lg flex-grow-1">Upload</button>
             </div>
-
         </form>
     </div>
 </div>
 
 {% endblock %}
-<!-- {% url 'check_connection' a1.video_title %} -->

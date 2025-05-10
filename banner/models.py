@@ -12,3 +12,15 @@ class BannerDetails(models.Model):
 
     def __str__(self):
         return self.banner_title
+    
+class BannerUploadUnSuccess(models.Model):
+    banner_Images = models.ImageField(upload_to='BannerTime/')
+    banner_t = models.CharField(max_length=200)
+    banner_date = models.DateTimeField(default=timezone.now)
+    contact_no = models.CharField(max_length=15)
+    UserName = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+
+    def __str__(self):
+        return str(
+            (self.banner_t, self.UserName.username)
+        )

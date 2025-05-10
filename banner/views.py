@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import bannerForm
-from.models import BannerDetails
+from.models import BannerDetails, BannerUploadUnSuccess
+from django.http import JsonResponse
 
 
 # Create your views here.
@@ -14,17 +15,48 @@ def bannerPage(request):
             banner_title = request.POST.get('banner_title')
             contact_no = request.POST.get('contact_no')
 
-            obj = BannerDetails(
-                banner_img = banner_img,
-                banner_title = banner_title,
+            obj = BannerUploadUnSuccess(
+                banner_Images = banner_img,
+                banner_t = banner_title,
                 contact_no = contact_no,
-                uName = request.user
+                UserName = request.user
             )
 
             obj.save()
-            return redirect('profile')
+            ObjId = obj.id
+            Usernames = request.user.username
+
+            return redirect('bannerPayment', ObjId=ObjId, Usernames=Usernames)
 
         return render(request, 'bannerUpload.html')
     
     else:
         return redirect('login')
+
+def bannerPayment(request, ObjId, Usernames):
+    if request.method == 'POST':
+        return redirect('on_approve')
+    
+    context = {
+        'ObjId' : ObjId,
+        'Usernames' : Usernames
+    }
+    return render(request, 'payNow.html', context)
+
+def On_Approve_View(request):
+    context = {}
+    return JsonResponse(context)
+
+def Payment_Success_View(request, ObjId, Usernames):
+    BUUS = BannerUploadUnSuccess.objects.get(id = ObjId)
+    image = BUUS.banner_Images; title = BUUS.banner_t; mobileNo = BUUS.contact_no; userName = BUUS.UserName
+    BD = BannerDetails(
+        banner_img = image,
+        banner_title = title,
+        contact_no = mobileNo,
+        uName = userName
+    )
+
+    BD.save()
+    BUUS.delete()
+    return redirect('profile')

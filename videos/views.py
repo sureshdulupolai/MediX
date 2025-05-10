@@ -280,12 +280,12 @@ def successfullydeleted(request, video_title):
         if video_title.isdigit():
             item = int(video_title)
             a2 = ShortsDetails.objects.get(id=item)
-            print("in shorts", 1)
+            # print("in shorts", 1)
             a2.delete()
             return redirect('profile')
         else:
             a1 = VideoDetails.objects.get(video_title=video_title)
-            print("In video", 2)
+            # print("In video", 2)
             a1.delete()
             return redirect('profile')
     else:

@@ -6,51 +6,10 @@ from shorts.models import ShortsDetails
 from banner.models import BannerDetails, BannerUploadUnSuccess, BannerTimeOver
 from django.db.models import Q
 from datetime import datetime, timedelta
+from django.utils.timezone import make_naive
 from users.models import ProfileDetails
 import random
 from django.contrib.auth.models import User
-
-def PustBannerData(request, UserData):
-    if request.user.is_authenticated:
-        if request.user.username == 'suresh':
-            if UserData == 'transfer':
-                BD = BannerDetails.objects.all().values()
-                for BD1 in BD:
-                    UserName = User.objects.get(id = BD1['uName_id'])
-                    DateAndTime = str(BD1['banner_datetime']); Date = DateAndTime[5:10]; Hours = DateAndTime[11:19]
-                    BUS = BannerTimeOver(
-                        BTO_Title = BD1['banner_title'],
-                        BTO_Image = BD1['banner_img'],
-                        BTO_Contact = BD1['contact_no'],
-                        BTO_Username = str(UserName.username),
-                        BTO_Issue_Date = Date,
-                        BTO_Hr_Min_Sec = Hours,
-                    )
-                    BUS.save()
-                return HttpResponse('Done')
-
-            elif UserData == 'deletedata':
-                BDData = BannerDetails.objects.all()
-                BUUSData = BannerTimeOver.objects.all().values()
-
-                for BUUS1 in BUUSData:
-                    for BD2 in BDData:
-                        UName = User.objects.get(id=BD2.uName_id)
-                        if (BUUS1['BTO_Username'] == str(UName.username) and BUUS1['BTO_Title'] == BD2.banner_title and BUUS1['BTO_Contact'] == BD2.contact_no):
-                            BD2.delete()
-
-                return HttpResponse('Check')
-            
-            elif UserData == 'checkdata':
-                return HttpResponse('Done 3!')
-            
-            else:
-                return render(request, 'page_not_found.html')
-            
-        else:
-            return render(request, 'page_not_found.html')
-    else:
-        return render(request, 'page_not_found.html')
 
 def short():
     short = ShortsDetails.objects.all().values()
@@ -92,14 +51,13 @@ def homepage(request):
     # print(current_day_time, " ", lst1) - (18, 11, 14)   [(12, 2, 54), (12, 2, 54), (12, 2, 55), (12, 2, 56), (12, 4, 15)]
 
     # Banner Checking
-    # current_month = models.IntegerField(default=datetime.now().month)
     ban1 = []; ban2 =[]
     for i in range(len(lst1)):
-        currentYear = now.year; AtLeast = 10
+        currentYear = now.year; AtLeast = 10; setMonths = 5
 
         # currentYear , month, day, hour, minute
         dates = lst1[i][0]; hours = lst1[i][1]; minutes = lst1[i][2]
-        banner_time = datetime(currentYear, 4, dates, hours, minutes)
+        banner_time = datetime(currentYear, setMonths, dates, hours, minutes)
 
         # Get the current date and time
         now = datetime.now(); month = now.month; day = now.day; hour = now.hour; minute = now.minute
@@ -109,7 +67,7 @@ def homepage(request):
         # if (lst1[i][ad] == current_day_time[ad]) or (lst1[i][ad] >= (current_day_time[ad] - check_value)):
         if banner_time >= cutoff:
             ban1 += [lst1[i]]; ban2 += [ban[i]]
- 
+
     random.shuffle(val1)
 
     # Collecting All User Name To Display Name Home Page Video and Shorts
@@ -351,3 +309,78 @@ def successfullydeleted(request, video_title):
             return redirect('profile')
     else:
         return HttpResponse('Page Not Found, check link properly')
+    
+# --------------------------------------------------------------------------------------
+# Only Suresh Can Check This Link
+def PustBannerData(request, UserData):
+    if request.user.is_authenticated:
+        if request.user.username == 'suresh':
+            if UserData == 'transfer':
+                BD = BannerDetails.objects.all().values()
+                for BD1 in BD:
+                    UserName = User.objects.get(id = BD1['uName_id'])
+                    DateAndTime = str(BD1['banner_datetime']); Date = DateAndTime[5:10]; Hours = DateAndTime[11:19]
+                    BUS = BannerTimeOver(
+                        BTO_Title = BD1['banner_title'],
+                        BTO_Image = BD1['banner_img'],
+                        BTO_Contact = BD1['contact_no'],
+                        BTO_Username = str(UserName.username),
+                        BTO_Issue_Date = Date,
+                        BTO_Hr_Min_Sec = Hours,
+                    )
+                    BUS.save()
+                return HttpResponse('Done')
+
+            elif UserData == 'deletedata':
+                BDData = BannerDetails.objects.all()
+                BUUSData = BannerTimeOver.objects.all().values()
+
+                for BUUS1 in BUUSData:
+                    for BD2 in BDData:
+                        UName = User.objects.get(id=BD2.uName_id)
+                        if (BUUS1['BTO_Username'] == str(UName.username) and BUUS1['BTO_Title'] == BD2.banner_title and BUUS1['BTO_Contact'] == BD2.contact_no):
+                            BD2.delete()
+
+                return HttpResponse('Check')
+            
+            elif UserData == 'checkdata':
+                return HttpResponse('Done 3!')
+            
+            elif UserData == 'permonthupdate':
+                setDateAtEnd = 10; count = 0
+                banners = BannerDetails.objects.all()
+                if len(banners) > 0:
+                    for BDS in banners:
+                        banner_time = make_naive(BDS.banner_datetime)  # from loop
+                        ten_days_later = banner_time + timedelta(days=setDateAtEnd)
+
+                        # Compare with fixed time that comes from loop
+                        if datetime.now() >= ten_days_later:
+                            user = User.objects.get(id=BDS.uName_id)
+                            date = str(banner_time)[5:10]
+                            time_str = str(banner_time)[11:19]
+
+                            BUS = BannerTimeOver(
+                                BTO_Title=BDS.banner_title,
+                                BTO_Image=BDS.banner_img,
+                                BTO_Contact=BDS.contact_no,
+                                BTO_Username=str(user.username),
+                                BTO_Issue_Date=date,
+                                BTO_Hr_Min_Sec=time_str,
+                            )
+                            BUS.save()
+                            BDS.delete()
+                            count += 1
+
+                    return HttpResponse('This is The Data Of BannerDetails List Added Into BannerTimeOver Model : {}'.format(count))
+                
+                else:
+                    return HttpResponse('This is The Len Of BannerDetails List : {}'.format(len(banners)))
+            
+            else:
+                return render(request, 'page_not_found.html')
+            
+        else:
+            return render(request, 'page_not_found.html')
+    else:
+        return render(request, 'page_not_found.html')

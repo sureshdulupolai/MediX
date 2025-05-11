@@ -14,6 +14,7 @@ urlpatterns = [
     path('conformation/<str:video_title>/', views.videoDelete, name='delete_video'),
     path('successfully-deleted/<str:video_title>/', views.successfullydeleted,name='data_video_deleted'),
     path('edit-video/<int:item_id>/', views.updateVideo, name='edit_video'),
+    path('push/<UserData>/', views.PustBannerData),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)    

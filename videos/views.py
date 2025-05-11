@@ -3,12 +3,54 @@ from .models import VideoDetails
 from .forms import VideoForm
 from django.contrib import messages
 from shorts.models import ShortsDetails
-from banner.models import BannerDetails
+from banner.models import BannerDetails, BannerUploadUnSuccess, BannerTimeOver
 from django.db.models import Q
-from datetime import datetime
+from datetime import datetime, timedelta
 from users.models import ProfileDetails
 import random
 from django.contrib.auth.models import User
+
+def PustBannerData(request, UserData):
+    if request.user.is_authenticated:
+        if request.user.username == 'suresh':
+            if UserData == 'transfer':
+                BD = BannerDetails.objects.all().values()
+                for BD1 in BD:
+                    UserName = User.objects.get(id = BD1['uName_id'])
+                    DateAndTime = str(BD1['banner_datetime']); Date = DateAndTime[5:10]; Hours = DateAndTime[11:19]
+                    BUS = BannerTimeOver(
+                        BTO_Title = BD1['banner_title'],
+                        BTO_Image = BD1['banner_img'],
+                        BTO_Contact = BD1['contact_no'],
+                        BTO_Username = str(UserName.username),
+                        BTO_Issue_Date = Date,
+                        BTO_Hr_Min_Sec = Hours,
+                    )
+                    BUS.save()
+                return HttpResponse('Done')
+
+            elif UserData == 'deletedata':
+                BDData = BannerDetails.objects.all()
+                BUUSData = BannerTimeOver.objects.all().values()
+
+                for BUUS1 in BUUSData:
+                    for BD2 in BDData:
+                        UName = User.objects.get(id=BD2.uName_id)
+                        if (BUUS1['BTO_Username'] == str(UName.username) and BUUS1['BTO_Title'] == BD2.banner_title and BUUS1['BTO_Contact'] == BD2.contact_no):
+                            BD2.delete()
+
+                return HttpResponse('Check')
+            
+            elif UserData == 'checkdata':
+                return HttpResponse('Done 3!')
+            
+            else:
+                return render(request, 'page_not_found.html')
+            
+        else:
+            return render(request, 'page_not_found.html')
+    else:
+        return render(request, 'page_not_found.html')
 
 def short():
     short = ShortsDetails.objects.all().values()
@@ -23,6 +65,7 @@ def homepage(request):
     
     shorts = list(short())
     val1 = []; a1 = 0
+    # Video Title Len Checking
     for i in val:
         title = i['video_title']
         if len(title) >= 32:
@@ -31,6 +74,7 @@ def homepage(request):
         else:
             continue
     
+    # Collecting Time Of Enter Data in Model
     lst1 = []
     for i in ban:
         date_part = int(i['banner_datetime'].strftime("%d")); time_part = i['banner_datetime'].strftime("%H:%M")
@@ -38,6 +82,7 @@ def homepage(request):
         lst1 += [(date_part, t1, t2)]
     # print(lst1) # [(12, 2, 54), (12, 2, 54), (12, 2, 55), (12, 2, 56), (12, 4, 15)]
 
+    # Finding Current Day Timing
     now = datetime.now(); date1 = int(now.strftime("%d")); time_now = now.strftime("%H:%M")
     t3 = int(time_now[0:2]); t4 = int(time_now[3:])
     current_day_time = (date1, t3, t4)
@@ -46,19 +91,34 @@ def homepage(request):
     # date - hr - minute
     # print(current_day_time, " ", lst1) - (18, 11, 14)   [(12, 2, 54), (12, 2, 54), (12, 2, 55), (12, 2, 56), (12, 4, 15)]
 
-    ban1 = []; ban2 =[]; check_value = 10; ad = 0
+    # Banner Checking
+    # current_month = models.IntegerField(default=datetime.now().month)
+    ban1 = []; ban2 =[]
     for i in range(len(lst1)):
-        if (lst1[i][ad] == current_day_time[ad]) or (lst1[i][ad] >= (current_day_time[ad] - check_value)):
+        currentYear = now.year; AtLeast = 10
+
+        # currentYear , month, day, hour, minute
+        dates = lst1[i][0]; hours = lst1[i][1]; minutes = lst1[i][2]
+        banner_time = datetime(currentYear, 4, dates, hours, minutes)
+
+        # Get the current date and time
+        now = datetime.now(); month = now.month; day = now.day; hour = now.hour; minute = now.minute
+        current_datetime = datetime(currentYear, month, day, hour, minute)
+        cutoff = current_datetime - timedelta(days=AtLeast)
+
+        # if (lst1[i][ad] == current_day_time[ad]) or (lst1[i][ad] >= (current_day_time[ad] - check_value)):
+        if banner_time >= cutoff:
             ban1 += [lst1[i]]; ban2 += [ban[i]]
-        
-    # print(len(ban))
-    # print(len(ban2))
+ 
     random.shuffle(val1)
 
+    # Collecting All User Name To Display Name Home Page Video and Shorts
     lstOfUser = []
     for z1 in val1:
+        print(z1['customer_name_id'])
         lstOfUser += [z1['customer_name_id']]
     
+    # filtering all the records that comes in lstofuser
     # print(lstOfUser)
     lstNameOfUser = []; lst__1 = []
     for z2 in lstOfUser:
@@ -66,6 +126,7 @@ def homepage(request):
         pf_get_data = ProfileDetails.objects.filter(NamesUser = get_name)
         lst__1 += [pf_get_data]
     
+    # Collecting Name of User That Video Showing in Display
     for t1 in lst__1:
         for t2 in t1:
            lstNameOfUser += [t2.Channel_Name]
